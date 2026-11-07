@@ -59,9 +59,7 @@ public class AuthController {
   @PostMapping("/auth/login")
   Map<String, Object> login(@RequestBody Login input, HttpServletRequest r) {
     var a = users.authenticate(required(input.username(), "用户名"), required(input.password(), "密码"));
-    r.getSession();
-    r.changeSessionId();
-    r.getSession().setAttribute("userId", a.id());
+    sessions.signIn(r, a);
     return map("user", a);
   }
 
@@ -72,9 +70,7 @@ public class AuthController {
             required(input.username(), "用户名"),
             required(input.password(), "密码"),
             required(input.displayName(), "昵称"));
-    r.getSession();
-    r.changeSessionId();
-    r.getSession().setAttribute("userId", a.id());
+    sessions.signIn(r, a);
     return map("user", a);
   }
 
@@ -90,6 +86,9 @@ public class AuthController {
       @RequestHeader("Idempotency-Key") String key,
       HttpServletRequest r) {
     var a = sessions.require(r);
+    if (!input.keySet().equals(Set.of("displayName"))) {
+      throw new BusinessException("INVALID_INPUT", "个人资料仅支持修改昵称", 400);
+    }
     return idem.execute(
         a,
         "profile",
