@@ -71,3 +71,49 @@ test('注册表单为无效用户名提供关联提示',async({page})=>{
  await expect(username).toHaveAccessibleDescription(/用户名需 3 至 32 位/);
  await expect(username).toBeFocused();
 });
+
+for(const account of [
+ {username:'seller',name:'林同学',peer:'buyer'},
+ {username:'buyer',name:'陈同学',peer:'seller'},
+])test(`${account.name}可管理自己商品并向其他同学下单`,async({page,browser,baseURL})=>{
+ // Use independent products so a student's live purchase cannot affect this regression.
+ const ids:string[]=[];
+ for(const username of [account.username,account.peer]){
+  const context=await browser.newContext({baseURL});
+  try{
+   const client=context.request;
+   let csrf=(await (await client.get('/api/v1/session')).json()).csrfToken;
+   const login=await client.post('/api/v1/auth/login',{headers:{'X-CSRF-TOKEN':csrf},data:{username,password:'Campus123!'}});
+   expect(login.ok()).toBeTruthy();
+   csrf=(await (await client.get('/api/v1/session')).json()).csrfToken;
+   const headers={'X-CSRF-TOKEN':csrf,'Idempotency-Key':crypto.randomUUID()};
+   const uploaded=await client.post('/api/v1/files',{headers,multipart:{purpose:'PRODUCT',file:{name:'role.png',mimeType:'image/png',buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jM1sAAAAASUVORK5CYII=','base64')}}});
+   expect(uploaded.ok()).toBeTruthy();
+   const response=await client.post('/api/v1/products',{headers,data:{title:'买卖兼用验收 '+crypto.randomUUID(),description:'独立回归商品',category:'其他',price:100,images:[(await uploaded.json()).id]}});
+   expect(response.ok()).toBeTruthy();
+   const product=await response.json();ids.push(product.id);
+   const adminLogin=await client.post('/api/v1/auth/login',{headers,data:{username:'admin',password:'Campus123!'}});
+   expect(adminLogin.ok()).toBeTruthy();
+   csrf=(await (await client.get('/api/v1/session')).json()).csrfToken;
+   const review=await client.post('/api/v1/moderation/products/'+product.id,{headers:{'X-CSRF-TOKEN':csrf,'Idempotency-Key':crypto.randomUUID()},data:{decision:'APPROVED',reason:'回归验收',version:product.version}});
+   expect(review.ok()).toBeTruthy();
+  }finally{await context.close()}
+ }
+ await page.goto('/login');
+ await page.getByLabel('用户名',{exact:true}).fill(account.username);
+ await page.getByLabel('密码',{exact:true}).fill('Campus123!');
+ await page.getByRole('button',{name:'登录',exact:true}).click();
+ await expect(page.getByRole('link',{name:'我的商品',exact:true})).toBeVisible();
+ await expect(page.getByRole('link',{name:'我的订单',exact:true})).toBeVisible();
+ await page.goto('/products/'+ids[0]);
+ await expect(page.getByText('这是你发布的商品，无法向自己下单。你可以购买其他同学发布的商品。',{exact:true})).toBeVisible();
+ await expect(page.getByRole('button',{name:'立即下单',exact:true})).toHaveCount(0);
+ await expect(page.getByRole('link',{name:'编辑商品',exact:true})).toBeVisible();
+ await page.goto('/products/'+ids[1]);
+ await page.getByRole('button',{name:'立即下单',exact:true}).click();
+ await page.getByRole('button',{name:'确认下单',exact:true}).click();
+ await expect(page.getByText('付款剩余时间',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'取消订单',exact:true}).click();
+ await page.getByRole('button',{name:'确认取消订单',exact:true}).click();
+ await expect(page.getByRole('status')).toContainText('订单已取消');
+});

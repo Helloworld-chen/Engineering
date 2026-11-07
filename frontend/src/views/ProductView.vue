@@ -51,6 +51,7 @@ function confirm(reason:string){
      <p v-if="available" class="muted">下单后请在 2 分钟内完成模拟付款。</p>
      <button v-if="product.auditStatus==='APPROVED'" class="button subtle" @click="open(true)"><PhFlag :size="16"/> 举报商品</button>
     </div>
+    <p v-if="owner" class="muted section-divider">这是你发布的商品，无法向自己下单。你可以购买其他同学发布的商品。</p>
     <RouterLink v-if="owner&&['AVAILABLE','OFF_SHELF'].includes(product.saleStatus)" class="button" :to="'/products/'+product.id+'/edit'">编辑商品</RouterLink>
     <p v-if="success" role="status" class="success">{{success}}</p>
    </section>

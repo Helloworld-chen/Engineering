@@ -57,7 +57,10 @@ class DemoResetTest extends WorkflowTestSupport {
                 "SELECT COUNT(*) FROM products WHERE id LIKE 'demo-product-%' AND"
                     + " sale_status='AVAILABLE'",
                 Integer.class))
-        .isEqualTo(4);
+        .isEqualTo(6);
+    assertThat(db.queryForList(
+            "SELECT DISTINCT seller_id FROM products WHERE id LIKE 'demo-product-%'", String.class))
+        .containsExactlyInAnyOrder("buyer", "seller", "other");
   }
 
   @Test

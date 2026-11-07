@@ -11,7 +11,7 @@ const register=computed(()=>route.path==='/register');
 const username=ref(''),password=ref(''),displayName=ref('');
 const {busy,error,run}=useAction();
 const {fields,clear,flag,attributes}=useFieldErrors();
-const accounts=[['buyer','买家'],['seller','卖家'],['other','另一位买家'],['admin','管理员'],['support','客服']];
+const accounts=[['buyer','陈同学'],['seller','林同学'],['other','周同学'],['admin','管理员'],['support','客服']];
 function submit(){
  clear();
  if(!username.value.trim())return flag('username','请填写用户名');
@@ -45,7 +45,7 @@ function submit(){
   </section>
   <aside v-if="session.demo&&!register" class="panel demo-accounts">
    <div class="eyebrow">课程演示</div><h2>演示账号</h2>
-   <p>选择一个身份以填入用户名和密码。</p>
+   <p>选择一个账号以填入用户名和密码。普通用户均可发布和购买商品。</p>
    <button v-for="[name,role] in accounts" :key="name" type="button" class="button" @click="username=name;password='Campus123!'"><span>{{role}}</span><code>{{name}}</code></button>
   </aside>
  </div>

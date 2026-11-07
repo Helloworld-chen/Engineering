@@ -107,6 +107,8 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await buyer.goto(orderPath);
   await ship(buyer,'寄出退货','CAMPUS-RETURN');
   await seller.goto(casePath);
+  await expect(seller.getByRole('heading',{name:'售后详情',exact:true})).toBeVisible();
+  await expect(seller.getByText('退货运输中',{exact:true})).toBeVisible();
   await seller.context().setOffline(true);
   await expect(buyer.getByText('退货预计送达')).toBeVisible();
   await expect(buyer.getByText('退货验收剩余时间')).toBeVisible({timeout:16000});
