@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3308/campus_market?connectionTimeZone=UTC}
+    username: ${DB_USER:campus}
+    password: ${DB_PASSWORD:campus_local}
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 31MB
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+      timeout: 30m
+market:
+  demo: ${DEMO_MODE:true}
+  upload-dir: ${UPLOAD_DIR:./uploads}
+  providers:
+    identity: ${IDENTITY_PROVIDER:demo}
+    product: ${PRODUCT_PROVIDER:demo}
+    browse: ${BROWSE_PROVIDER:demo}
+    moderation: ${MODERATION_PROVIDER:demo}
+    aftersales: ${AFTERSALES_PROVIDER:demo}
+    notification: ${NOTIFICATION_PROVIDER:demo}
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: false
+    call-setters-on-nulls: true

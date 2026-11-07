@@ -1,0 +1,34 @@
+name: campus-market
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: campus_market
+      MYSQL_USER: campus
+      MYSQL_PASSWORD: campus_local
+      MYSQL_ROOT_PASSWORD: root_local
+    ports: ['127.0.0.1:3308:3306']
+    volumes: [mysql-data:/var/lib/mysql]
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-proot_local']
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:mysql://db:3306/campus_market?connectionTimeZone=UTC
+      DB_USER: campus
+      DB_PASSWORD: campus_local
+      UPLOAD_DIR: /app/uploads
+    ports: ['127.0.0.1:8080:8080']
+    volumes: [uploads:/app/uploads]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    ports: ['127.0.0.1:5173:80']
+    depends_on: [backend]
+volumes:
+  mysql-data:
+  uploads:
