@@ -41,6 +41,7 @@ add('/auth/register','post','注册普通用户',OBJ({'user':REF('Actor')}),OBJ(
 add('/auth/logout','post','退出并关闭会话推送',REF('Success'),idem=False)
 add('/profile','patch','更新本人昵称',OBJ({'user':REF('Actor')}),OBJ({'displayName':S()}))
 add('/products','get','已审核商品查询',OBJ({'items':ARRAY(REF('Product')),'total':N(),'page':N(),'pageSize':N(),'serverTime':S(format='date-time')}),public=True)
+paths['/products']['get']['description'] = '登录后按服务端会话排除本人发布的商品；游客查询全部公开商品。过滤在分页及总数计算前完成，关键词和分类遵循同一规则。本人商品通过 /my/products 管理。'
 paths['/products']['get']['parameters'] += [{'name':n,'in':'query','schema':t} for n,t in [('keyword',S()),('category',S()),('page',N(minimum=1)),('pageSize',N(minimum=1,maximum=100))]]
 add('/products','post','发布商品并等待审核',REF('Product'),REF('ProductInput'))
 add('/products/{id}','get','查询商品详情',REF('Product'),public=True)

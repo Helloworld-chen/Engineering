@@ -3,6 +3,7 @@ package cn.edu.campus.browse;
 import static cn.edu.campus.shared.Rows.*;
 
 import cn.edu.campus.notification.TimePort;
+import cn.edu.campus.shared.Actor;
 import java.util.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,12 +20,13 @@ public class DemoBrowseAdapter implements BrowsePort {
     this.clock = clock;
   }
 
-  public Map<String, Object> search(String keyword, String category, int page, int size) {
+  public Map<String, Object> search(Actor viewer, String keyword, String category, int page, int size) {
     page = Math.max(1, page);
     size = Math.max(1, Math.min(100, size));
+    String viewerId = viewer == null ? "" : viewer.id();
     String where =
         " WHERE audit_status='APPROVED' AND sale_status IN ('AVAILABLE','LOCKED') AND title LIKE ?"
-            + " AND (?='' OR category=?)";
+            + " AND (?='' OR category=?) AND seller_id<>?";
     var list =
         db
             .queryForList(
@@ -34,6 +36,7 @@ public class DemoBrowseAdapter implements BrowsePort {
                 "%" + keyword + "%",
                 category,
                 category,
+                viewerId,
                 size,
                 (long) (page - 1) * size)
             .stream()
@@ -53,7 +56,8 @@ public class DemoBrowseAdapter implements BrowsePort {
             Long.class,
             "%" + keyword + "%",
             category,
-            category),
+            category,
+            viewerId),
         "page",
         page,
         "pageSize",

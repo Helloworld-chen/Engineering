@@ -29,8 +29,8 @@ public class ProductController {
       @RequestParam(defaultValue = "") String keyword,
       @RequestParam(defaultValue = "") String category,
       @RequestParam(defaultValue = "1") int page,
-      @RequestParam(defaultValue = "12") int pageSize) {
-    return browse.search(keyword, category, page, pageSize);
+      @RequestParam(defaultValue = "12") int pageSize, HttpServletRequest r) {
+    return browse.search(sessions.optional(r), keyword, category, page, pageSize);
   }
 
   @GetMapping("/products/{id}")

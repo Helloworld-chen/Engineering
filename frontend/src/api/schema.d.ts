@@ -96,7 +96,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** 已审核商品查询 */
+        /**
+         * 已审核商品查询
+         * @description 登录后按服务端会话排除本人发布的商品；游客查询全部公开商品。过滤在分页及总数计算前完成，关键词和分类遵循同一规则。本人商品通过 /my/products 管理。
+         */
         get: operations["get__products"];
         put?: never;
         /** 发布商品并等待审核 */

@@ -12,11 +12,13 @@ Java 接口位于 `backend/src/main/java/cn/edu/campus/`。下表路由均以 `/
 | M02 交易履约与资金结算 | `trade.TradePort`。向 M07 提供 `TradeAfterSalesPort`，向 M08 提供 `TradeTaskPort`。拥有订单、占用、物流、账户、暂管款和交易流水。统一校验对象归属和执行资金变更 | `/orders`、`/orders/{id}`、`/orders/{id}/payment`、`/cancel`、`/shipment`、`/receipt`、`/return-shipment`（后五项均在订单下） |
 | M03 身份与权限 | `identity.IdentityPort`。管理身份、角色和资料，返回服务端认可的 `Actor` | `/session`、`/auth/{login,register,logout}`、`/profile` |
 | M04 商品发布与维护 | `product.ProductPort`。拥有商品、审核状态和出售状态，支持加锁读取和交易状态写入 | `/products`、`/products/{id}`、`/my/products` |
-| M05 商品浏览检索 | `browse.BrowsePort`。公开检索和分页查询。详情的购买入口直接提交 M02 下单 | `GET /products` |
+| M05 商品浏览检索 | `browse.BrowsePort`。按服务端会话检索和分页；登录用户排除本人商品，游客查询全部公开商品。详情购买入口直接提交 M02 下单 | `GET /products` |
 | M06 商品审核与举报 | `moderation.ModerationPort`。管理举报及处理记录，通过 M04 更新商品审核结果 | `/moderation/products`、`/moderation/products/{id}`、`/reports`、`/reports/{id}/resolve` |
 | M07 售后审核与客服裁决 | `aftersales.AftersalesPort`、`CaseRepositoryPort`。拥有售后单、决定和处理历史，调用 M02 执行履约限制及退款 | `/cases`、`/cases/{id}/actions` |
 | M08 通知与业务时钟 | `notification.TimePort`、`NotificationPort`、`TaskRuntimePort`。拥有业务时间、到期任务、待投递事件和通知 | `/notifications`、`/notifications/{id}/read`、`/events`、`/demo/advance`、`/demo/reset`（演示专用） |
 | 公共文件服务 | `files.FilePort`。负责上传人、用途、图片校验、绑定及读取权限 | `POST /files`、`GET /files/{id}` |
+
+商品列表的 `BrowsePort.search` 接收服务端解析的可空 `Actor viewer`。登录后按 `viewer.id()` 排除本人商品，关键词、分类、总数与分页使用相同过滤条件；游客传入空身份。前端不传入用于排除商品的用户编号。本人商品仍通过 `/my/products` 管理，已有详情链接保持可访问。M05正式实现须保持此行为。
 
 ## 事务与数据所有权
 
