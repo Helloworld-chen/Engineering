@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig {
+ @Bean org.springframework.security.core.userdetails.UserDetailsService unusedBasicAuth(){return username->{throw new org.springframework.security.core.userdetails.UsernameNotFoundException(username);};}
  @Bean PasswordEncoder passwords(){return new BCryptPasswordEncoder();}
  @Bean SecurityFilterChain security(HttpSecurity http) throws Exception {
   var repository=new HttpSessionCsrfTokenRepository();repository.setHeaderName("X-CSRF-TOKEN");

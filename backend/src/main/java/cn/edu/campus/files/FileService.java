@@ -12,7 +12,7 @@ import java.util.*;
 import static cn.edu.campus.shared.Rows.*;
 import static cn.edu.campus.shared.BusinessException.*;
 @Service
-public class FileService {
+public class FileService implements FilePort {
  private final JdbcTemplate db;private final TimePort time;private final Path root;
  public FileService(JdbcTemplate db,TimePort time,@Value("${market.upload-dir}")String root){this.db=db;this.time=time;this.root=Path.of(root).toAbsolutePath().normalize();}
  public Map<String,Object> upload(Actor actor,String purpose,MultipartFile file) throws Exception {
@@ -22,7 +22,7 @@ public class FileService {
   try(var stream=ImageIO.createImageInputStream(file.getInputStream())){
    var readers=ImageIO.getImageReaders(stream);require(readers.hasNext(),"INVALID_IMAGE","文件不是有效图片");var reader=readers.next();
    try{reader.setInput(stream);format=reader.getFormatName().toLowerCase(Locale.ROOT);require(Set.of("jpeg","jpg","png","webp").contains(format),"INVALID_IMAGE","仅支持JPEG、PNG、WebP");require((long)reader.getWidth(0)*reader.getHeight(0)<=20_000_000L,"IMAGE_TOO_LARGE","图片像素过大");require(reader.read(0)!=null,"INVALID_IMAGE","图片内容损坏");}finally{reader.dispose();}
-  }
+  }catch(java.io.IOException e){throw new BusinessException("INVALID_IMAGE","图片内容损坏或不完整",400);}
   String id=id(),storage=id+"."+(format.equals("jpg")?"jpeg":format),mime="image/"+(format.equals("jpg")?"jpeg":format);
   Files.createDirectories(root);Path target=root.resolve(storage);file.transferTo(target);
   try{db.update("INSERT INTO files(id,owner_id,purpose,mime,filename,storage_name,byte_size,created_at) VALUES(?,?,?,?,?,?,?,?)",id,actor.id(),purpose,mime,Objects.toString(file.getOriginalFilename(),"图片"),storage,file.getSize(),time.now());}catch(RuntimeException e){Files.deleteIfExists(target);throw e;}

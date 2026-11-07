@@ -3,7 +3,7 @@ import cn.edu.campus.shared.*;
 import cn.edu.campus.product.ProductPort;
 import cn.edu.campus.aftersales.CaseRepositoryPort;
 import cn.edu.campus.notification.TimePort;
-import cn.edu.campus.files.FileService;
+import cn.edu.campus.files.FilePort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,9 +11,9 @@ import java.util.*;
 import static cn.edu.campus.shared.Rows.*;
 import static cn.edu.campus.shared.BusinessException.*;
 @Service @Transactional
-public class TradeService implements TradePort {
- private final TradeMapper db;private final ProductPort products;private final TimePort time;private final TransactionCoordinator locks;private final CaseRepositoryPort cases;private final FileService files;private final JdbcTemplate shared;
- public TradeService(TradeMapper db,ProductPort products,TimePort time,TransactionCoordinator locks,CaseRepositoryPort cases,FileService files,JdbcTemplate shared){this.db=db;this.products=products;this.time=time;this.locks=locks;this.cases=cases;this.files=files;this.shared=shared;}
+public class TradeService implements TradePort, TradeAfterSalesPort, TradeTaskPort {
+ private final TradeMapper db;private final ProductPort products;private final TimePort time;private final TransactionCoordinator locks;private final CaseRepositoryPort cases;private final FilePort files;private final JdbcTemplate shared;
+ public TradeService(TradeMapper db,ProductPort products,TimePort time,TransactionCoordinator locks,CaseRepositoryPort cases,FilePort files,JdbcTemplate shared){this.db=db;this.products=products;this.time=time;this.locks=locks;this.cases=cases;this.files=files;this.shared=shared;}
  public Map<String,Object> place(Actor actor,String productId){
   allowed(actor.is("USER"));var p=products.lock(productId);allowed(!actor.id().equals(s(p,"seller_id")));
   require("APPROVED".equals(s(p,"audit_status"))&&"AVAILABLE".equals(s(p,"sale_status"))&&db.hold(productId)==null,"PRODUCT_UNAVAILABLE","商品已被占用、下架或售出");
@@ -22,8 +22,8 @@ public class TradeService implements TradePort {
  }
  public Map<String,Object> cancel(Actor a,String id){var o=locks.lock(id).order();allowed(a.id().equals(s(o,"buyer_id")));require("PENDING_PAYMENT".equals(s(o,"status")),"INVALID_STATE","仅待付款订单可以取消");closeUnpaid(o,"CANCELLED");return query(a,id);}
  private void closeUnpaid(Map<String,Object> o,String reason){o.put("status","CLOSED");o.put("close_reason",reason);o.put("payment_generation",n(o,"payment_generation")+1);db.release(s(o,"product_id"),s(o,"id"));products.updateSale(s(o,"product_id"),"AVAILABLE");db.saveOrder(o);notifyBoth(o,"ORDER_CLOSED","待付款订单已关闭");}
- private void accounts(Map<String,Object> o){for(String id:new TreeSet<>(List.of(s(o,"buyer_id"),s(o,"seller_id"))))require(db.lockAccount(id)!=null,"ACCOUNT_MISSING","模拟账户未初始化");}
- public Map<String,Object> pay(Actor a,String id){var context=locks.lock(id);var o=context.order();allowed(a.id().equals(s(o,"buyer_id")));require("PENDING_PAYMENT".equals(s(o,"status")),"INVALID_STATE","订单不处于待付款状态");accounts(o);long now=time.now();
+ private void accounts(String... ids){for(String id:new TreeSet<>(List.of(ids)))require(db.lockAccount(id)!=null,"ACCOUNT_MISSING","模拟账户未初始化");}
+ public Map<String,Object> pay(Actor a,String id){var context=locks.lock(id);var o=context.order();allowed(a.id().equals(s(o,"buyer_id")));require("PENDING_PAYMENT".equals(s(o,"status")),"INVALID_STATE","订单不处于待付款状态");accounts(a.id());long now=time.now();
   require(now<n(o,"pay_deadline"),"PAYMENT_EXPIRED","付款期限已到，未扣款");require(id.equals(db.hold(s(o,"product_id")))&&"LOCKED".equals(s(context.product(),"sale_status")),"HOLD_MISMATCH","商品占用不匹配");
   long amount=n(o,"amount");require(amount>0,"AMOUNT_INVALID","订单金额无效");require(db.balance(a.id())>=amount,"INSUFFICIENT_FUNDS","模拟余额不足，未扣款");
   db.addBalance(a.id(),-amount);db.escrowCreate(id,amount);money(o,"PAYMENT",a.id(),"PLATFORM",now);products.updateSale(s(o,"product_id"),"SOLD");o.put("status","AWAITING_SHIPMENT");o.put("payment_generation",n(o,"payment_generation")+1);db.saveOrder(o);notifyBoth(o,"PAID","付款成功，货款由平台暂管");return query(a,id);
@@ -45,7 +45,7 @@ public class TradeService implements TradePort {
  private boolean active(List<Map<String,Object>> list){return list.stream().anyMatch(c->!Set.of("CLOSED","REFUNDED").contains(s(c,"status")));}
  private void settle(Map<String,Object> o,List<Map<String,Object>> list){
   require("DELIVERED".equals(s(o,"status"))&&!b(o,"settlement_blocked")&&!b(o,"receipt_paused")&&!active(list),"SETTLEMENT_BLOCKED","需商品已送达且无待处理售后，才能确认收货");
-  accounts(o);var e=db.lockEscrow(s(o,"id"));require(e!=null&&"HELD".equals(s(e,"status"))&&n(e,"amount")==n(o,"amount"),"INVALID_ESCROW","暂管货款状态不符");
+  accounts(s(o,"seller_id"));var e=db.lockEscrow(s(o,"id"));require(e!=null&&"HELD".equals(s(e,"status"))&&n(e,"amount")==n(o,"amount"),"INVALID_ESCROW","暂管货款状态不符");
   require(db.escrowState(s(o,"id"),"SETTLED")==1,"INVALID_ESCROW","货款已处理");db.addBalance(s(o,"seller_id"),n(o,"amount"));money(o,"SETTLEMENT","PLATFORM",s(o,"seller_id"),time.now());o.put("status","COMPLETED");o.put("receipt_generation",n(o,"receipt_generation")+1);db.saveOrder(o);notifyBoth(o,"SETTLED","订单已完成，货款已结算给卖家");
  }
  /** M07 supplies a persisted, verified decision within the same transaction. */
@@ -61,7 +61,7 @@ public class TradeService implements TradePort {
    boolean other=context.cases().stream().anyMatch(x->!s(x,"id").equals(s(c,"id"))&&!Set.of("CLOSED","REFUNDED").contains(s(x,"status")));
    if(!other){o.put("shipping_blocked",false);o.put("settlement_blocked",false);if(b(o,"receipt_paused")){long deadline=time.now()+n(o,"receipt_remaining");o.put("receipt_deadline",deadline);o.put("receipt_paused",false);o.put("receipt_generation",n(o,"receipt_generation")+1);time.schedule(orderId,"RECEIPT",n(o,"receipt_generation"),deadline);}}
   }else if("REFUND".equals(action)){
-   require(Set.of("REFUNDED").contains(s(c,"status")),"INVALID_DECISION","退款决定尚未生效");accounts(o);var e=db.lockEscrow(orderId);require(e!=null&&"HELD".equals(s(e,"status"))&&n(e,"amount")==n(o,"amount"),"INVALID_ESCROW","货款已处理");require(db.escrowState(orderId,"REFUNDED")==1,"INVALID_ESCROW","货款已处理");db.addBalance(s(o,"buyer_id"),n(o,"amount"));money(o,"REFUND","PLATFORM",s(o,"buyer_id"),time.now());o.put("status","CLOSED");o.put("close_reason","REFUNDED");o.put("receipt_generation",n(o,"receipt_generation")+1);notifyBoth(o,"REFUNDED","原订单货款已全额退回，不含退货运费");
+   require(Set.of("REFUNDED").contains(s(c,"status")),"INVALID_DECISION","退款决定尚未生效");accounts(s(o,"buyer_id"));var e=db.lockEscrow(orderId);require(e!=null&&"HELD".equals(s(e,"status"))&&n(e,"amount")==n(o,"amount"),"INVALID_ESCROW","货款已处理");require(db.escrowState(orderId,"REFUNDED")==1,"INVALID_ESCROW","货款已处理");db.addBalance(s(o,"buyer_id"),n(o,"amount"));money(o,"REFUND","PLATFORM",s(o,"buyer_id"),time.now());o.put("status","CLOSED");o.put("close_reason","REFUNDED");o.put("receipt_generation",n(o,"receipt_generation")+1);notifyBoth(o,"REFUNDED","原订单货款已全额退回，不含退货运费");
   }else throw new BusinessException("INVALID_DECISION","不支持的交易决定",409);
   db.saveOrder(o);shared.update("INSERT INTO applied_decisions VALUES(?,?)",decisionId,orderId);
  }

@@ -1,6 +1,6 @@
 package cn.edu.campus.product;
 import cn.edu.campus.shared.*;
-import cn.edu.campus.files.FileService;
+import cn.edu.campus.files.FilePort;
 import cn.edu.campus.notification.TimePort;
 import org.springframework.stereotype.Service;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,8 +10,8 @@ import static cn.edu.campus.shared.Rows.*;
 import static cn.edu.campus.shared.BusinessException.*;
 @Service @ConditionalOnProperty(name="market.providers.product",havingValue="demo")
 public class DemoProductAdapter implements ProductPort {
- private final JdbcTemplate db;private final TimePort clock;private final FileService files;
- public DemoProductAdapter(JdbcTemplate db,TimePort clock,FileService files){this.db=db;this.clock=clock;this.files=files;}
+ private final JdbcTemplate db;private final TimePort clock;private final FilePort files;
+ public DemoProductAdapter(JdbcTemplate db,TimePort clock,FilePort files){this.db=db;this.clock=clock;this.files=files;}
  public Map<String,Object> lock(String id){var r=db.queryForList("SELECT * FROM products WHERE id=? FOR UPDATE",id);if(r.isEmpty())throw new BusinessException("NOT_FOUND","商品不存在",404);return r.getFirst();}
  public Map<String,Object> get(String id,Actor actor){var rows=db.queryForList("SELECT p.*,u.display_name seller_name FROM products p JOIN users u ON u.id=p.seller_id WHERE p.id=?",id);if(rows.isEmpty())throw new BusinessException("NOT_FOUND","商品不存在",404);var r=rows.getFirst();allowed("APPROVED".equals(s(r,"audit_status"))||actor!=null&&(actor.id().equals(s(r,"seller_id"))||actor.is("ADMIN")));var v=view(r);v.put("images",strings(r.get("images")));return v;}
  public void updateSale(String id,String state){db.update("UPDATE products SET sale_status=?,version=version+1 WHERE id=?",state,id);}
