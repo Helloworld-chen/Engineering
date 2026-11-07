@@ -22,6 +22,7 @@ services:
       DB_PASSWORD: campus_local
       UPLOAD_DIR: /app/uploads
       IDENTITY_PROVIDER: ${IDENTITY_PROVIDER:-demo}
+      PRODUCT_PROVIDER: ${PRODUCT_PROVIDER:-demo}
     ports: ['127.0.0.1:8080:8080']
     volumes: [uploads:/app/uploads]
     depends_on:
