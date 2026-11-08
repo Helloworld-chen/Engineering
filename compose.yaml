@@ -21,8 +21,11 @@ services:
       DB_USER: campus
       DB_PASSWORD: campus_local
       UPLOAD_DIR: /app/uploads
+      # 模块提供者开关：默认 demo；实现方切换 real 时通过环境变量覆盖，不影响他人
       IDENTITY_PROVIDER: ${IDENTITY_PROVIDER:-demo}
       PRODUCT_PROVIDER: ${PRODUCT_PROVIDER:-demo}
+      AFTERSALES_PROVIDER: ${AFTERSALES_PROVIDER:-demo}
+      NOTIFICATION_PROVIDER: ${NOTIFICATION_PROVIDER:-demo}
     ports: ['127.0.0.1:8080:8080']
     volumes: [uploads:/app/uploads]
     depends_on:
