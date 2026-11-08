@@ -133,6 +133,17 @@ public class DemoModerationAdapter implements ModerationPort {
   public Map<String, Object> resolve(Actor a, String id, String result) {
     allowed(a.is("ADMIN"));
     String text = requireReason(result, "请填写处理结果");
+
+    // 加锁顺序遵循 INTEGRATION 的「商品 → ...」：先无锁读出商品号，再先锁商品、后锁举报，
+    // 与 report() 的「先锁商品」保持一致，避免两个入口反向加锁导致死锁。
+    var head = db.queryForList("SELECT product_id FROM reports WHERE id=?", id);
+    require(!head.isEmpty(), "NOT_FOUND", "举报不存在");
+    String productId = s(head.getFirst(), "product_id");
+
+    var productRows = productId.isEmpty()
+        ? List.<Map<String, Object>>of()
+        : db.queryForList("SELECT * FROM products WHERE id=? FOR UPDATE", productId);
+
     var rows = db.queryForList("SELECT * FROM reports WHERE id=? FOR UPDATE", id);
     require(!rows.isEmpty(), "NOT_FOUND", "举报不存在");
     var report = rows.getFirst();
@@ -140,15 +151,12 @@ public class DemoModerationAdapter implements ModerationPort {
 
     String decision = decisionOf(text);
     boolean takedown = false;
-    if (DECISION_VIOLATION.equals(decision)) {
-      var productRows = db.queryForList("SELECT * FROM products WHERE id=? FOR UPDATE", s(report, "product_id"));
-      if (!productRows.isEmpty()) {
-        var product = productRows.getFirst();
-        // 只有仍在售且未被占用的商品才直接下架；已锁定涉及在途订单，已售出为终态，均不改写
-        if ("AVAILABLE".equals(s(product, "sale_status"))) {
-          products.updateSale(s(product, "id"), "OFF_SHELF");
-          takedown = true;
-        }
+    if (DECISION_VIOLATION.equals(decision) && !productRows.isEmpty()) {
+      var product = productRows.getFirst();
+      // 只有仍在售且未被占用的商品才直接下架；已锁定涉及在途订单，已售出为终态，均不改写
+      if ("AVAILABLE".equals(s(product, "sale_status"))) {
+        products.updateSale(s(product, "id"), "OFF_SHELF");
+        takedown = true;
       }
     }
 

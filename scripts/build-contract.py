@@ -1,4 +1,4 @@
-"""Single source for public DTO schemas and endpoint descriptions. Regenerate with python3."""
+﻿"""Single source for public DTO schemas and endpoint descriptions. Regenerate with python3."""
 import json
 from pathlib import Path
 S=lambda **kw: {'type':'string',**kw}
@@ -10,12 +10,12 @@ OBJ=lambda props,required=None:{'type':'object','properties':props,'required':li
 DATE={'type':['string','null'],'format':'date-time'}
 schemas={
  'Actor':OBJ({'id':S(),'username':S(),'displayName':S(),'role':S(enum=['USER','ADMIN','SUPPORT'])}),
- 'Product':OBJ({'id':S(),'sellerId':S(),'title':S(),'description':S(),'category':S(),'price':N(minimum=1),'images':ARRAY(S()),'auditStatus':S(),'saleStatus':S(),'version':N(),'createdAt':DATE,'sellerName':S()},['id','sellerId','title','description','category','price','images','auditStatus','saleStatus','version','createdAt']),
+ 'Product':OBJ({'id':S(),'sellerId':S(),'title':S(),'description':S(),'category':S(),'price':N(minimum=1),'images':ARRAY(S()),'auditStatus':S(),'saleStatus':S(),'version':N(),'createdAt':DATE,'sellerName':S(),'purchasable':{'type':'boolean','description':'M05 列表项的可下单口径；仅商品列表返回，详情与订单内嵌对象不保证存在'}},['id','sellerId','title','description','category','price','images','auditStatus','saleStatus','version','createdAt']),
  'Case':OBJ({'id':S(),'orderId':S(),'buyerId':S(),'kind':S(),'reason':S(),'status':S(),'decision':{'type':['string','null']},'decisionReason':{'type':['string','null']},'deadline':DATE,'generation':N(),'createdAt':DATE,'version':N()}),
  'Shipment':OBJ({'id':S(),'orderId':S(),'direction':S(),'trackingNumber':S(),'evidence':OBJ({'goods':ARRAY(S()),'packaging':ARRAY(S())}),'status':S(),'shippedAt':DATE,'dueAt':DATE,'deliveredAt':DATE,'generation':N()}),
  'Order':OBJ({'id':S(),'productId':S(),'buyerId':S(),'sellerId':S(),'amount':N(),'status':S(),'closeReason':{'type':['string','null']},'createdAt':DATE,'payDeadline':DATE,'receiptDeadline':DATE,'receiptRemaining':{'type':['integer','null']},'receiptPaused':B,'shippingBlocked':B,'settlementBlocked':B,'paymentGeneration':N(),'receiptGeneration':N(),'version':N(),'product':REF('Product'),'serverTime':S(format='date-time'),'fundsStatus':S(),'shipments':ARRAY(REF('Shipment')),'cases':ARRAY(REF('Case')),'allowedActions':ARRAY(S())}),
  'Notification':OBJ({'id':S(),'recipientId':S(),'aggregateId':S(),'message':S(),'createdAt':DATE,'isRead':B}),
- 'Report':OBJ({'id':S(),'productId':S(),'reporterId':S(),'reason':S(),'status':S(),'result':{'type':['string','null']},'createdAt':DATE}),
+ 'Report':OBJ({'id':S(),'productId':S(),'reporterId':S(),'reason':S(),'status':S(),'result':{'type':['string','null']},'createdAt':DATE,'duplicated':{'type':'boolean','description':'M06 同一用户重复举报同一商品时返回 true，并复用原举报编号'},'decision':{'type':['string','null'],'description':'M06 处置结论：VIOLATION / DISMISSED / null'},'productTakedown':{'type':'boolean','description':'M06 处置是否触发商品下架'}},['id','productId','reporterId','reason','status','result','createdAt']),
  'Error':OBJ({'code':S(),'message':S()}),
  'Session':OBJ({'user':{'anyOf':[REF('Actor'),{'type':'null'}]},'balance':{'type':['integer','null']},'csrfToken':S(),'demo':B}),
  'Success':OBJ({'success':B}),

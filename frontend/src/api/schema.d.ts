@@ -513,6 +513,8 @@ export interface components {
             /** Format: date-time */
             createdAt: string | null;
             sellerName?: string;
+            /** @description M05 列表项的可下单口径；仅商品列表返回，详情与订单内嵌对象不保证存在 */
+            purchasable?: boolean;
         };
         Case: {
             id: string;
@@ -595,6 +597,12 @@ export interface components {
             result: string | null;
             /** Format: date-time */
             createdAt: string | null;
+            /** @description M06 同一用户重复举报同一商品时返回 true，并复用原举报编号 */
+            duplicated?: boolean;
+            /** @description M06 处置结论：VIOLATION / DISMISSED / null */
+            decision?: string | null;
+            /** @description M06 处置是否触发商品下架 */
+            productTakedown?: boolean;
         };
         Error: {
             code: string;
