@@ -1,0 +1,2 @@
+<script setup lang="ts">defineProps<{loading:boolean,error:string,empty?:boolean}>();defineEmits<{retry:[]}>();</script>
+<template><div v-if="loading" class="panel" aria-busy="true" aria-label="正在读取"><el-skeleton :rows="4" animated /></div><div v-else-if="error" class="panel error-state" role="alert"><h2>暂时无法读取</h2><p>{{error}}</p><el-button @click="$emit('retry')">重新读取</el-button></div><div v-else-if="empty" class="panel empty"><h2>这里还没有记录</h2><p>完成相应操作后，可以在这里查看进度。</p><RouterLink to="/">去浏览商品</RouterLink></div><slot v-else /></template>
