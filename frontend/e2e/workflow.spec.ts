@@ -115,6 +115,12 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await seller.context().setOffline(false);
   await expect(seller.getByRole('button',{name:'通过退货验收',exact:true})).toBeVisible({timeout:16000});
   await expect(seller.locator('.countdown')).toBeVisible();
+  await seller.goto('/my/products');
+  const returnedProduct=seller.getByRole('article').filter({hasText:title});
+  await expect(returnedProduct.getByText('待你验收退货',{exact:true})).toBeVisible();
+  await expect(seller.getByRole('article').first()).toContainText(title);
+  await returnedProduct.getByRole('link',{name:'处理售后',exact:true}).click();
+  await expect(seller).toHaveURL(new RegExp(casePath+'$'));
   await seller.getByRole('button',{name:'通过退货验收',exact:true}).click();
   await seller.getByLabel('处理理由').fill('商品及包装验收无误');
   await seller.getByRole('button',{name:'确认通过退货验收'}).click();
