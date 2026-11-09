@@ -8,7 +8,7 @@ async function login(page: Page, username: string) {
  await page.getByLabel('用户名',{exact:true}).fill(username);
  await page.getByLabel('密码',{exact:true}).fill('Campus123!');
  await page.getByRole('button',{name:'登录',exact:true}).click();
- await expect(page).toHaveURL(/\/$/);
+ await expect(page).toHaveURL(new RegExp('/'+(username==='admin'?'admin':username==='support'?'support':'')+'$'));
 }
 
 async function photograph(page: Page, info: TestInfo, name: string) {
@@ -62,7 +62,8 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   const productPath=(await seller.getByRole('link',{name:title,exact:true}).getAttribute('href'))!;
 
   await admin.goto('/moderation');
-  await admin.getByRole('article').filter({hasText:title}).getByRole('button',{name:'通过',exact:true}).click();
+  await admin.getByRole('article').filter({hasText:title}).getByRole('link',{name:'审核商品',exact:true}).click();
+  await admin.getByRole('button',{name:'通过',exact:true}).click();
   await admin.getByLabel('审核理由').fill('课程演示商品，资料齐全');
   await admin.getByRole('button',{name:'确认通过审核'}).click();
   await expect(admin.locator('main').getByRole('status')).toContainText('审核结果已保存');
@@ -170,7 +171,8 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await admin.goto('/moderation');
   const pending=admin.getByRole('article').filter({hasText:title});
   await expect(pending).toContainText('尺寸 28 × 20 厘米');
-  await pending.getByRole('button',{name:'通过',exact:true}).click();
+  await pending.getByRole('link',{name:'审核商品',exact:true}).click();
+  await admin.getByRole('button',{name:'通过',exact:true}).click();
   await admin.getByLabel('审核理由').fill('已检查商品描述和照片');
   await admin.getByRole('button',{name:'确认通过审核'}).click();
   await expect(admin.locator('main').getByRole('status')).toContainText('审核结果已保存');
@@ -230,7 +232,8 @@ test('商品版本变化时保留编辑草稿并显式应用最新版本',async(
   await description.fill('编辑页保存的商品说明草稿。');
 
   await admin.goto('/moderation');
-  await admin.getByRole('article').filter({hasText:title}).getByRole('button',{name:'通过',exact:true}).click();
+  await admin.getByRole('article').filter({hasText:title}).getByRole('link',{name:'审核商品',exact:true}).click();
+  await admin.getByRole('button',{name:'通过',exact:true}).click();
   await admin.getByLabel('审核理由').fill('并发版本验证');
   await admin.getByRole('button',{name:'确认通过审核'}).click();
   await expect(admin.locator('main').getByRole('status')).toContainText('审核结果已保存');

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref,watch,onMounted,onUnmounted} from 'vue';
+import {computed,ref,watch,onMounted,onUnmounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {PhStorefront,PhList,PhX,PhBell} from '@phosphor-icons/vue';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
@@ -7,9 +7,13 @@ import {useSession} from './stores/session';
 import {useNotifications} from './stores/notifications';
 import NotificationAlerts from './components/NotificationAlerts.vue';
 import {money} from './api/client';
+import StaffNavigation from './components/StaffNavigation.vue';
+import {isStaff,homeFor,canVisit} from './lib/access';
 
 const session=useSession(),router=useRouter(),menu=ref(false),error=ref('');
 const notifications=useNotifications();
+const staff=computed(()=>isStaff(session.user?.role));
+const home=computed(()=>homeFor(session.user?.role));
 let loggingOut=false;
 let events:EventSource|undefined;
 let lastConnectionCheck=-Infinity;
@@ -18,6 +22,7 @@ watch(()=>session.user?.id,(id,previous)=>{
  void notifications.setUser(id||null);
  lastConnectionCheck=-Infinity;
  if(id){
+  if(previous&&!canVisit(session.user?.role,router.currentRoute.value.path))void router.replace(homeFor(session.user?.role));
   const connection=new EventSource('/api/v1/events');events=connection;
   const active=()=>events===connection&&session.user?.id===id;
   connection.addEventListener('changed',event=>{if(active())refresh((event as MessageEvent).lastEventId)});
@@ -74,13 +79,14 @@ async function logout(){
 <template>
  <el-config-provider :locale="zhCn">
   <a href="#main" class="skip-link">跳转到主要内容</a>
-  <div class="site-wrap">
+  <div :class="staff?'staff-wrap':'site-wrap'">
+   <StaffNavigation v-if="staff" v-model="menu" @logout="logout"/>
    <header class="topbar" @keydown.esc="menu=false">
-    <RouterLink class="brand" to="/"><PhStorefront :size="24" weight="bold" aria-hidden="true"/><span>校园集市<small>CAMPUS MARKET</small></span></RouterLink>
-    <button class="menu-toggle" :aria-expanded="menu" :aria-label="menu?'关闭导航':'展开导航'" aria-controls="primary-navigation" @click="menu=!menu">
+    <RouterLink class="brand" :to="home"><PhStorefront :size="24" weight="bold" aria-hidden="true"/><span>{{staff?(session.user?.role==='ADMIN'?'管理员工作台':'客服工作台'):'校园集市'}}<small>{{staff?'CAMPUS MARKET · 工作空间':'CAMPUS MARKET'}}</small></span></RouterLink>
+    <button class="menu-toggle" :aria-expanded="menu" :aria-label="menu?'关闭导航':'展开导航'" :aria-controls="staff?'staff-navigation':'primary-navigation'" @click="menu=!menu">
      <PhX v-if="menu" :size="24" aria-hidden="true"/><PhList v-else :size="24" aria-hidden="true"/>
     </button>
-    <nav id="primary-navigation" :class="{open:menu}" aria-label="主导航">
+    <nav v-if="!staff" id="primary-navigation" :class="{open:menu}" aria-label="主导航">
      <RouterLink to="/">浏览商品</RouterLink>
      <template v-if="session.user">
       <RouterLink v-if="session.user.role==='USER'" to="/my/products">我的商品</RouterLink>
@@ -95,6 +101,7 @@ async function logout(){
       <RouterLink to="/login">登录</RouterLink><RouterLink to="/register" class="nav-primary">注册</RouterLink>
      </template>
     </nav>
+    <RouterLink v-if="staff" class="staff-profile" to="/profile">{{session.user?.displayName}}</RouterLink>
     <RouterLink v-if="session.user" class="notification-bell" to="/notifications" aria-label="通知" aria-describedby="notification-count">
      <PhBell :size="20" aria-hidden="true"/>
      <span v-if="notifications.badge" class="notification-badge" aria-hidden="true">{{notifications.badge}}</span>
@@ -109,10 +116,10 @@ async function logout(){
    <div v-if="session.demo" class="demo-banner">
     <span class="dot" aria-hidden="true"/>课程演示 · 模拟资金与物流
     <span class="banner-detail">协作模块当前使用可替换演示适配</span>
-    <span v-if="session.user" class="balance">余额 {{money(session.balance||0)}}</span>
+    <span v-if="session.user?.role==='USER'" class="balance">余额 {{money(session.balance||0)}}</span>
    </div>
    <p v-if="error" class="error" role="alert">{{error}}</p>
-   <main id="main" tabindex="-1"><RouterView :key="$route.fullPath"/></main>
+   <main id="main" tabindex="-1"><RouterView :key="['/moderation','/reports','/cases'].includes($route.path)?$route.path:$route.fullPath"/></main>
    <footer><span>校园集市 · 软件工程课程项目</span><span>本地演示数据，不发生真实资金流转</span></footer>
   </div>
  </el-config-provider>

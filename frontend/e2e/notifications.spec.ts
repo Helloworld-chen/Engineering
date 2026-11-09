@@ -4,7 +4,7 @@ test.beforeEach(()=>test.skip(process.env.NOTIFICATION_E2E_ISOLATED!=='1','仅�
 async function login(page:Page,username:string){
  await page.goto('/login');await page.getByLabel('用户名',{exact:true}).fill(username);
  await page.getByLabel('密码',{exact:true}).fill('Campus123!');
- await page.getByRole('button',{name:'登录',exact:true}).click();await expect(page).toHaveURL(/\/$/);
+ await page.getByRole('button',{name:'登录',exact:true}).click();await expect(page).toHaveURL(new RegExp('/'+(username==='admin'?'admin':username==='support'?'support':'')+'$'));
 }
 async function post(client:APIRequestContext,path:string,data:unknown){
  const {csrfToken}=await (await client.get('/api/v1/session')).json();
