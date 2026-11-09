@@ -15,6 +15,7 @@ schemas={
  'Shipment':OBJ({'id':S(),'orderId':S(),'direction':S(),'trackingNumber':S(),'evidence':OBJ({'goods':ARRAY(S()),'packaging':ARRAY(S())}),'status':S(),'shippedAt':DATE,'dueAt':DATE,'deliveredAt':DATE,'generation':N()}),
  'Order':OBJ({'id':S(),'productId':S(),'buyerId':S(),'sellerId':S(),'amount':N(),'status':S(),'closeReason':{'type':['string','null']},'createdAt':DATE,'payDeadline':DATE,'receiptDeadline':DATE,'receiptRemaining':{'type':['integer','null']},'receiptPaused':B,'shippingBlocked':B,'settlementBlocked':B,'paymentGeneration':N(),'receiptGeneration':N(),'version':N(),'product':REF('Product'),'serverTime':S(format='date-time'),'fundsStatus':S(),'shipments':ARRAY(REF('Shipment')),'cases':ARRAY(REF('Case')),'allowedActions':ARRAY(S())}),
  'Notification':OBJ({'id':S(),'recipientId':S(),'aggregateId':S(),'message':S(),'createdAt':DATE,'isRead':B}),
+ 'NotificationSnapshot':OBJ({'items':ARRAY(REF('Notification')),'unreadCount':N(minimum=0),'latestId':{'type':['string','null']}}),
  'Report':OBJ({'id':S(),'productId':S(),'reporterId':S(),'reason':S(),'status':S(),'result':{'type':['string','null']},'createdAt':DATE}),
  'Error':OBJ({'code':S(),'message':S()}),
  'Session':OBJ({'user':{'anyOf':[REF('Actor'),{'type':'null'}]},'balance':{'type':['integer','null']},'csrfToken':S(),'demo':B}),
@@ -61,7 +62,8 @@ add('/moderation/products/{id}','post','管理员审核商品',REF('Product'),OB
 add('/reports','get','举报记录，管理员可查看全部',items('Report'))
 add('/reports','post','举报商品',OBJ({'id':S(),'status':S()}),OBJ({'productId':S(),'reason':S()}))
 add('/reports/{id}/resolve','post','管理员处理举报',OBJ({'id':S(),'status':S(),'result':S()}),OBJ({'result':S()}))
-add('/notifications','get','本人最近100条通知',items('Notification'))
+add('/notifications','get','本人最近100条通知及全部未读数量',REF('NotificationSnapshot'))
+add('/notifications/read-all','post','本人截至指定编号的通知全部标为已读',REF('Success'),OBJ({'throughId':S(pattern='^[1-9][0-9]{0,18}$')}))
 add('/notifications/{id}/read','post','本人通知标记已读',REF('Success'))
 add('/demo/advance','post','仅演示管理员推进时间',OBJ({'serverTime':S(),'ready':B}),OBJ({'millis':N(minimum=1,maximum=31536000000)}))
 add('/demo/reset','post','仅演示管理员重置演示业务数据',REF('Success'),OBJ({'confirmation':S(enum=['RESET'])}))
@@ -70,6 +72,6 @@ paths['/files']['post']['requestBody']={'required':True,'content':{'multipart/fo
 add('/files/{id}','get','读取有权限访问的图片',S(format='binary'),public=True)
 paths['/files/{id}']['get']['responses']['200']={'description':'图片原件','content':{mime:{'schema':S(format='binary')} for mime in ['image/jpeg','image/png','image/webp']}}
 add('/events','get','仅本人业务变化提示；重连后查询最新数据',OBJ({'aggregateId':S(),'type':S()}))
-paths['/events']['get']['responses']['200']={'description':'ready / changed 命名事件；无历史重放','content':{'text/event-stream':{'schema':S()}}}
+paths['/events']['get']['responses']['200']={'description':'ready / changed / notifications-read 命名事件；notifications-read仅表示本人已读状态已提交；无历史重放','content':{'text/event-stream':{'schema':S()}}}
 doc={'openapi':'3.1.0','info':{'title':'校园集市协作接口','version':'1.0.0','description':'M01/M02实现及M03-M08演示契约。金额整数分；时间UTC ISO8601。认证与临时上传通过各自会话/文件标识处理，其余业务修改采用Idempotency-Key。'},'servers':[{'url':'/api/v1'}],'paths':paths,'components':{'securitySchemes':{'session':{'type':'apiKey','in':'cookie','name':'JSESSIONID'}},'schemas':schemas}}
 Path('contracts/openapi.yaml').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')

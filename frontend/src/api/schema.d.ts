@@ -376,10 +376,27 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** 本人最近100条通知 */
+        /** 本人最近100条通知及全部未读数量 */
         get: operations["get__notifications"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/notifications/read-all": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 本人截至指定编号的通知全部标为已读 */
+        post: operations["post__notifications_read_all"];
         delete?: never;
         options?: never;
         head?: never;
@@ -585,6 +602,11 @@ export interface components {
             /** Format: date-time */
             createdAt: string | null;
             isRead: boolean;
+        };
+        NotificationSnapshot: {
+            items: components["schemas"]["Notification"][];
+            unreadCount: number;
+            latestId: string | null;
         };
         Report: {
             id: string;
@@ -2546,9 +2568,81 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        items: components["schemas"]["Notification"][];
-                    };
+                    "application/json": components["schemas"]["NotificationSnapshot"];
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    post__notifications_read_all: {
+        parameters: {
+            query?: never;
+            header: {
+                "X-CSRF-TOKEN": string;
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    throughId: string;
+                };
+            };
+        };
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Success"];
                 };
             };
             /** @description 输入无效 */
@@ -2974,7 +3068,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description ready / changed 命名事件；无历史重放 */
+            /** @description ready / changed / notifications-read 命名事件；notifications-read仅表示本人已读状态已提交；无历史重放 */
             200: {
                 headers: {
                     [name: string]: unknown;

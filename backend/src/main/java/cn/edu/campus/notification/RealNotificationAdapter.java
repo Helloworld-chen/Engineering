@@ -26,42 +26,45 @@ public class RealNotificationAdapter implements NotificationPort {
   private record Connection(String user, String session, SseEmitter emitter) {}
 
   private final MutationGate gate;
+  private final NotificationInbox inbox;
   private final JdbcTemplate db;
   private final TransactionTemplate tx;
   private final Map<String, Connection> clients = new ConcurrentHashMap<>();
 
   public RealNotificationAdapter(
-      JdbcTemplate db, PlatformTransactionManager manager, MutationGate gate) {
+      JdbcTemplate db, PlatformTransactionManager manager, MutationGate gate, NotificationInbox inbox) {
     this.gate = gate;
+    this.inbox = inbox;
     this.db = db;
     this.tx = new TransactionTemplate(manager);
   }
 
   @Override
-  public List<Map<String, Object>> list(Actor actor) {
-    return db
-        .queryForList(
-            "SELECT * FROM notifications WHERE recipient_id=? ORDER BY created_at DESC,id DESC"
-                + " LIMIT 100",
-            actor.id())
-        .stream()
-        .map(
-            row -> {
-              var view = view(row);
-              view.put("id", s(row, "id"));
-              return view;
-            })
-        .toList();
-  }
+  public List<Map<String, Object>> list(Actor actor) { return inbox.list(actor); }
+
+  @Override
+  public Map<String, Object> snapshot(Actor actor) { return inbox.snapshot(actor); }
 
   @Override
   public void read(Actor actor, long id) {
-    BusinessException.allowed(
-        db.update(
-                "UPDATE notifications SET is_read=TRUE WHERE id=? AND recipient_id=?",
-                id,
-                actor.id())
-            == 1);
+    inbox.read(actor, id, () -> notifyRead(actor));
+  }
+
+  @Override
+  public void readAll(Actor actor, long throughId) {
+    inbox.readAll(actor, throughId, () -> notifyRead(actor));
+  }
+
+  private void notifyRead(Actor actor) {
+    clients.forEach((id, connection) -> {
+      if (!connection.user().equals(actor.id())) return;
+      try {
+        connection.emitter().send(SseEmitter.event().name("notifications-read").data(map("success", true)));
+      } catch (Exception failure) {
+        connection.emitter().complete();
+        clients.remove(id);
+      }
+    });
   }
 
   @Override

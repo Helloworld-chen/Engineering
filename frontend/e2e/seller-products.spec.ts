@@ -33,14 +33,17 @@ test('卖家商品实时展示下单付款、优先排序、售后入口及重�
  const title='卖家进度 · 校园笔记本 '+crypto.randomUUID();
  try{
   const product=await publish(seller.client,admin.client,title);
-  await publish(seller.client,admin.client,'新发布但无订单 '+crypto.randomUUID());
+  const idleProduct=await publish(seller.client,admin.client,'新发布但无订单 '+crypto.randomUUID());
   await seller.page.goto('/my/products');
   const row=seller.page.getByRole('article').filter({hasText:title});
   await expect(row.getByText('在售',{exact:true})).toBeVisible();
   const order=await post(buyer.client,'/orders',{productId:product.id});
   await expect(row.getByText('买家已下单，等待付款',{exact:true})).toBeVisible();
   await expect(row.getByRole('link',{name:'查看订单',exact:true})).toHaveAttribute('href','/orders/'+order.id);
-  await expect(seller.page.getByRole('article').first()).toContainText(title);
+  await expect.poll(async()=>{
+   const rows=await seller.page.getByRole('article').allTextContents();
+   return rows.findIndex(text=>text.includes(title))<rows.findIndex(text=>text.includes(idleProduct.title));
+  }).toBeTruthy();
   await expect(row.getByRole('link',{name:'编辑',exact:true})).toHaveCount(0);
 
   await seller.context.setOffline(true);
