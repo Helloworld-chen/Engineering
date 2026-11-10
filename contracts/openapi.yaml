@@ -3849,6 +3849,14 @@
           "sellerId": {
             "type": "string"
           },
+          "buyerName": {
+            "type": "string",
+            "description": "买家当前昵称"
+          },
+          "sellerName": {
+            "type": "string",
+            "description": "卖家当前昵称"
+          },
           "amount": {
             "type": "integer"
           },
@@ -3940,6 +3948,8 @@
           "productId",
           "buyerId",
           "sellerId",
+          "buyerName",
+          "sellerName",
           "amount",
           "status",
           "closeReason",

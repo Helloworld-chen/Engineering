@@ -570,6 +570,10 @@ export interface components {
             productId: string;
             buyerId: string;
             sellerId: string;
+            /** @description 买家当前昵称 */
+            buyerName: string;
+            /** @description 卖家当前昵称 */
+            sellerName: string;
             amount: number;
             status: string;
             closeReason: string | null;

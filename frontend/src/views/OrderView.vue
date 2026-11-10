@@ -92,6 +92,13 @@ function ship(){
       <ProductPhoto class="record-photo" :image="order.product.images[0]" :title="order.product.title" :category="order.product.category"/>
       <div><RouterLink class="record-title" :to="{path:'/products/'+order.productId,query:support?{from:route.fullPath}:undefined}">{{order.product.title}}</RouterLink><p class="muted">{{date(order.createdAt)}}</p></div>
      </div>
+     <section class="section-divider stack" aria-label="交易双方">
+      <h3>交易双方</h3>
+      <dl class="facts order-parties">
+       <dt>卖家</dt><dd data-party="seller"><strong>{{order.sellerName||order.product.sellerName||'未提供昵称'}}</strong><span v-if="session.user?.id===order.sellerId">（你）</span><p class="muted">用户编号 {{order.sellerId}}</p></dd>
+       <dt>买家</dt><dd data-party="buyer"><strong>{{order.buyerName||'未提供昵称'}}</strong><span v-if="session.user?.id===order.buyerId">（你）</span><p class="muted">用户编号 {{order.buyerId}}</p></dd>
+      </dl>
+     </section>
      <div v-if="deadline" class="deadline-box">
       <div class="row"><PhClock :size="18" aria-hidden="true"/>{{deadline.name}}</div>
       <Countdown :deadline="deadline.time" :server-time="order.serverTime" :paused="deadline.paused"/>

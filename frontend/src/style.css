@@ -243,3 +243,5 @@ footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; c
  .staff-sidebar{display:none}.staff-wrap{margin-left:0;padding:0 16px}.staff-wrap .menu-toggle{display:inline-flex;order:3}.staff-wrap .notification-bell{order:2;margin-left:auto}.staff-profile{display:none}.staff-wrap .topbar{gap:8px;margin-top:12px}.staff-wrap .brand{font-size:16px}.staff-wrap .brand small{font-size:10px}.work-stats{gap:12px;grid-template-columns:1fr}.work-stat{flex-direction:row;align-items:center;justify-content:space-between;padding:16px}.work-stat strong{font-size:30px}.staff-wrap .page-heading{align-items:flex-start}
 }
 .moderation-decision{margin-top:24px}
+
+.order-parties { row-gap:12px }
