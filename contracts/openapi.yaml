@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "æ ¡å›­é›†å¸‚åä½œæ¥å£",
+    "title": "Ğ£Ô°¼¯ÊĞĞ­×÷½Ó¿Ú",
     "version": "1.0.0",
-    "description": "M01/M02å®ç°åŠM03-M08æ¼”ç¤ºå¥‘çº¦ã€‚é‡‘é¢æ•´æ•°åˆ†ï¼›æ—¶é—´UTC ISO8601ã€‚è®¤è¯ä¸ä¸´æ—¶ä¸Šä¼ é€šè¿‡å„è‡ªä¼šè¯/æ–‡ä»¶æ ‡è¯†å¤„ç†ï¼Œå…¶ä½™ä¸šåŠ¡ä¿®æ”¹é‡‡ç”¨Idempotency-Keyã€‚"
+    "description": "M01/M02ÊµÏÖ¼°M03-M08ÑİÊ¾ÆõÔ¼¡£½ğ¶îÕûÊı·Ö£»Ê±¼äUTC ISO8601¡£ÈÏÖ¤ÓëÁÙÊ±ÉÏ´«Í¨¹ı¸÷×Ô»á»°/ÎÄ¼ş±êÊ¶´¦Àí£¬ÆäÓàÒµÎñĞŞ¸Ä²ÉÓÃIdempotency-Key¡£"
   },
   "servers": [
     {
@@ -13,13 +13,13 @@
   "paths": {
     "/session": {
       "get": {
-        "summary": "å½“å‰ä¼šè¯ä¸CSRFä»¤ç‰Œ",
+        "summary": "µ±Ç°»á»°ÓëCSRFÁîÅÆ",
         "operationId": "get__session",
         "security": [],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -29,7 +29,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -39,7 +39,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -49,7 +49,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,7 +59,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -69,7 +69,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -83,7 +83,7 @@
     },
     "/auth/login": {
       "post": {
-        "summary": "ç™»å½•",
+        "summary": "µÇÂ¼",
         "operationId": "post__auth_login",
         "security": [],
         "parameters": [
@@ -98,7 +98,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -116,7 +116,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -126,7 +126,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -136,7 +136,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -146,7 +146,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -156,7 +156,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -192,7 +192,7 @@
     },
     "/auth/register": {
       "post": {
-        "summary": "æ³¨å†Œæ™®é€šç”¨æˆ·",
+        "summary": "×¢²áÆÕÍ¨ÓÃ»§",
         "operationId": "post__auth_register",
         "security": [],
         "parameters": [
@@ -207,7 +207,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -225,7 +225,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -235,7 +235,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -245,7 +245,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -255,7 +255,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -265,7 +265,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -305,7 +305,7 @@
     },
     "/auth/logout": {
       "post": {
-        "summary": "é€€å‡ºå¹¶å…³é—­ä¼šè¯æ¨é€",
+        "summary": "ÍË³ö²¢¹Ø±Õ»á»°ÍÆËÍ",
         "operationId": "post__auth_logout",
         "security": [
           {
@@ -324,7 +324,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -334,7 +334,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -344,7 +344,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -354,7 +354,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -364,7 +364,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -374,7 +374,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -388,7 +388,7 @@
     },
     "/profile": {
       "patch": {
-        "summary": "æ›´æ–°æœ¬äººæ˜µç§°",
+        "summary": "¸üĞÂ±¾ÈËêÇ³Æ",
         "operationId": "patch__profile",
         "security": [
           {
@@ -417,7 +417,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -435,7 +435,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -445,7 +445,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -455,7 +455,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -465,7 +465,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -475,7 +475,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -507,7 +507,7 @@
     },
     "/products": {
       "get": {
-        "summary": "å·²å®¡æ ¸å•†å“æŸ¥è¯¢",
+        "summary": "ÒÑÉóºËÉÌÆ·²éÑ¯",
         "operationId": "get__products",
         "security": [],
         "parameters": [
@@ -545,7 +545,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -583,7 +583,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -593,7 +593,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -603,7 +603,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -613,7 +613,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -623,7 +623,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -633,10 +633,10 @@
             }
           }
         },
-        "description": "ç™»å½•åæŒ‰æœåŠ¡ç«¯ä¼šè¯æ’é™¤æœ¬äººå‘å¸ƒçš„å•†å“ï¼›æ¸¸å®¢æŸ¥è¯¢å…¨éƒ¨å…¬å¼€å•†å“ã€‚è¿‡æ»¤åœ¨åˆ†é¡µåŠæ€»æ•°è®¡ç®—å‰å®Œæˆï¼Œå…³é”®è¯å’Œåˆ†ç±»éµå¾ªåŒä¸€è§„åˆ™ã€‚æœ¬äººå•†å“é€šè¿‡ /my/products ç®¡ç†ã€‚"
+        "description": "µÇÂ¼ºó°´·şÎñ¶Ë»á»°ÅÅ³ı±¾ÈË·¢²¼µÄÉÌÆ·£»ÓÎ¿Í²éÑ¯È«²¿¹«¿ªÉÌÆ·¡£¹ıÂËÔÚ·ÖÒ³¼°×ÜÊı¼ÆËãÇ°Íê³É£¬¹Ø¼ü´ÊºÍ·ÖÀà×ñÑ­Í¬Ò»¹æÔò¡£±¾ÈËÉÌÆ·Í¨¹ı /my/products ¹ÜÀí¡£"
       },
       "post": {
-        "summary": "å‘å¸ƒå•†å“å¹¶ç­‰å¾…å®¡æ ¸",
+        "summary": "·¢²¼ÉÌÆ·²¢µÈ´ıÉóºË",
         "operationId": "post__products",
         "security": [
           {
@@ -665,7 +665,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -675,7 +675,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -685,7 +685,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -695,7 +695,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -705,7 +705,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -715,7 +715,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -739,7 +739,7 @@
     },
     "/products/{id}": {
       "get": {
-        "summary": "æŸ¥è¯¢å•†å“è¯¦æƒ…",
+        "summary": "²éÑ¯ÉÌÆ·ÏêÇé",
         "operationId": "get__products_id",
         "security": [],
         "parameters": [
@@ -754,7 +754,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -764,7 +764,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -774,7 +774,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -784,7 +784,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -794,7 +794,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -804,7 +804,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -816,7 +816,7 @@
         }
       },
       "patch": {
-        "summary": "ä¿®æ”¹å•†å“æˆ–ä¸Šä¸‹æ¶ï¼Œæ ¡éªŒç‰ˆæœ¬",
+        "summary": "ĞŞ¸ÄÉÌÆ·»òÉÏÏÂ¼Ü£¬Ğ£Ñé°æ±¾",
         "operationId": "patch__products_id",
         "security": [
           {
@@ -853,7 +853,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -863,7 +863,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -873,7 +873,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -883,7 +883,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -893,7 +893,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -903,7 +903,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -950,7 +950,7 @@
     },
     "/my/products": {
       "get": {
-        "summary": "æœ¬äººå•†å“",
+        "summary": "±¾ÈËÉÌÆ·",
         "operationId": "get__my_products",
         "security": [
           {
@@ -960,7 +960,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -981,7 +981,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -991,7 +991,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1001,7 +1001,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1011,7 +1011,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1021,7 +1021,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1035,7 +1035,7 @@
     },
     "/orders": {
       "post": {
-        "summary": "æŒ‰åç«¯ä»·æ ¼ç›´æ¥ä¸‹å•",
+        "summary": "°´ºó¶Ë¼Û¸ñÖ±½ÓÏÂµ¥",
         "operationId": "post__orders",
         "security": [
           {
@@ -1064,7 +1064,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1074,7 +1074,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1084,7 +1084,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1094,7 +1094,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1104,7 +1104,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1114,7 +1114,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1144,7 +1144,7 @@
         }
       },
       "get": {
-        "summary": "æœ¬äººä¹°å…¥æˆ–å–å‡ºè®¢å•",
+        "summary": "±¾ÈËÂòÈë»òÂô³ö¶©µ¥",
         "operationId": "get__orders",
         "security": [
           {
@@ -1166,7 +1166,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1187,7 +1187,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1197,7 +1197,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1207,7 +1207,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1217,7 +1217,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1227,7 +1227,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1241,7 +1241,7 @@
     },
     "/orders/{id}": {
       "get": {
-        "summary": "æŸ¥è¯¢æˆæƒè®¢å•åŠæœŸé™",
+        "summary": "²éÑ¯ÊÚÈ¨¶©µ¥¼°ÆÚÏŞ",
         "operationId": "get__orders_id",
         "security": [
           {
@@ -1260,7 +1260,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1270,7 +1270,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1280,7 +1280,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1290,7 +1290,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1300,7 +1300,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1310,7 +1310,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1324,7 +1324,7 @@
     },
     "/orders/{id}/payment": {
       "post": {
-        "summary": "æ¨¡æ‹Ÿä»˜æ¬¾",
+        "summary": "Ä£Äâ¸¶¿î",
         "operationId": "post__orders_id_payment",
         "security": [
           {
@@ -1361,7 +1361,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1371,7 +1371,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1381,7 +1381,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1391,7 +1391,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1401,7 +1401,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1411,7 +1411,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1437,7 +1437,7 @@
     },
     "/orders/{id}/cancel": {
       "post": {
-        "summary": "å–æ¶ˆå¾…ä»˜æ¬¾è®¢å•",
+        "summary": "È¡Ïû´ı¸¶¿î¶©µ¥",
         "operationId": "post__orders_id_cancel",
         "security": [
           {
@@ -1474,7 +1474,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1484,7 +1484,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1494,7 +1494,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1504,7 +1504,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1514,7 +1514,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1524,7 +1524,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1550,7 +1550,7 @@
     },
     "/orders/{id}/receipt": {
       "post": {
-        "summary": "ç¡®è®¤æ”¶è´§ç»“ç®—",
+        "summary": "È·ÈÏÊÕ»õ½áËã",
         "operationId": "post__orders_id_receipt",
         "security": [
           {
@@ -1587,7 +1587,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1597,7 +1597,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1607,7 +1607,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1617,7 +1617,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1627,7 +1627,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1637,7 +1637,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1663,7 +1663,7 @@
     },
     "/orders/{id}/shipment": {
       "post": {
-        "summary": "æäº¤å‘è´§æˆ–é€€è´§å‡­è¯",
+        "summary": "Ìá½»·¢»õ»òÍË»õÆ¾Ö¤",
         "operationId": "post__orders_id_shipment",
         "security": [
           {
@@ -1700,7 +1700,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1710,7 +1710,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1720,7 +1720,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1730,7 +1730,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1740,7 +1740,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1750,7 +1750,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1774,7 +1774,7 @@
     },
     "/orders/{id}/return-shipment": {
       "post": {
-        "summary": "æäº¤å‘è´§æˆ–é€€è´§å‡­è¯",
+        "summary": "Ìá½»·¢»õ»òÍË»õÆ¾Ö¤",
         "operationId": "post__orders_id_return_shipment",
         "security": [
           {
@@ -1811,7 +1811,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1821,7 +1821,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1831,7 +1831,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1841,7 +1841,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1851,7 +1851,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1861,7 +1861,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1885,7 +1885,7 @@
     },
     "/cases": {
       "get": {
-        "summary": "æœ¬äººæˆ–å®¢æœå¯è®¿é—®å”®åå•",
+        "summary": "±¾ÈË»ò¿Í·ş¿É·ÃÎÊÊÛºóµ¥",
         "operationId": "get__cases",
         "security": [
           {
@@ -1895,7 +1895,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -1916,7 +1916,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -1926,7 +1926,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -1936,7 +1936,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -1946,7 +1946,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -1956,7 +1956,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -1968,7 +1968,7 @@
         }
       },
       "post": {
-        "summary": "æäº¤é€€æ¬¾æˆ–æŠ•è¯‰",
+        "summary": "Ìá½»ÍË¿î»òÍ¶Ëß",
         "operationId": "post__cases",
         "security": [
           {
@@ -1997,7 +1997,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2007,7 +2007,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2017,7 +2017,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2027,7 +2027,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2037,7 +2037,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2047,7 +2047,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2091,7 +2091,7 @@
     },
     "/cases/{id}/actions": {
       "post": {
-        "summary": "å®¡æ ¸ã€ç”³è¯‰ã€å®¢æœè£å†³æˆ–é€€è´§éªŒæ”¶",
+        "summary": "ÉóºË¡¢ÉêËß¡¢¿Í·ş²Ã¾ö»òÍË»õÑéÊÕ",
         "operationId": "post__cases_id_actions",
         "security": [
           {
@@ -2128,7 +2128,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2138,7 +2138,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2148,7 +2148,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2158,7 +2158,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2168,7 +2168,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2178,7 +2178,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2222,9 +2222,222 @@
         }
       }
     },
+    "/cases/{id}/messages": {
+      "get": {
+        "summary": "²éÑ¯ÊÛºóµ¥ÁôÑÔ",
+        "operationId": "get__cases_id_messages",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "³É¹¦",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CaseMessage"
+                      }
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ÊäÈëÎŞĞ§",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Î´µÇÂ¼",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "ÔÚÊÛºóµ¥ÄÚÁôÑÔ",
+        "operationId": "post__cases_id_messages",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-TOKEN",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "³É¹¦",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseMessage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ÊäÈëÎŞĞ§",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Î´µÇÂ¼",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "content"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/moderation/products": {
       "get": {
-        "summary": "ç®¡ç†å‘˜å¾…å®¡æ ¸å•†å“",
+        "summary": "¹ÜÀíÔ±´ıÉóºËÉÌÆ·",
         "operationId": "get__moderation_products",
         "security": [
           {
@@ -2234,7 +2447,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2255,7 +2468,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2265,7 +2478,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2275,7 +2488,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2285,7 +2498,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2295,7 +2508,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2309,7 +2522,7 @@
     },
     "/moderation/products/{id}": {
       "post": {
-        "summary": "ç®¡ç†å‘˜å®¡æ ¸å•†å“",
+        "summary": "¹ÜÀíÔ±ÉóºËÉÌÆ·",
         "operationId": "post__moderation_products_id",
         "security": [
           {
@@ -2346,7 +2559,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2356,7 +2569,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2366,7 +2579,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2376,7 +2589,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2386,7 +2599,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2396,7 +2609,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2440,7 +2653,7 @@
     },
     "/reports": {
       "get": {
-        "summary": "ä¸¾æŠ¥è®°å½•ï¼Œç®¡ç†å‘˜å¯æŸ¥çœ‹å…¨éƒ¨",
+        "summary": "¾Ù±¨¼ÇÂ¼£¬¹ÜÀíÔ±¿É²é¿´È«²¿",
         "operationId": "get__reports",
         "security": [
           {
@@ -2450,7 +2663,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2471,7 +2684,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2481,7 +2694,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2491,7 +2704,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2501,7 +2714,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2511,7 +2724,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2523,7 +2736,7 @@
         }
       },
       "post": {
-        "summary": "ä¸¾æŠ¥å•†å“",
+        "summary": "¾Ù±¨ÉÌÆ·",
         "operationId": "post__reports",
         "security": [
           {
@@ -2552,7 +2765,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2574,7 +2787,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2584,7 +2797,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2594,7 +2807,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2604,7 +2817,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2614,7 +2827,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2650,7 +2863,7 @@
     },
     "/reports/{id}/resolve": {
       "post": {
-        "summary": "ç®¡ç†å‘˜å¤„ç†ä¸¾æŠ¥",
+        "summary": "¹ÜÀíÔ±´¦Àí¾Ù±¨",
         "operationId": "post__reports_id_resolve",
         "security": [
           {
@@ -2687,7 +2900,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2713,7 +2926,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2723,7 +2936,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2733,7 +2946,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2743,7 +2956,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2753,7 +2966,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2785,7 +2998,7 @@
     },
     "/notifications": {
       "get": {
-        "summary": "æœ¬äººæœ€è¿‘100æ¡é€šçŸ¥åŠå…¨éƒ¨æœªè¯»æ•°é‡",
+        "summary": "±¾ÈË×î½ü100ÌõÍ¨Öª¼°È«²¿Î´¶ÁÊıÁ¿",
         "operationId": "get__notifications",
         "security": [
           {
@@ -2795,7 +3008,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2805,7 +3018,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2815,7 +3028,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2825,7 +3038,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2835,7 +3048,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2845,7 +3058,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2859,7 +3072,7 @@
     },
     "/notifications/read-all": {
       "post": {
-        "summary": "æœ¬äººæˆªè‡³æŒ‡å®šç¼–å·çš„é€šçŸ¥å…¨éƒ¨æ ‡ä¸ºå·²è¯»",
+        "summary": "±¾ÈË½ØÖÁÖ¸¶¨±àºÅµÄÍ¨ÖªÈ«²¿±êÎªÒÑ¶Á",
         "operationId": "post__notifications_read_all",
         "security": [
           {
@@ -2888,7 +3101,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -2898,7 +3111,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -2908,7 +3121,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -2918,7 +3131,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -2928,7 +3141,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -2938,7 +3151,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -2971,7 +3184,7 @@
     },
     "/notifications/{id}/read": {
       "post": {
-        "summary": "æœ¬äººé€šçŸ¥æ ‡è®°å·²è¯»",
+        "summary": "±¾ÈËÍ¨Öª±ê¼ÇÒÑ¶Á",
         "operationId": "post__notifications_id_read",
         "security": [
           {
@@ -3008,7 +3221,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -3018,7 +3231,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -3028,7 +3241,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -3038,7 +3251,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -3048,7 +3261,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -3058,7 +3271,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -3072,7 +3285,7 @@
     },
     "/demo/advance": {
       "post": {
-        "summary": "ä»…æ¼”ç¤ºç®¡ç†å‘˜æ¨è¿›æ—¶é—´",
+        "summary": "½öÑİÊ¾¹ÜÀíÔ±ÍÆ½øÊ±¼ä",
         "operationId": "post__demo_advance",
         "security": [
           {
@@ -3101,7 +3314,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -3123,7 +3336,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -3133,7 +3346,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -3143,7 +3356,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -3153,7 +3366,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -3163,7 +3376,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -3197,7 +3410,7 @@
     },
     "/demo/reset": {
       "post": {
-        "summary": "ä»…æ¼”ç¤ºç®¡ç†å‘˜é‡ç½®æ¼”ç¤ºä¸šåŠ¡æ•°æ®",
+        "summary": "½öÑİÊ¾¹ÜÀíÔ±ÖØÖÃÑİÊ¾ÒµÎñÊı¾İ",
         "operationId": "post__demo_reset",
         "security": [
           {
@@ -3226,7 +3439,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -3236,7 +3449,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -3246,7 +3459,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -3256,7 +3469,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -3266,7 +3479,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -3276,7 +3489,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -3311,7 +3524,7 @@
     },
     "/files": {
       "post": {
-        "summary": "ä¸Šä¼ ä¸´æ—¶å›¾ç‰‡",
+        "summary": "ÉÏ´«ÁÙÊ±Í¼Æ¬",
         "operationId": "post__files",
         "security": [
           {
@@ -3330,7 +3543,7 @@
         ],
         "responses": {
           "200": {
-            "description": "æˆåŠŸ",
+            "description": "³É¹¦",
             "content": {
               "application/json": {
                 "schema": {
@@ -3340,7 +3553,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -3350,7 +3563,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -3360,7 +3573,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -3370,7 +3583,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -3380,7 +3593,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -3424,7 +3637,7 @@
     },
     "/files/{id}": {
       "get": {
-        "summary": "è¯»å–æœ‰æƒé™è®¿é—®çš„å›¾ç‰‡",
+        "summary": "¶ÁÈ¡ÓĞÈ¨ÏŞ·ÃÎÊµÄÍ¼Æ¬",
         "operationId": "get__files_id",
         "security": [],
         "parameters": [
@@ -3439,7 +3652,7 @@
         ],
         "responses": {
           "200": {
-            "description": "å›¾ç‰‡åŸä»¶",
+            "description": "Í¼Æ¬Ô­¼ş",
             "content": {
               "image/jpeg": {
                 "schema": {
@@ -3462,7 +3675,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -3472,7 +3685,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -3482,7 +3695,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -3492,7 +3705,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -3502,7 +3715,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -3516,7 +3729,7 @@
     },
     "/events": {
       "get": {
-        "summary": "ä»…æœ¬äººä¸šåŠ¡å˜åŒ–æç¤ºï¼›é‡è¿åæŸ¥è¯¢æœ€æ–°æ•°æ®",
+        "summary": "½ö±¾ÈËÒµÎñ±ä»¯ÌáÊ¾£»ÖØÁ¬ºó²éÑ¯×îĞÂÊı¾İ",
         "operationId": "get__events",
         "security": [
           {
@@ -3526,7 +3739,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "ready / changed / notifications-read å‘½åäº‹ä»¶ï¼›notifications-readä»…è¡¨ç¤ºæœ¬äººå·²è¯»çŠ¶æ€å·²æäº¤ï¼›æ— å†å²é‡æ”¾",
+            "description": "ready / changed / notifications-read ÃüÃûÊÂ¼ş£»notifications-read½ö±íÊ¾±¾ÈËÒÑ¶Á×´Ì¬ÒÑÌá½»£»ÎŞÀúÊ·ÖØ·Å",
             "content": {
               "text/event-stream": {
                 "schema": {
@@ -3536,7 +3749,7 @@
             }
           },
           "400": {
-            "description": "è¾“å…¥æ— æ•ˆ",
+            "description": "ÊäÈëÎŞĞ§",
             "content": {
               "application/json": {
                 "schema": {
@@ -3546,7 +3759,7 @@
             }
           },
           "401": {
-            "description": "æœªç™»å½•",
+            "description": "Î´µÇÂ¼",
             "content": {
               "application/json": {
                 "schema": {
@@ -3556,7 +3769,7 @@
             }
           },
           "403": {
-            "description": "æ— æƒé™æˆ–CSRFå¤±è´¥",
+            "description": "ÎŞÈ¨ÏŞ»òCSRFÊ§°Ü",
             "content": {
               "application/json": {
                 "schema": {
@@ -3566,7 +3779,7 @@
             }
           },
           "409": {
-            "description": "çŠ¶æ€ã€æœŸé™æˆ–è¯·æ±‚å†²çª",
+            "description": "×´Ì¬¡¢ÆÚÏŞ»òÇëÇó³åÍ»",
             "content": {
               "application/json": {
                 "schema": {
@@ -3576,7 +3789,7 @@
             }
           },
           "503": {
-            "description": "æ¢å¤ä¸­æˆ–æ•°æ®åº“æš‚æ—¶ä¸å¯ç”¨",
+            "description": "»Ö¸´ÖĞ»òÊı¾İ¿âÔİÊ±²»¿ÉÓÃ",
             "content": {
               "application/json": {
                 "schema": {
@@ -3755,6 +3968,46 @@
           "generation",
           "createdAt",
           "version"
+        ]
+      },
+      "CaseMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "caseId": {
+            "type": "string"
+          },
+          "senderId": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "BUYER",
+              "SELLER",
+              "SUPPORT"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "caseId",
+          "senderId",
+          "role",
+          "content",
+          "createdAt"
         ]
       },
       "Shipment": {

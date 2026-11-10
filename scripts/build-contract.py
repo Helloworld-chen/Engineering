@@ -12,6 +12,7 @@ schemas={
  'Actor':OBJ({'id':S(),'username':S(),'displayName':S(),'role':S(enum=['USER','ADMIN','SUPPORT'])}),
  'Product':OBJ({'id':S(),'sellerId':S(),'title':S(),'description':S(),'category':S(),'price':N(minimum=1),'images':ARRAY(S()),'auditStatus':S(),'saleStatus':S(),'version':N(),'createdAt':DATE,'sellerName':S()},['id','sellerId','title','description','category','price','images','auditStatus','saleStatus','version','createdAt']),
  'Case':OBJ({'id':S(),'orderId':S(),'buyerId':S(),'kind':S(),'reason':S(),'status':S(),'decision':{'type':['string','null']},'decisionReason':{'type':['string','null']},'deadline':DATE,'generation':N(),'createdAt':DATE,'version':N()}),
+ 'CaseMessage':OBJ({'id':S(),'caseId':S(),'senderId':S(),'role':S(enum=['BUYER','SELLER','SUPPORT']),'content':S(),'createdAt':DATE}),
  'Shipment':OBJ({'id':S(),'orderId':S(),'direction':S(),'trackingNumber':S(),'evidence':OBJ({'goods':ARRAY(S()),'packaging':ARRAY(S())}),'status':S(),'shippedAt':DATE,'dueAt':DATE,'deliveredAt':DATE,'generation':N()}),
  'Order':OBJ({'id':S(),'productId':S(),'buyerId':S(),'sellerId':S(),'amount':N(),'status':S(),'closeReason':{'type':['string','null']},'createdAt':DATE,'payDeadline':DATE,'receiptDeadline':DATE,'receiptRemaining':{'type':['integer','null']},'receiptPaused':B,'shippingBlocked':B,'settlementBlocked':B,'paymentGeneration':N(),'receiptGeneration':N(),'version':N(),'product':REF('Product'),'serverTime':S(format='date-time'),'fundsStatus':S(),'shipments':ARRAY(REF('Shipment')),'cases':ARRAY(REF('Case')),'allowedActions':ARRAY(S())}),
  'Notification':OBJ({'id':S(),'recipientId':S(),'aggregateId':S(),'message':S(),'createdAt':DATE,'isRead':B}),
@@ -57,6 +58,8 @@ for action in ['shipment','return-shipment']:add('/orders/{id}/'+action,'post','
 add('/cases','get','本人或客服可访问售后单',items('Case'))
 add('/cases','post','提交退款或投诉',REF('Case'),OBJ({'orderId':S(),'kind':S(enum=['REFUND','COMPLAINT']),'reason':S()}))
 add('/cases/{id}/actions','post','审核、申诉、客服裁决或退货验收',REF('Case'),OBJ({'action':S(enum=['REFUND','REJECT','APPEAL','WITHDRAW','APPROVE_RETURN','ACCEPT_RETURN','DISPUTE','MORE_INFO']),'reason':S()}))
+add('/cases/{id}/messages','get','查询售后单留言',items('CaseMessage'))
+add('/cases/{id}/messages','post','在售后单内留言',REF('CaseMessage'),OBJ({'content':S(minLength=1,maxLength=500)}))
 add('/moderation/products','get','管理员待审核商品',items('Product'))
 add('/moderation/products/{id}','post','管理员审核商品',REF('Product'),OBJ({'decision':S(enum=['APPROVED','REJECTED']),'reason':S(),'version':N()}))
 add('/reports','get','举报记录，管理员可查看全部',items('Report'))
