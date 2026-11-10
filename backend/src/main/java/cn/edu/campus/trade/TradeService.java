@@ -218,7 +218,7 @@ public class TradeService implements TradePort, TradeAfterSalesPort, TradeTaskPo
     } else o.put("status", "IN_TRANSIT");
     db.saveOrder(o);
     time.schedule(id, returning ? "RETURN_DELIVERY" : "DELIVERY", 0, now + 10000);
-    notifyBoth(o, "SHIPPED", returning ? "买家已寄回商品，10秒后自动送达" : "卖家已发货，10秒后自动送达");
+    notifyLogistics(o, returning, "SHIPPED", returning ? "买家已寄回商品，10秒后自动送达" : "卖家已发货，10秒后自动送达");
     return query(a, id);
   }
 
@@ -368,7 +368,7 @@ public class TradeService implements TradePort, TradeAfterSalesPort, TradeTaskPo
           time.schedule(id, "RECEIPT", n(o, "receipt_generation"), delivered + 172800000L);
         }
         db.saveOrder(o);
-        notifyBoth(o, "DELIVERED", returning ? "退货已送达，卖家有24小时验收" : "商品已送达，48小时内可确认收货或申请售后");
+        notifyLogistics(o, returning, "DELIVERED", returning ? "退货已送达，卖家有24小时验收" : "商品已送达，48小时内可确认收货或申请售后");
       }
       default -> throw new BusinessException("INVALID_TASK", "未知交易任务", 409);
     }
@@ -429,6 +429,11 @@ public class TradeService implements TradePort, TradeAfterSalesPort, TradeTaskPo
         .filter(o -> a.id().equals(s(o, side.equals("selling") ? "seller_id" : "buyer_id")))
         .map(o -> query(a, s(o, "id")))
         .toList();
+  }
+
+  private void notifyLogistics(Map<String, Object> order, boolean returning, String kind, String message) {
+    time.emit(s(order, returning ? "seller_id" : "buyer_id"), s(order, "id"), kind, message);
+    time.changed(s(order, returning ? "buyer_id" : "seller_id"), s(order, "id"));
   }
 
   private void notifyBoth(Map<String, Object> o, String kind, String message) {

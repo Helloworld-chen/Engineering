@@ -110,7 +110,7 @@ public class RealNotificationAdapter implements NotificationPort {
         db.queryForList("SELECT * FROM outbox WHERE delivered=FALSE ORDER BY id LIMIT 100")) {
       tx.executeWithoutResult(
           status -> {
-            db.update(
+            if (!TimePort.BUSINESS_CHANGED.equals(s(event, "event_type"))) db.update(
                 "INSERT IGNORE INTO notifications(id,recipient_id,aggregate_id,message,created_at)"
                     + " VALUES(?,?,?,?,?)",
                 event.get("id"),
@@ -131,7 +131,7 @@ public class RealNotificationAdapter implements NotificationPort {
           try {
             connection.emitter.send(
                 SseEmitter.event()
-                    .name("changed")
+                    .name(TimePort.BUSINESS_CHANGED.equals(s(event, "event_type")) ? "business-changed" : "changed")
                     .id(s(event, "id"))
                     .data(
                         map(

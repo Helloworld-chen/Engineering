@@ -26,6 +26,7 @@ watch(()=>session.user?.id,(id,previous)=>{
   const connection=new EventSource('/api/v1/events');events=connection;
   const active=()=>events===connection&&session.user?.id===id;
   connection.addEventListener('changed',event=>{if(active())refresh((event as MessageEvent).lastEventId)});
+  connection.addEventListener('business-changed',()=>{if(active())refreshBusiness()});
   connection.addEventListener('notifications-read',()=>{if(active())void notifications.sync(false)});
   connection.onopen=()=>{if(active())refresh()};
   connection.onerror=()=>{
@@ -58,8 +59,11 @@ onUnmounted(()=>{
 });
 
 function refresh(eventId?:string){
- window.dispatchEvent(new Event('market:changed'));
+ refreshBusiness();
  void notifications.sync(true,eventId);
+}
+function refreshBusiness(){
+ window.dispatchEvent(new Event('market:changed'));
  void session.refresh().catch(()=>{ /* 页面请求独立展示读取错误。 */ });
 }
 

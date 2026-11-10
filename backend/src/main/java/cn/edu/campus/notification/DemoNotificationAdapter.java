@@ -100,7 +100,7 @@ public class DemoNotificationAdapter implements NotificationPort {
         db.queryForList("SELECT * FROM outbox WHERE delivered=FALSE ORDER BY id LIMIT 100")) {
       tx.executeWithoutResult(
           s -> {
-            db.update(
+            if (!TimePort.BUSINESS_CHANGED.equals(s(e, "event_type"))) db.update(
                 "INSERT IGNORE INTO notifications(id,recipient_id,aggregate_id,message,created_at)"
                     + " VALUES(?,?,?,?,?)",
                 e.get("id"),
@@ -116,7 +116,7 @@ public class DemoNotificationAdapter implements NotificationPort {
               try {
                 c.emitter.send(
                     SseEmitter.event()
-                        .name("changed")
+                        .name(TimePort.BUSINESS_CHANGED.equals(s(e, "event_type")) ? "business-changed" : "changed")
                         .id(s(e, "id"))
                         .data(
                             map(
