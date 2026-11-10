@@ -15,7 +15,7 @@ Java 接口位于 `backend/src/main/java/cn/edu/campus/`。下表路由均以 `/
 | M05 商品浏览检索 | `browse.BrowsePort`。按服务端会话检索和分页；登录用户排除本人商品，游客查询全部公开商品。详情购买入口直接提交 M02 下单 | `GET /products` |
 | M06 商品审核与举报 | `moderation.ModerationPort`。管理举报及处理记录，通过 M04 更新商品审核结果 | `/moderation/products`、`/moderation/products/{id}`、`/reports`、`/reports/{id}/resolve` |
 | M07 售后审核与客服裁决 | `aftersales.AftersalesPort`、`CaseRepositoryPort`。拥有售后单、决定和处理历史，调用 M02 执行履约限制及退款 | `/cases`、`/cases/{id}/actions` |
-| M08 通知与业务时钟 | `notification.TimePort`、`NotificationPort`、`TaskRuntimePort`。拥有业务时间、到期任务、待投递事件和通知 | `/notifications`、`/notifications/{id}/read`、`/events`、`/demo/advance`、`/demo/reset`（演示专用） |
+| M08 通知与业务时钟 | `notification.TimePort`、`NotificationPort`、`TaskRuntimePort`。拥有业务时间、到期任务、待投递事件和通知 | `/notifications`、`/notifications/{id}/read`、`/notifications/read-all`、`/events`、`/demo/advance`、`/demo/reset`（演示专用） |
 | 公共文件服务 | `files.FilePort`。负责上传人、用途、图片校验、绑定及读取权限 | `POST /files`、`GET /files/{id}` |
 
 商品列表的 `BrowsePort.search` 接收服务端解析的可空 `Actor viewer`。登录后按 `viewer.id()` 排除本人商品，关键词、分类、总数与分页使用相同过滤条件；游客传入空身份。前端不传入用于排除商品的用户编号。本人商品仍通过 `/my/products` 管理，已有详情链接保持可访问。M05正式实现须保持此行为。
@@ -59,7 +59,19 @@ M08 将到期任务的目标、类型、代次和 `dueAt` 持久化。恢复时�
 
 修改 API 时运行 `python3 scripts/build-contract.py`，并在 `frontend/` 执行 `npm run generate:types` 更新前端类型。验证业务响应和权限条件时以实际服务接口与 OpenAPI 契约为准。
 
+## 通知快照与即时提醒
+
+`GET /notifications` 返回 `items`（最近100条）、`unreadCount`（当前用户全部未读数）和 `latestId`（当前用户最新通知编号，无通知时为null）。通知编号统一为十进制字符串，前端不得转换为JavaScript Number。列表和统计通过 `NotificationInbox.snapshot` 在同一可重复读只读事务中查询；demo和real提供者共用此实现，无数据库迁移。
+
+`POST /notifications/read-all` 接收 `{ "throughId": "123" }`，仅更新当前用户编号不超过该值的通知。客户端取点击时的 `latestId` 作为边界。该操作与单条已读均要求登录、CSRF令牌及幂等键；提交后向当前用户的在线连接广播 `notifications-read` 事件。此事件只同步已读状态，不触发新消息提醒；原 `changed` 事件继续驱动业务页面刷新和新消息提醒。
+
+前端共享通知状态由账号代次和请求序号保护，合并并发同步并在有新事件时补查。登录、服务器推送连接恢复、重新聚焦及业务事件均同步通知；首次快照只建立历史基线。会话内按已见编号去重，允许较小编号的通知晚提交；断线期间超出最近100条窗口的消息只能恢复总未读数，并按可用事件或计数变化提供合并提醒。读取失败保留可信数据并显示重试入口，退出或切换账号立即清除状态。服务器推送当前采用单进程连接集合；跨进程多实例广播仍需另行实现。
+
 ## 主要表与迁移边界
+
+岗位工作台使用现有 `GET /moderation/products`、`GET /reports`、`GET /cases` 完整列表，在前端统计待办、筛选并按20条分页；当前无需新增汇总接口或迁移。管理员和客服分别使用 `/admin`、`/support` 前端首页，首页不逐条查询订单详情。后端仍负责对象归属、角色、审核版本及售后操作约束，前端导航控制不替代服务端授权。以后若将列表接口改为服务端分页，须同时提供全量统计或专用汇总接口，避免首页将单页条数当成全部待办。
+
+岗位页面的请求通过 `useWorkLoad` 合并，账号变化清除旧数据并拒绝迟到响应；首次加载、业务事件、联网、聚焦及可见页面30秒定时触发刷新。现有通知推送未覆盖全部岗位待办变化，定时补查用于弥补该差距。URL保存列表筛选、页码和站内返回路径；商品审核、商品举报及客服详情的返回路径只接受角色可访问的限定页面。
 
 [数据库迁移](../../backend/src/main/resources/db/migration/V1__module_schema.sql)定义当前联调数据模型。正式适配器迁移须保留其被依赖的标识、外键和锁语义。演示实现仍启用时，须兼容它们对下列数据模型的读写约定。
 

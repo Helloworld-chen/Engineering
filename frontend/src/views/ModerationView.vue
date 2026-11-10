@@ -1,35 +1,25 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {computed} from 'vue';
 import {api,date,money,type Product} from '../api/client';
-import {useLoad} from '../lib/load';
-import {useAction} from '../lib/action';
+import {useWorkLoad} from '../lib/workLoad';
+import {ordered,pageItems,useListQuery} from '../lib/worklist';
 import PageState from '../components/PageState.vue';
 import ProductPhoto from '../components/ProductPhoto.vue';
-import ActionDialog from '../components/ActionDialog.vue';
-const {data,loading,error,reload}=useLoad(()=>api<{items:Product[]}>('/moderation/products'));
-const {busy,error:actionError,success,run}=useAction();
-const dialog=ref(false),selected=ref<Product>(),decision=ref('APPROVED');
-function open(product:Product,value:string){selected.value=product;decision.value=value;actionError.value='';dialog.value=true}
-function submit(reason:string){
- const product=selected.value!;
- void run(async()=>{
-  await api('/moderation/products/'+product.id,'POST',{decision:decision.value,reason,version:product.version});
-  dialog.value=false;await reload();
- },'审核结果已保存。');
-}
+import WorkPagination from '../components/WorkPagination.vue';
+const {data,loading,error,reload}=useWorkLoad(()=>api<{items:Product[]}>('/moderation/products'));
+const {query,set,route}=useListQuery(),q=query('q'),page=query('page','1');
+const result=computed(()=>pageItems(ordered((data.value?.items||[]).filter(p=>p.title.toLocaleLowerCase().includes(q.value.trim().toLocaleLowerCase())),true),page.value));
 </script>
 <template>
- <div class="page-heading"><div><h1>商品审核</h1><p>检查商品说明与照片，审核结果会通知卖家。</p></div></div>
- <p v-if="success" class="notice success" role="status">{{success}}</p>
- <PageState :loading="loading" :error="error" @retry="reload">
-  <div v-if="!data?.items.length" class="panel empty"><h2>暂无待审核商品</h2><p>卖家提交商品后，将显示在这里。</p></div>
-  <div v-else class="record-list">
-   <article v-for="item in data.items" :key="item.id" class="record">
-    <ProductPhoto class="record-photo" :image="item.images[0]" :title="item.title" :category="item.category"/>
-    <div class="record-body stack tight"><RouterLink class="record-title" :to="'/products/'+item.id">{{item.title}}</RouterLink><p class="clamp">{{item.description}}</p><div class="row"><span class="category">{{item.category}}</span><strong>{{money(item.price)}}</strong><span class="muted">{{date(item.createdAt)}}</span></div></div>
-    <div class="row record-actions"><button class="button" @click="open(item,'REJECTED')">驳回</button><button class="button primary" @click="open(item,'APPROVED')">通过</button></div>
-   </article>
-  </div>
+ <div class="page-heading"><div><h1>商品审核</h1><p>核对照片和商品说明，较早提交的商品优先展示。审核结果会通知卖家。</p></div><button class="button" @click="reload()">刷新列表</button></div>
+ <div class="work-toolbar"><label class="field-label">搜索商品标题<input :value="q" type="search" @input="set({q:($event.target as HTMLInputElement).value})"/></label></div>
+ <PageState :loading="loading" :error="error" @retry="reload()">
+  <div v-if="!result.total" class="panel empty"><h2>{{q?'没有匹配的待审核商品':'暂无待审核商品'}}</h2><p>{{q?'请调整搜索关键词。':'卖家提交商品后，将显示在这里。'}}</p></div>
+  <div v-else class="record-list"><article v-for="item in result.items" :key="item.id" class="record">
+   <ProductPhoto class="record-photo" :image="item.images[0]" :title="item.title" :category="item.category"/>
+   <div class="record-body stack tight"><RouterLink class="record-title" :to="{path:'/moderation/'+item.id,query:{from:route.fullPath}}">{{item.title}}</RouterLink><p class="clamp">{{item.description}}</p><div class="row"><span class="category">{{item.category}}</span><strong>{{money(item.price)}}</strong><span class="muted">{{date(item.createdAt)}}</span></div></div>
+   <RouterLink class="button primary record-actions" :to="{path:'/moderation/'+item.id,query:{from:route.fullPath}}">审核商品</RouterLink>
+  </article></div>
+  <WorkPagination v-bind="result" @change="set({page:String($event)})"/>
  </PageState>
- <ActionDialog v-model="dialog" :title="decision==='APPROVED'?'通过审核':'驳回审核'" :description="'审核商品：'+(selected?.title||'')" requires-reason reason-label="审核理由" :busy="busy" :error="actionError" @confirm="submit"/>
 </template>

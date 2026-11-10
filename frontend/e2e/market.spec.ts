@@ -127,7 +127,7 @@ for(const account of [
  await expect(page.getByText('付款剩余时间',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'取消订单',exact:true}).click();
  await page.getByRole('button',{name:'确认取消订单',exact:true}).click();
- await expect(page.getByRole('status')).toContainText('订单已取消');
+ await expect(page.locator('main').getByRole('status')).toContainText('订单已取消');
  await page.goto('/');
  await page.getByLabel('商品关键词').fill(keyword);
  await page.getByRole('button',{name:'搜索',exact:true}).click();

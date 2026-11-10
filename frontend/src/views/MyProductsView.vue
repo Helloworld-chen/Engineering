@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import {useRoute} from 'vue-router';
+import {computed,watch} from 'vue';
 import {PhPlus} from '@phosphor-icons/vue';
-import {api,money,type Product} from '../api/client';
+import {api,money,type Product,type Order} from '../api/client';
+import {useSession} from '../stores/session';
+import {sellingProducts} from '../lib/sellingProducts';
 import {useLoad} from '../lib/load';
 import {useAction} from '../lib/action';
 import PageState from '../components/PageState.vue';
 import StatusBadge from '../components/StatusBadge.vue';
 import ProductPhoto from '../components/ProductPhoto.vue';
 const route=useRoute();
-const {data,loading,error,reload}=useLoad(()=>api<{items:Product[]}>('/my/products'));
+const session=useSession();
+const {data,loading,error,reload}=useLoad(async()=>{
+ const [products,orders]=await Promise.all([
+  api<{items:Product[]}>('/my/products'),api<{items:Order[]}>('/orders?side=selling'),
+ ]);
+ return sellingProducts(products.items,orders.items);
+});
+const items=computed(()=>data.value||[]);
+watch(()=>session.user?.id,()=>{data.value=undefined;void reload()});
 const {busy,error:actionError,success,run}=useAction();
 function change(product:Product){
  const off=product.saleStatus==='AVAILABLE';
@@ -19,21 +30,25 @@ function change(product:Product){
 }
 </script>
 <template>
- <div class="page-heading"><div><h1>我的商品</h1><p>查看审核结果，维护商品信息和销售状态。</p></div><RouterLink class="button primary" to="/publish"><PhPlus :size="18"/>发布商品</RouterLink></div>
+ <div class="page-heading"><div><h1>我的商品</h1><p>查看销售和交易进度，需要你处理的商品优先显示。</p></div><RouterLink class="button primary" to="/publish"><PhPlus :size="18"/>发布商品</RouterLink></div>
  <p v-if="actionError" class="error notice" role="alert">{{actionError}}</p>
  <p v-else-if="success||route.query.saved==='1'" class="success notice" role="status">{{success||'商品已提交审核。'}}</p>
  <PageState :loading="loading" :error="error" @retry="reload">
-  <div v-if="!data?.items.length" class="panel empty"><h2>还没有发布商品</h2><p>提交商品照片、价格和说明后即可申请审核。</p><RouterLink class="button primary" to="/publish">发布第一件商品</RouterLink></div>
+  <div v-if="!items.length" class="panel empty"><h2>还没有发布商品</h2><p>提交商品照片、价格和说明后即可申请审核。</p><RouterLink class="button primary" to="/publish">发布第一件商品</RouterLink></div>
   <div v-else class="record-list">
-   <article v-for="product in data.items" :key="product.id" class="record">
+   <article v-for="{product,progress} in items" :key="product.id" class="record">
     <ProductPhoto class="record-photo" :image="product.images[0]" :title="product.title" :category="product.category"/>
     <div class="record-body stack tight">
      <RouterLink class="record-title" :to="'/products/'+product.id">{{product.title}}</RouterLink>
      <div class="row"><strong>{{money(product.price)}}</strong><span class="category">{{product.category}}</span><StatusBadge :value="product.auditStatus"/><StatusBadge :value="product.saleStatus"/></div>
+     <p v-if="progress" :class="progress.priority===0?'success':'muted'">{{progress.message}}</p>
     </div>
-    <div v-if="['AVAILABLE','OFF_SHELF'].includes(product.saleStatus)" class="row record-actions">
-     <RouterLink class="button" :to="'/products/'+product.id+'/edit'">编辑</RouterLink>
-     <button class="button" :disabled="busy" @click="change(product)">{{product.saleStatus==='AVAILABLE'?'下架':'上架'}}</button>
+    <div class="row record-actions">
+     <RouterLink v-if="progress" :class="['button',{primary:progress.priority===0}]" :to="progress.to">{{progress.label}}</RouterLink>
+     <template v-if="['AVAILABLE','OFF_SHELF'].includes(product.saleStatus)&&(!progress||progress.priority===3)">
+      <RouterLink class="button" :to="'/products/'+product.id+'/edit'">编辑</RouterLink>
+      <button class="button" :disabled="busy" @click="change(product)">{{product.saleStatus==='AVAILABLE'?'下架':'上架'}}</button>
+     </template>
     </div>
    </article>
   </div>

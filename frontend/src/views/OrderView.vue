@@ -4,7 +4,8 @@ import {useRoute,useRouter} from 'vue-router';
 import {PhClock,PhPackage,PhWallet} from '@phosphor-icons/vue';
 import {api,date,money,type Case,type Order} from '../api/client';
 import {label} from '../lib/labels';
-import {useLoad} from '../lib/load';
+import {useWorkLoad} from '../lib/workLoad';
+import {returnTo} from '../lib/access';
 import {useAction} from '../lib/action';
 import {useFieldErrors} from '../lib/fieldErrors';
 import {useSession} from '../stores/session';
@@ -16,7 +17,7 @@ import ActionDialog from '../components/ActionDialog.vue';
 import UploadField from '../components/UploadField.vue';
 const route=useRoute(),router=useRouter(),session=useSession();
 const id=encodeURIComponent(String(route.params.id)),path='/orders/'+id;
-const {data:order,loading,error,reload}=useLoad(()=>api<Order>(path));
+const {data:order,loading,error,reload}=useWorkLoad(()=>api<Order>(path));
 const {busy,error:actionError,success,run}=useAction();
 const {fields,clear,flag,attributes}=useFieldErrors();
 const dialog=ref(false),shipping=ref(false),selection=ref('');
@@ -33,6 +34,13 @@ const actions:Record<string,{title:string,description:string,endpoint?:string,ki
 const action=computed(()=>actions[selection.value]);
 const returning=computed(()=>selection.value==='RETURN_SHIP');
 const side=computed(()=>order.value?.sellerId===session.user?.id?'selling':'buying');
+const support=computed(()=>session.user?.role==='SUPPORT');
+const back=computed(()=>support.value?returnTo(route.query.from,'SUPPORT',order.value?.cases[0]?'/cases/'+order.value.cases[0].id:'/cases',['/cases']):'/orders?side='+side.value);
+function caseLink(id:string){
+ if(!support.value)return '/cases/'+id;
+ const from=returnTo(router.resolve(back.value).query.from,'SUPPORT','/cases?group=pending',['/cases','/support']);
+ return {path:'/cases/'+id,query:{from}};
+}
 const deadline=computed(()=>{
  const item=order.value;if(!item)return;
  if(item.status==='PENDING_PAYMENT')return {name:'付款剩余时间',time:item.payDeadline};
@@ -73,7 +81,7 @@ function ship(){
 }
 </script>
 <template>
- <RouterLink class="back-link" :to="'/orders?side='+side">← 返回我的订单</RouterLink>
+ <RouterLink class="back-link" :to="back">← {{support?'返回售后详情':'返回我的订单'}}</RouterLink>
  <div class="page-heading"><div><h1>订单详情</h1><p v-if="order" class="mono">订单号 {{order.id}}</p></div><button class="button" :disabled="loading" @click="reload()">刷新订单</button></div>
  <PageState :loading="loading" :error="error" @retry="reload">
   <div v-if="order" class="order-grid">
@@ -82,7 +90,7 @@ function ship(){
      <div class="row spread"><h2>订单进度</h2><StatusBadge :value="order.status"/></div>
      <div class="order-product">
       <ProductPhoto class="record-photo" :image="order.product.images[0]" :title="order.product.title" :category="order.product.category"/>
-      <div><RouterLink class="record-title" :to="'/products/'+order.productId">{{order.product.title}}</RouterLink><p class="muted">{{date(order.createdAt)}}</p></div>
+      <div><RouterLink class="record-title" :to="{path:'/products/'+order.productId,query:support?{from:route.fullPath}:undefined}">{{order.product.title}}</RouterLink><p class="muted">{{date(order.createdAt)}}</p></div>
      </div>
      <div v-if="deadline" class="deadline-box">
       <div class="row"><PhClock :size="18" aria-hidden="true"/>{{deadline.name}}</div>
@@ -91,7 +99,7 @@ function ship(){
      </div>
      <p v-if="order.receiptPaused||order.shippingBlocked||order.settlementBlocked" class="notice muted">售后处理中。{{order.shippingBlocked?' 发货已暂停。':''}}{{order.settlementBlocked?' 货款结算已暂停。':''}}</p>
      <p v-if="order.closeReason" class="muted">关闭原因 · {{label(order.closeReason)}}</p>
-     <div v-if="order.allowedActions.length" class="row">
+     <div v-if="!support&&order.allowedActions.length" class="row">
       <button v-for="(key,index) in order.allowedActions.filter(key=>actions[key]).sort((a,b)=>Number(a==='CANCEL')-Number(b==='CANCEL'))" :key="key" class="button" :class="{primary:index===0}" :disabled="busy" @click="open(key)">{{key==='CONFIRM'?'确认收货':actions[key].title}}</button>
      </div>
      <p v-if="success" class="success" role="status">{{success}}</p>
@@ -115,12 +123,12 @@ function ship(){
      <h2 id="funds-title" class="row"><PhWallet :size="20" aria-hidden="true"/>模拟货款</h2>
      <strong class="detail-price">{{money(order.amount)}}</strong>
      <div class="row spread"><span class="muted">资金状态</span><StatusBadge :value="order.fundsStatus"/></div>
-     <p v-if="side==='buying'" class="muted">我的余额 {{money(session.balance||0)}}</p>
+     <p v-if="!support&&side==='buying'" class="muted">我的余额 {{money(session.balance||0)}}</p>
     </section>
     <section class="panel stack">
      <h2>售后记录</h2>
      <p v-if="!order.cases.length" class="muted">当前订单暂无售后记录。</p>
-     <RouterLink v-for="item in order.cases" :key="item.id" :to="'/cases/'+item.id" class="related-link row spread"><span>{{label(item.kind)}}详情 →</span><StatusBadge :value="item.status"/></RouterLink>
+     <RouterLink v-for="item in order.cases" :key="item.id" :to="caseLink(item.id)" class="related-link row spread"><span>{{label(item.kind)}}详情 →</span><StatusBadge :value="item.status"/></RouterLink>
     </section>
    </aside>
   </div>
