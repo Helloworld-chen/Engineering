@@ -132,6 +132,9 @@ class JdbcProductAdapter implements ProductPort {
       String state = s(in, "saleStatus");
       require(Set.of("AVAILABLE", "OFF_SHELF").contains(state), "INVALID_STATE", "商品状态不正确");
       if (!state.equals(s(r, "sale_status"))) {
+        if ("AVAILABLE".equals(state)) {
+          require("APPROVED".equals(s(r, "audit_status")), "INVALID_STATE", "商品审核通过后才能重新上架");
+        }
         db.update("UPDATE products SET sale_status=?,version=version+1 WHERE id=?", state, id);
       }
     } else {
@@ -166,6 +169,24 @@ class JdbcProductAdapter implements ProductPort {
         id,
         "PRODUCT_REVIEW",
         "商品审核结果：" + (decision.equals("APPROVED") ? "通过" : "驳回"));
+  }
+
+  @Override
+  @Transactional
+  public void takedown(Actor admin, String id, String reason, long version) {
+    allowed(admin != null && admin.is("ADMIN"));
+    if (reason == null || reason.isBlank() || reason.length() > 2000) {
+      throw new BusinessException("INVALID_REASON", "请填写有效的下架原因", 400);
+    }
+    var r = lock(id);
+    require(version == n(r, "version"), "VERSION_CONFLICT", "商品已更新，请刷新");
+    String saleStatus = s(r, "sale_status");
+    require(!"LOCKED".equals(saleStatus), "PRODUCT_BUSY", "商品有进行中的订单，暂不能下架");
+    if ("AVAILABLE".equals(saleStatus) && "APPROVED".equals(s(r, "audit_status"))) {
+      db.update(
+          "UPDATE products SET sale_status='OFF_SHELF',audit_status='REJECTED',version=version+1 WHERE id=?",
+          id);
+    }
   }
 
   @Override
