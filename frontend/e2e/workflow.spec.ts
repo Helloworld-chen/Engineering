@@ -1,4 +1,4 @@
-import {test,expect,type Page,type TestInfo} from '@playwright/test';
+import {test,expect,type Page,type Request,type TestInfo} from '@playwright/test';
 
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jM1sAAAAASUVORK5CYII=','base64');
 const picture = {name:'fixture.png',mimeType:'image/png',buffer:png};
@@ -144,7 +144,24 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await page.getByLabel('用户名',{exact:true}).fill(username);
   await page.getByLabel('昵称',{exact:true}).fill('新同学');
   await page.getByLabel('密码',{exact:true}).fill('Campus123!');
+  const confirmation=page.getByLabel('确认密码',{exact:true});
+  await confirmation.fill('Campus123?');
+  const registrationRequests:Request[]=[];
+  page.on('request',request=>{
+   if(request.method()==='POST'&&new URL(request.url()).pathname==='/api/v1/auth/register')registrationRequests.push(request);
+  });
   await page.getByRole('button',{name:'注册',exact:true}).click();
+  await expect(confirmation).toHaveAccessibleDescription('两次输入的密码不一致');
+  expect(registrationRequests).toHaveLength(0);
+
+  await confirmation.fill('Campus123!');
+  await page.getByRole('button',{name:'注册',exact:true}).click();
+  await expect(page.getByRole('link',{name:'个人中心 · 新同学'})).toBeVisible();
+  expect(registrationRequests).toHaveLength(1);
+  expect(registrationRequests[0].postDataJSON()).toEqual({username,password:'Campus123!',displayName:'新同学'});
+  await page.getByRole('button',{name:'退出',exact:true}).click();
+  await expect(page.getByRole('link',{name:'登录',exact:true})).toBeVisible();
+  await login(page,username);
   await page.getByRole('link',{name:'个人中心 · 新同学'}).click();
   await page.getByLabel('昵称',{exact:true}).fill('收纳小组');
   await page.getByRole('button',{name:'保存昵称'}).click();
