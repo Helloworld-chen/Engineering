@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
@@ -42,6 +44,7 @@ class RealProviderWorkflowTest {
   @Autowired NotificationPort notifications;
   @Autowired TimePort time;
   @Autowired TaskRuntimePort runtime;
+  @Autowired PlatformTransactionManager txManager;
 
   final JsonMapper json = JsonMapper.builder().build();
 
@@ -105,6 +108,30 @@ class RealProviderWorkflowTest {
 
     awaitNotification("buyer");
     assertThat(notificationCount("buyer")).isGreaterThanOrEqualTo(1);
+  }
+
+  @Test
+  void refundWindowIsFortyEightHours() throws Exception {
+    var buyer = new Browser("buyer");
+    String orderId = paidOrder(buyer);
+    var opened =
+        buyer.post("/cases", Map.of("orderId", orderId, "kind", "REFUND", "reason", "审核期测试"));
+    String caseId = (String) opened.get("id");
+    long due = db.queryForObject("SELECT deadline FROM cases WHERE id=?", Long.class, caseId);
+    long base = db.queryForObject("SELECT frozen_at FROM clock_state WHERE id=1", Long.class);
+    var tx = new TransactionTemplate(txManager);
+
+    // 47 小时：仍在 48 小时审核期内，不转客服
+    db.update("UPDATE clock_state SET frozen_at=? WHERE id=1", base + 47 * 3_600_000L);
+    tx.executeWithoutResult(status -> cases.deadline(caseId, "REFUND_REVIEW", 0, due));
+    assertThat(db.queryForObject("SELECT status FROM cases WHERE id=?", String.class, caseId))
+        .isEqualTo("SELLER_REVIEW");
+
+    // 49 小时：超过 48 小时，转客服处理
+    db.update("UPDATE clock_state SET frozen_at=? WHERE id=1", base + 49 * 3_600_000L);
+    tx.executeWithoutResult(status -> cases.deadline(caseId, "REFUND_REVIEW", 0, due));
+    assertThat(db.queryForObject("SELECT status FROM cases WHERE id=?", String.class, caseId))
+        .isEqualTo("SUPPORT_REVIEW");
   }
 
   private String paidOrder(Browser buyer) throws Exception {
