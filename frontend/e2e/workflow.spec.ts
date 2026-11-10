@@ -172,8 +172,8 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await login(page,username);
   await page.getByRole('link',{name:'个人中心 · 新同学'}).click();
   await page.getByLabel('昵称',{exact:true}).fill('收纳小组');
-  await page.getByRole('button',{name:'保存昵称'}).click();
-  await expect(page.locator('main').getByRole('status')).toContainText('昵称已更新');
+  await page.getByRole('button',{name:'保存资料'}).click();
+  await expect(page.locator('main').getByRole('status')).toContainText('资料已更新');
   await expect(page.getByRole('link',{name:'个人中心 · 收纳小组'})).toBeVisible();
 
   await page.goto('/publish');

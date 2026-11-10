@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import {nextTick,ref,useId} from 'vue';
+import {nextTick,ref,useId,onBeforeUnmount} from 'vue';
 import {api} from '../api/client';
 import {PhUploadSimple} from '@phosphor-icons/vue';
 
-const props=defineProps<{modelValue:string[],purpose:string,label:string,max?:number,inputId?:string,fieldError?:string}>();
+const props=withDefaults(defineProps<{modelValue:string[],purpose:string,label:string,max?:number,inputId?:string,fieldError?:string,required?:boolean}>(),{required:true});
 const emit=defineEmits<{'update:modelValue':[value:string[]],busy:[value:boolean]}>();
 const id=useId(),busy=ref(false),error=ref('');
+let alive=true;
+onBeforeUnmount(()=>{alive=false;if(busy.value)emit('busy',false)});
 async function upload(event:Event){
  const target=event.target as HTMLInputElement;
  const files=Array.from(target.files||[]);
@@ -26,6 +28,7 @@ async function upload(event:Event){
    form.append('file',file);
    form.append('purpose',props.purpose);
    const item=await api<{id:string}>('/files','POST',form);
+   if(!alive)return;
    ids.push(item.id);
    emit('update:modelValue',[...ids]);
   }
@@ -41,7 +44,7 @@ async function upload(event:Event){
 </script>
 <template>
  <div class="upload-field">
-  <label class="field-label" :for="inputId||id">{{label}} <span class="required">必填</span></label>
+  <label class="field-label" :for="inputId||id">{{label}} <span v-if="required!==false" class="required">必填</span></label>
   <input :id="inputId||id" type="file" accept="image/jpeg,image/png,image/webp" multiple :disabled="busy||(max!==undefined&&modelValue.length>=max)" :aria-invalid="error||fieldError?true:undefined" :aria-describedby="(inputId||id)+'-hint'+(error||fieldError?' '+(inputId||id)+'-error':'')" @change="upload"/>
   <p :id="(inputId||id)+'-hint'" class="muted"><PhUploadSimple aria-hidden="true"/> JPEG、PNG、WebP，每张最多 5 MB{{busy?' · 正在上传':''}}</p>
   <div class="photo-strip"><div v-for="image in modelValue" :key="image">

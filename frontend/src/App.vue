@@ -123,7 +123,7 @@ async function logout(){
     <span v-if="session.user?.role==='USER'" class="balance">余额 {{money(session.balance||0)}}</span>
    </div>
    <p v-if="error" class="error" role="alert">{{error}}</p>
-   <main id="main" tabindex="-1"><RouterView :key="['/moderation','/reports','/cases'].includes($route.path)?$route.path:$route.fullPath"/></main>
+   <main id="main" tabindex="-1"><RouterView :key="$route.path.startsWith('/users/')?JSON.stringify([$route.path,$route.query.contextType,$route.query.contextId]):['/moderation','/reports','/cases'].includes($route.path)?$route.path:$route.fullPath"/></main>
    <footer><span>校园集市 · 软件工程课程项目</span><span>本地演示数据，不发生真实资金流转</span></footer>
   </div>
  </el-config-provider>

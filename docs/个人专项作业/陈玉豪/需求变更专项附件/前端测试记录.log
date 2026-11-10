@@ -1,0 +1,17 @@
+ ✓ tests/notifications.test.ts (12 tests) 19ms
+ ✓ tests/workLoad.test.ts (4 tests) 26ms
+ ✓ tests/staff.test.ts (4 tests) 12ms
+ ✓ tests/session.test.ts (4 tests) 17ms
+ ✓ tests/notificationAlerts.test.ts (3 tests) 41ms
+ ✓ tests/client.test.ts (2 tests) 8ms
+ ✓ tests/businessEvents.test.ts (2 tests) 54ms
+ ✓ tests/myProducts.test.ts (3 tests) 81ms
+ ✓ tests/orderParticipants.test.ts (4 tests) 64ms
+ ✓ tests/staffViews.test.ts (2 tests) 100ms
+ ✓ tests/profileEditing.test.ts (3 tests) 82ms
+ ✓ tests/sellingProducts.test.ts (16 tests) 6ms
+ ✓ tests/userProfiles.test.ts (5 tests) 104ms
+ ✓ tests/time.test.ts (3 tests) 1ms
+ Test Files  14 passed (14)
+      Tests  67 passed (67)
+   Duration  1.72s (transform 1.23s, setup 0ms, collect 7.03s, tests 614ms, environment 2.99s, prepare 791ms)

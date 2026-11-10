@@ -30,6 +30,10 @@ class DemoResetTest extends WorkflowTestSupport {
     String order = paid(buyer);
     seller.post("/orders/" + order + "/shipment", evidence(false));
     advance(10_000);
+    buyer.post("/orders/" + order + "/receipt", Map.of());
+    buyer.post("/orders/" + order + "/reviews", Map.of("stars", 5, "comment", "待公开评价"));
+    buyer.call("PATCH", "/profile", Map.of("school", "测试学校", "avatarId", file("buyer", "AVATAR")),
+        UUID.randomUUID().toString(), 200);
     long userCount = db.queryForObject("SELECT COUNT(*) FROM users", Long.class);
 
     admin.post(RESET, Map.of("confirmation", "RESET"));
@@ -37,12 +41,15 @@ class DemoResetTest extends WorkflowTestSupport {
     buyer.call("GET", "/orders/" + order, null, null, 404);
     for (String table :
         new String[] {
-          "orders", "shipments", "product_holds", "escrows", "money_operations", "deadlines"
+          "orders", "shipments", "product_holds", "escrows", "money_operations", "deadlines",
+          "order_reviews", "user_profiles"
         }) {
       assertThat(db.queryForObject("SELECT COUNT(*) FROM " + table, Integer.class))
           .as(table)
           .isZero();
     }
+    assertThat(buyer.call("GET", "/profile", null, null, 200))
+        .containsEntry("avatarId", null).containsEntry("school", "");
     assertThat(db.queryForObject("SELECT COUNT(*) FROM users", Long.class)).isEqualTo(userCount);
     assertThat(db.queryForObject("SELECT balance FROM accounts WHERE user_id='buyer'", Long.class))
         .isEqualTo(20_000);

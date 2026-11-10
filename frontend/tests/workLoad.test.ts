@@ -30,3 +30,8 @@ it('失败保留可信数据，首次失败保持未知，重试可恢复',async
  const state=open(load);await flushPromises();expect(state.data.value).toBeUndefined();expect(state.error.value).toBe('读取失败');
  await state.reload();expect(state.data.value).toBe('good');await state.reload();expect(state.data.value).toBe('good');expect(state.error.value).toBe('断线');
 });
+it('同账号快速改变筛选时丢弃旧筛选响应并补查最新条件',async()=>{
+ let key='A';const a=deferred(),b=deferred();const loader=vi.fn().mockReturnValueOnce(a.promise).mockReturnValueOnce(b.promise);let state!:ReturnType<typeof useWorkLoad<string>>;
+ wrapper=mount(defineComponent({setup(){state=useWorkLoad(loader,false,()=>key);return{}},template:'<div/>'}));
+ key='B';void state.reload();a.resolve('A的结果');await flushPromises();expect(state.data.value).toBeUndefined();expect(loader).toHaveBeenCalledTimes(2);b.resolve('B的结果');await flushPromises();expect(state.data.value).toBe('B的结果');
+});

@@ -1,0 +1,41 @@
+(node:52935) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:52959) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 1 worker
+
+(node:52960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 e2e/logisticsNotifications.spec.ts:11:1 › 正向物流只提醒买家，退货物流只提醒卖家，双方页面仍自动更新 (27.1s)
+  ✓   2 e2e/market.spec.ts:5:1 › 访客浏览、登录和订单页面权限 (613ms)
+  ✓   3 e2e/market.spec.ts:13:36 › 商品页面无横向溢出 1440 (288ms)
+  ✓   4 e2e/market.spec.ts:13:36 › 商品页面无横向溢出 1280 (273ms)
+  ✓   5 e2e/market.spec.ts:13:36 › 商品页面无横向溢出 390 (280ms)
+  ✓   6 e2e/market.spec.ts:20:1 › 错误反馈、登录跳转与管理员页面权限 (659ms)
+  ✓   7 e2e/market.spec.ts:37:1 › 会话过期后回到登录，退出响应丢失后核实真实会话 (694ms)
+  ✓   8 e2e/market.spec.ts:66:1 › 注册表单为无效用户名提供关联提示 (294ms)
+  ✓   9 e2e/market.spec.ts:82:1 › 注册时确认密码为空会阻止请求 (292ms)
+  ✓  10 e2e/market.spec.ts:96:1 › 切换到登录时隐藏确认密码，返回注册时清空 (355ms)
+  ✓  11 e2e/market.spec.ts:110:3 › 林同学可管理自己商品并向其他同学下单 (2.8s)
+  ✓  12 e2e/market.spec.ts:110:3 › 陈同学可管理自己商品并向其他同学下单 (2.7s)
+  ✓  13 e2e/notifications.spec.ts:25:1 › 买卖消息即时提醒、手机入口与跨标签页已读同步 (3.5s)
+  ✓  14 e2e/notifications.spec.ts:80:1 › 通知同步失败保留未知状态，恢复后计数及全部已读可用 (469ms)
+  ✓  15 e2e/notifications.spec.ts:95:39 › admin首次加载99条以上未读不逐条弹历史提醒 (465ms)
+  ✓  16 e2e/notifications.spec.ts:95:39 › support首次加载99条以上未读不逐条弹历史提醒 (448ms)
+  ✓  17 e2e/seller-products.spec.ts:25:1 › 卖家商品实时展示下单付款、优先排序、售后入口及重连恢复 (3.5s)
+  ✓  18 e2e/seller-products.spec.ts:93:1 › 取消及付款超时恢复在售，再次购买关联新订单 (3.1s)
+  ✓  19 e2e/staff-workflow.spec.ts:7:1 › 岗位真实流程：审核冲突重核、举报返回、退款申诉客服裁决 (4.5s)
+  ✓  20 e2e/staff.spec.ts:6:39 › admin岗位首页、路由隔离及桌面手机导航 (3.1s)
+  ✓  21 e2e/staff.spec.ts:6:39 › support岗位首页、路由隔离及桌面手机导航 (3.2s)
+  ✓  22 e2e/staff.spec.ts:26:1 › 岗位登录回跳保留合法目标，拒绝无权目标 (681ms)
+  ✓  23 e2e/staff.spec.ts:31:1 › 客服列表搜索分页及详情往返，管理员部分待办失败可重试 (1.3s)
+  ✓  24 e2e/userProfiles.spec.ts:12:1 › 资料维护、双方独立评价、首评信用和桌面手机资料页 (16.1s)
+  ✓  25 e2e/userProfiles.spec.ts:28:1 › 管理员和客服查看关联用户及工作记录，伪造上下文被拒绝 (2.4s)
+  ✓  26 e2e/userProfiles.spec.ts:39:1 › 单方评价在七天届满公开，逾期不能补评 (12.7s)
+  ✓  27 e2e/workflow.spec.ts:42:1 › 发布审核、下单付款、投诉与退货验收 (29.2s)
+  ✓  28 e2e/workflow.spec.ts:144:1 › 注册、资料与商品维护、举报和通知已读 (4.5s)
+  ✓  29 e2e/workflow.spec.ts:240:1 › 商品版本变化时保留编辑草稿并显式应用最新版本 (2.4s)
+  ✓  30 e2e/workflow.spec.ts:282:1 › 商品表单错误关联字段并移动焦点 (825ms)
+
+  30 passed (2.2m)

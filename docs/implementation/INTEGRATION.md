@@ -93,3 +93,16 @@ M08 将到期任务的目标、类型、代次和 `dueAt` 持久化。恢复时�
 | 共享服务 | `files`、`request_results`、`audit_log` |
 
 演示管理员推进时间时传入正整数毫秒。重置请求须携带明确的 `confirmation: "RESET"`，并遵循业务写入的会话、CSRF 和幂等规则。重置清空演示业务数据并恢复演示商品、模拟余额和业务时钟，保留注册账户。推进与重置由演示协调入口管理，避免与在途业务修改及到期任务交错。
+
+## 用户资料与双向评价接入（2026年11月10日）
+
+CR-CYH-01、CR-CYH-02、CR-CYH-03新增用户资料与评价能力，Flyway V3仅增量创建user_profiles和order_reviews。升级前备份数据库及uploads卷，使用现有卷启动；不要重置现有演示数据。历史用户不补造资料，历史订单评价窗口依据可信SETTLEMENT操作和对应账本的原始时刻加7天，无可靠结算记录则不开放评价。
+
+- 身份资料：GET /profile、兼容昵称更新的PATCH /profile；普通用户可维护头像、昵称、学校、校区、简介和选填性别。头像使用AVATAR用途，必须由本人上传，当前关联头像登录可读，旧头像仅所有者可读。
+- 相关用户资料：GET /users/{id}/profile、/products、/reviews。查看他人必须带contextType=product|order|report|case及contextId；每个子资源都核对会话角色、业务访问权限和目标参与关系。本人可无上下文查看本人。商品/评价固定20条分页，不提供任意用户搜索或余额。
+- 岗位范围：管理员以商品审核或举报查看发布者及举报人，并读取当前记录的理由、状态和处理历史；客服以售后或关联售后订单查看交易双方及当前处理历史，凭证使用既有授权订单链接。举报链接携带status=ALL及精确编号搜索，返回资料页保留来源业务的查询参数。
+- 评价：GET/POST /orders/{id}/reviews。服务端推导对方及买卖身份，仅完成且已结算的参与者在7天内各提交一次整数1—5星、1—500字文字；不可修改删除。双方提交同事务公开，单方到期公开。未公开评价仅作者本人可读，其他用户及工作人员不可读，也不计信用。
+- 信用：PublicReviewQueries按subjectRole分别汇总BUYER和SELLER，仅公开评价计分；平均值HALF_UP保留两位后分级，>=4.50优秀、>=4.00良好、>=3.00一般，其余待提升；count=0时average=null、grade=暂无评价。
+- 任务及通知：持久化REVIEW_PUBLICATION任务由demo/real执行器处理；订单锁、唯一约束和幂等结果保证重复/并发不重复评价或通知。隐藏提交只向作者发送BUSINESS_CHANGED；公开后向双方各发REVIEWS_PUBLISHED“订单评价已公开”，沿用已有通知与页面刷新机制。
+
+契约由scripts/build-contract.py生成contracts/openapi.yaml，前端执行npm run generate:types。资料和评价文本采用与浏览器一致的边缘空白及Unicode码点长度规则。客户端身份或被评价人字段不构成授权依据，提交额外评价字段会被拒绝。

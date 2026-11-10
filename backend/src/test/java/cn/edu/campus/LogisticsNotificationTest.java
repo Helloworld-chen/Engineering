@@ -7,6 +7,7 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -76,8 +77,16 @@ class LogisticsNotificationTest extends WorkflowTestSupport {
   }
 
   @Test void migrationRemovesOnlyProvableWrongRecipientsAndIsRepeatable() throws Exception {
-    String order = paid(new Browser("buyer"));
-    db.update("DELETE FROM outbox");
+    // Production applies Flyway before dispatch. Keep test events private until migration finishes.
+    var retained = new TransactionTemplate(transactions).execute(status -> migrateLegacyRows());
+    dispatch(); dispatch();
+    assertThat(db.queryForList("SELECT id FROM notifications ORDER BY id",Long.class)).containsExactlyElementsOf(retained);
+  }
+
+  private List<Long> migrateLegacyRows() {
+    String order = UUID.randomUUID().toString();
+    db.update("INSERT INTO orders(id,product_id,buyer_id,seller_id,amount,status,created_at,pay_deadline)"
+        + " VALUES(?,?,'buyer','seller',10000,'DELIVERED',0,0)", order, product());
     String[] messages = {"卖家已发货，10秒后自动送达", "商品已送达，48小时内可确认收货或申请售后", "买家已寄回商品，10秒后自动送达", "退货已送达，卖家有24小时验收"};
     var wrong = new ArrayList<Long>(); var retained = new ArrayList<Long>();
     long next = 1000000;
@@ -98,12 +107,15 @@ class LogisticsNotificationTest extends WorkflowTestSupport {
     var before = db.queryForList("SELECT * FROM notifications WHERE id IN ("+String.join(",",retained.stream().map(String::valueOf).toList())+") ORDER BY id");
     var migration = new ClassPathResource("db/migration/V2__logistics_notification_recipients.sql");
     assertThat(migration.exists()).isTrue();
-    try(var connection=db.getDataSource().getConnection()) { ScriptUtils.executeSqlScript(connection,migration); ScriptUtils.executeSqlScript(connection,migration); }
+    db.execute((ConnectionCallback<Void>) connection -> {
+      ScriptUtils.executeSqlScript(connection, migration);
+      ScriptUtils.executeSqlScript(connection, migration);
+      return null;
+    });
     assertThat(db.queryForList("SELECT id FROM notifications ORDER BY id",Long.class)).containsExactlyElementsOf(retained);
     assertThat(db.queryForList("SELECT * FROM notifications ORDER BY id")).isEqualTo(before);
     for (long id:wrong) assertThat(db.queryForObject("SELECT event_type FROM outbox WHERE id=?",String.class,id)).isEqualTo("BUSINESS_CHANGED");
-    dispatch(); dispatch();
-    assertThat(db.queryForList("SELECT id FROM notifications ORDER BY id",Long.class)).containsExactlyElementsOf(retained);
+    return retained;
   }
 
   void legacy(long id,String order,String user,String type,String message,boolean delivered,boolean read) {

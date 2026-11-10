@@ -96,7 +96,9 @@ public class RealIdentityAdapter implements IdentityPort {
 
   @Override
   public Actor updateProfile(Actor actor, String displayName) {
-    requireDisplayName(displayName);
+    if (displayName == null || displayName.isBlank() || !validLength(displayName, 1, 80)) {
+      throw new BusinessException("INVALID_INPUT", "昵称需为1至80个字符", 400);
+    }
     db.update("UPDATE users SET display_name=? WHERE id=?", displayName, actor.id());
     return find(actor.id());
   }

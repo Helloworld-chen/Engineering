@@ -1,7 +1,7 @@
 import {createRouter,createWebHistory} from 'vue-router';
 import {useSession} from './stores/session';
 import {homeFor,canVisit} from './lib/access';
-const router=createRouter({history:createWebHistory(),scrollBehavior:()=>({top:0}),routes:[
+const router=createRouter({history:createWebHistory(),scrollBehavior:(to,from)=>to.path===from.path&&to.path.startsWith('/users/')?false:{top:0},routes:[
  {path:'/admin',component:()=>import('./views/StaffDashboard.vue'),meta:{role:'ADMIN'}},
  {path:'/support',component:()=>import('./views/StaffDashboard.vue'),meta:{role:'SUPPORT'}},
  {path:'/moderation/:id',component:()=>import('./views/ModerationDetail.vue'),meta:{role:'ADMIN'}},
@@ -18,6 +18,7 @@ const router=createRouter({history:createWebHistory(),scrollBehavior:()=>({top:0
  {path:'/moderation',component:()=>import('./views/ModerationView.vue'),meta:{role:'ADMIN'}},
  {path:'/reports',component:()=>import('./views/ReportsView.vue'),meta:{auth:true}},
  {path:'/notifications',component:()=>import('./views/NotificationsView.vue'),meta:{auth:true}},
+ {path:'/users/:id',component:()=>import('./views/UserProfileView.vue'),meta:{auth:true}},
  {path:'/profile',component:()=>import('./views/ProfileView.vue'),meta:{auth:true}},
  {path:'/:pathMatch(.*)*',component:()=>import('./views/NotFound.vue')}
 ]});

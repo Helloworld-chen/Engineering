@@ -79,14 +79,75 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** 查看本人资料 */
+        get: operations["get__profile"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        /** 更新本人昵称 */
+        /** 更新本人资料，岗位账号仅可修改昵称和头像 */
         patch: operations["patch__profile"];
+        trace?: never;
+    };
+    "/users/{id}/profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查看授权用户资料及买卖信用
+         * @description 查看本人资料无需上下文。其他普通用户资料需有权访问对应商品、订单、举报或售后单，且目标用户与业务记录相关。岗位账号可查看当前记录的业务详情、处理历史和业务链接。
+         */
+        get: operations["get__users_id_profile"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{id}/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查看授权用户的已审核在售和售出商品
+         * @description 查看本人资料无需上下文。其他普通用户资料需有权访问对应商品、订单、举报或售后单，且目标用户与业务记录相关。
+         */
+        get: operations["get__users_id_products"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/users/{id}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查看授权用户的已公开评价
+         * @description 查看本人资料无需上下文。其他普通用户资料需有权访问对应商品、订单、举报或售后单，且目标用户与业务记录相关。
+         */
+        get: operations["get__users_id_reviews"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/products": {
@@ -174,6 +235,30 @@ export interface paths {
         get: operations["get__orders_id"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/orders/{id}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查询订单评价资格、本人评价和已公开评价
+         * @description 买卖双方可查看自己的待公开评价。关联售后的客服可查看已公开评价。
+         */
+        get: operations["get__orders_id_reviews"];
+        put?: never;
+        /**
+         * 在结算后7天内提交一次不可编辑的评价
+         * @description 双方提交后同步公开。期限届满时公开已提交评价。
+         */
+        post: operations["post__orders_id_reviews"];
         delete?: never;
         options?: never;
         head?: never;
@@ -516,6 +601,90 @@ export interface components {
             /** @enum {string} */
             role: "USER" | "ADMIN" | "SUPPORT";
         };
+        UserProfile: {
+            id: string;
+            displayName: string;
+            avatarId: string | null;
+            school: string;
+            campus: string;
+            bio: string;
+            /** @enum {string} */
+            gender: "" | "MALE" | "FEMALE" | "OTHER";
+            avatarUrl: string | null;
+        };
+        CreditSummary: {
+            count: number;
+            average: number | null;
+            /** @enum {string} */
+            grade: "暂无评价" | "优秀" | "良好" | "一般" | "待提升";
+            distribution: {
+                1: number;
+                2: number;
+                3: number;
+                4: number;
+                5: number;
+            };
+        };
+        ProfileContext: {
+            /** @enum {string} */
+            type: "product" | "order" | "report" | "case";
+            id: string;
+            title: string;
+            details: {
+                label: string;
+                value: string;
+            }[];
+            links: {
+                label: string;
+                path: string;
+            }[];
+        };
+        UserProfileView: {
+            id: string;
+            displayName: string;
+            avatarId: string | null;
+            school: string;
+            campus: string;
+            bio: string;
+            /** @enum {string} */
+            gender: "" | "MALE" | "FEMALE" | "OTHER";
+            avatarUrl: string | null;
+            buyerCredit: components["schemas"]["CreditSummary"];
+            sellerCredit: components["schemas"]["CreditSummary"];
+            context: components["schemas"]["ProfileContext"] | null;
+        };
+        PublicReview: {
+            id: string;
+            reviewerName: string;
+            /** @enum {string} */
+            reviewerRole: "BUYER" | "SELLER";
+            /** @enum {string} */
+            subjectRole: "BUYER" | "SELLER";
+            stars: number;
+            comment: string;
+            /** Format: date-time */
+            publishedAt: string;
+            productTitle: string;
+        };
+        OwnReview: {
+            id: string;
+            stars: number;
+            comment: string;
+            /** Format: date-time */
+            submittedAt: string;
+            /** Format: date-time */
+            publishedAt: string | null;
+        };
+        ReviewSnapshot: {
+            eligible: boolean;
+            reason: string;
+            /** Format: date-time */
+            deadline: string | null;
+            /** Format: date-time */
+            serverTime: string;
+            ownReview: components["schemas"]["OwnReview"] | null;
+            items: components["schemas"]["PublicReview"][];
+        };
         Product: {
             id: string;
             sellerId: string;
@@ -616,6 +785,8 @@ export interface components {
             id: string;
             productId: string;
             reporterId: string;
+            /** @description 仅管理员可见 */
+            sellerId?: string | null;
             reason: string;
             status: string;
             result: string | null;
@@ -947,6 +1118,71 @@ export interface operations {
             };
         };
     };
+    get__profile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProfile"];
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
     patch__profile: {
         parameters: {
             query?: never;
@@ -960,7 +1196,13 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    displayName: string;
+                    displayName?: string;
+                    avatarId?: string | null;
+                    school?: string;
+                    campus?: string;
+                    bio?: string;
+                    /** @enum {string} */
+                    gender?: "" | "MALE" | "FEMALE" | "OTHER";
                 };
             };
         };
@@ -973,6 +1215,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         user: components["schemas"]["Actor"];
+                        profile: components["schemas"]["UserProfile"];
                     };
                 };
             };
@@ -996,6 +1239,259 @@ export interface operations {
             };
             /** @description 无权限或CSRF失败 */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    get__users_id_profile: {
+        parameters: {
+            query?: {
+                contextType?: "product" | "order" | "report" | "case";
+                contextId?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProfileView"];
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 业务记录不存在 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    get__users_id_products: {
+        parameters: {
+            query?: {
+                contextType?: "product" | "order" | "report" | "case";
+                contextId?: string;
+                page?: number;
+                status?: "ALL" | "AVAILABLE" | "SOLD";
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["Product"][];
+                        total: number;
+                        page: number;
+                        /** @constant */
+                        pageSize: 20;
+                    };
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 业务记录不存在 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    get__users_id_reviews: {
+        parameters: {
+            query?: {
+                contextType?: "product" | "order" | "report" | "case";
+                contextId?: string;
+                page?: number;
+                role?: "ALL" | "BUYER" | "SELLER";
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["PublicReview"][];
+                        total: number;
+                        page: number;
+                        /** @constant */
+                        pageSize: 20;
+                    };
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 业务记录不存在 */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -1567,6 +2063,168 @@ export interface operations {
             };
             /** @description 无权限或CSRF失败 */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    get__orders_id_reviews: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewSnapshot"];
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 业务记录不存在 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 状态、期限或请求冲突 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 恢复中或数据库暂时不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    post__orders_id_reviews: {
+        parameters: {
+            query?: never;
+            header: {
+                "X-CSRF-TOKEN": string;
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    stars: number;
+                    comment: string;
+                };
+            };
+        };
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewSnapshot"];
+                };
+            };
+            /** @description 输入无效 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 未登录 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 无权限或CSRF失败 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+            /** @description 业务记录不存在 */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2931,7 +3589,7 @@ export interface operations {
             content: {
                 "multipart/form-data": {
                     /** @enum {string} */
-                    purpose: "PRODUCT" | "GOODS" | "PACKAGING" | "RETURN_GOODS" | "RETURN_PACKAGING";
+                    purpose: "PRODUCT" | "GOODS" | "PACKAGING" | "RETURN_GOODS" | "RETURN_PACKAGING" | "AVATAR";
                     /** Format: binary */
                     file: string;
                 };

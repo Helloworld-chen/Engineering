@@ -59,7 +59,7 @@ public class DemoIdentityAdapter implements IdentityPort {
   }
 
   public Actor updateProfile(Actor actor, String name) {
-    if (name.isBlank() || name.length() > 80)
+    if (name.isBlank() || name.codePointCount(0, name.length()) > 80)
       throw new BusinessException("INVALID_INPUT", "昵称需1至80个字符", 400);
     db.update("UPDATE users SET display_name=? WHERE id=?", name, actor.id());
     return find(actor.id());
