@@ -1,9 +1,12 @@
 package cn.edu.campus.shared;
 
+import java.util.Map;
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.*;
 
@@ -18,7 +21,14 @@ public class SecurityConfig {
 
   @Bean
   PasswordEncoder passwords() {
-    return new BCryptPasswordEncoder();
+    var pbkdf2 = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+    // Base64 keeps the salted hash and its algorithm identifier within the existing column.
+    pbkdf2.setEncodeHashAsBase64(true);
+    var bcrypt = new BCryptPasswordEncoder();
+    var encoder =
+        new DelegatingPasswordEncoder("pbkdf2-v5_8", Map.of("pbkdf2-v5_8", pbkdf2, "bcrypt", bcrypt));
+    encoder.setDefaultPasswordEncoderForMatches(bcrypt);
+    return encoder;
   }
 
   @Bean

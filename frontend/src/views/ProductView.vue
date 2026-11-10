@@ -3,7 +3,8 @@ import {computed,ref} from 'vue';
 import {useRoute,useRouter} from 'vue-router';
 import {PhArrowLeft,PhFlag,PhUser,PhClock} from '@phosphor-icons/vue';
 import {api,date,money,type Product,type Order} from '../api/client';
-import {useLoad} from '../lib/load';
+import {useWorkLoad} from '../lib/workLoad';
+import {isStaff,homeFor,returnTo} from '../lib/access';
 import {useAction} from '../lib/action';
 import {useSession} from '../stores/session';
 import PageState from '../components/PageState.vue';
@@ -11,8 +12,9 @@ import ProductPhoto from '../components/ProductPhoto.vue';
 import StatusBadge from '../components/StatusBadge.vue';
 import ActionDialog from '../components/ActionDialog.vue';
 const route=useRoute(),router=useRouter(),session=useSession();
+const back=computed(()=>returnTo(route.query.from,session.user?.role,homeFor(session.user?.role),session.user?.role==='ADMIN'?['/admin','/moderation','/reports']:session.user?.role==='SUPPORT'?['/support','/cases','/orders']:['/','/reports']));
 const id=encodeURIComponent(String(route.params.id));
-const {data:product,loading,error,reload}=useLoad(()=>api<Product>('/products/'+id));
+const {data:product,loading,error,reload}=useWorkLoad(()=>api<Product>('/products/'+id),true);
 const {busy,error:actionError,success,run}=useAction();
 const selected=ref(0),dialog=ref(false),report=ref(false);
 const owner=computed(()=>session.user?.id===product.value?.sellerId);
@@ -32,7 +34,7 @@ function confirm(reason:string){
 }
 </script>
 <template>
- <RouterLink class="back-link" to="/"><PhArrowLeft :size="16" aria-hidden="true"/> 返回商品集市</RouterLink>
+ <RouterLink class="back-link" :to="back"><PhArrowLeft :size="16" aria-hidden="true"/> {{isStaff(session.user?.role)?'返回工作页面':back.startsWith('/reports')?'返回举报记录':'返回商品集市'}}</RouterLink>
  <PageState :loading="loading" :error="error" @retry="reload">
   <article v-if="product" class="detail-grid">
    <section class="stack" aria-label="商品照片">

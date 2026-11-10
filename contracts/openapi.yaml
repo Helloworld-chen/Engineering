@@ -2785,7 +2785,7 @@
     },
     "/notifications": {
       "get": {
-        "summary": "本人最近100条通知",
+        "summary": "本人最近100条通知及全部未读数量",
         "operationId": "get__notifications",
         "security": [
           {
@@ -2799,18 +2799,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/Notification"
-                      }
-                    }
-                  },
-                  "required": [
-                    "items"
-                  ]
+                  "$ref": "#/components/schemas/NotificationSnapshot"
                 }
               }
             }
@@ -2862,6 +2851,118 @@
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/read-all": {
+      "post": {
+        "summary": "本人截至指定编号的通知全部标为已读",
+        "operationId": "post__notifications_read_all",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-CSRF-TOKEN",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "输入无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或CSRF失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "状态、期限或请求冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "恢复中或数据库暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "throughId": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]{0,18}$"
+                  }
+                },
+                "required": [
+                  "throughId"
+                ]
               }
             }
           }
@@ -3425,7 +3526,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "ready / changed 命名事件；无历史重放",
+            "description": "ready / changed / notifications-read 命名事件；notifications-read仅表示本人已读状态已提交；无历史重放",
             "content": {
               "text/event-stream": {
                 "schema": {
@@ -3897,6 +3998,32 @@
           "message",
           "createdAt",
           "isRead"
+        ]
+      },
+      "NotificationSnapshot": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          },
+          "unreadCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "latestId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "unreadCount",
+          "latestId"
         ]
       },
       "Report": {

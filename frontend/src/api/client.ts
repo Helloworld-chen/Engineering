@@ -5,6 +5,7 @@ export type Order=components['schemas']['Order'];
 export type Case=components['schemas']['Case'];
 export type Report=components['schemas']['Report'];
 export type Notification=components['schemas']['Notification'];
+export type NotificationSnapshot=components['schemas']['NotificationSnapshot'];
 export type Session=components['schemas']['Session'];
 let csrf='';
 let recoverSession: (()=>Promise<void>)|undefined;

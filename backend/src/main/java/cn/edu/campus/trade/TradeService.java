@@ -76,6 +76,7 @@ public class TradeService implements TradePort, TradeAfterSalesPort, TradeTaskPo
     products.updateSale(productId, "LOCKED");
     time.schedule(id, "PAYMENT", 0, now + 120000);
     time.emit(actor.id(), id, "ORDER_CREATED", "订单已创建，请在2分钟内付款");
+    time.emit(s(p, "seller_id"), id, "ORDER_CREATED", "有买家下单，等待付款");
     return query(actor, id);
   }
 
@@ -130,7 +131,8 @@ public class TradeService implements TradePort, TradeAfterSalesPort, TradeTaskPo
     o.put("status", "AWAITING_SHIPMENT");
     o.put("payment_generation", n(o, "payment_generation") + 1);
     db.saveOrder(o);
-    notifyBoth(o, "PAID", "付款成功，货款由平台暂管");
+    time.emit(s(o, "buyer_id"), id, "PAID", "付款成功，货款由平台暂管");
+    time.emit(s(o, "seller_id"), id, "PAID", "买家已付款，请及时发货");
     return query(a, id);
   }
 

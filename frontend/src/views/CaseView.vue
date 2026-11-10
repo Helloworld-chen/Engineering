@@ -4,7 +4,8 @@ import {useRoute} from 'vue-router';
 import {PhClock,PhWallet} from '@phosphor-icons/vue';
 import {api,date,money,type Case,type Order} from '../api/client';
 import {label} from '../lib/labels';
-import {useLoad} from '../lib/load';
+import {useWorkLoad} from '../lib/workLoad';
+import {returnTo} from '../lib/access';
 import {useAction} from '../lib/action';
 import {useSession} from '../stores/session';
 import PageState from '../components/PageState.vue';
@@ -12,7 +13,9 @@ import StatusBadge from '../components/StatusBadge.vue';
 import Countdown from '../components/Countdown.vue';
 import ActionDialog from '../components/ActionDialog.vue';
 const route=useRoute(),session=useSession(),id=String(route.params.id);
-const {data,loading,error,reload}=useLoad(async()=>{
+const back=computed(()=>returnTo(route.query.from,session.user?.role,session.user?.role==='SUPPORT'?'/cases?group=pending':'/cases',['/cases','/support']));
+const orderLink=computed(()=>({path:'/orders/'+data.value?.order.id,query:session.user?.role==='SUPPORT'?{from:route.fullPath}:undefined}));
+const {data,loading,error,reload}=useWorkLoad(async()=>{
  const {items}=await api<{items:Case[]}>('/cases');
  const item=items.find(value=>value.id===id);
  if(!item)throw new Error('当前账号无法读取此售后记录。');
@@ -55,7 +58,7 @@ function submit(reason:string){
 }
 </script>
 <template>
- <RouterLink class="back-link" to="/cases">← 返回售后记录</RouterLink>
+ <RouterLink class="back-link" :to="back">← {{session.user?.role==='SUPPORT'?(back.startsWith('/support')?'返回工作台':'返回售后处理'):'返回售后记录'}}</RouterLink>
  <div class="page-heading"><div><h1>售后详情</h1><p class="mono">售后单号 {{id}}</p></div><button class="button" :disabled="loading" @click="reload()">刷新售后</button></div>
  <PageState :loading="loading" :error="error" @retry="reload">
   <div v-if="data" class="order-grid">
@@ -65,12 +68,12 @@ function submit(reason:string){
     <div class="stack tight section-divider"><h3>申请理由</h3><p class="preserve">{{data.item.reason}}</p></div>
     <div v-if="data.item.decision" class="stack tight section-divider"><h3>最近处理 · {{label(data.item.decision)}}</h3><p class="preserve">{{data.item.decisionReason}}</p></div>
     <div v-if="data.item.deadline" class="deadline-box"><div class="row"><PhClock :size="18" aria-hidden="true"/>当前处理剩余时间</div><Countdown :deadline="data.item.deadline" :server-time="data.order.serverTime"/><p class="muted">截止 {{date(data.item.deadline)}}</p></div>
-    <p v-if="data.item.status==='SUPPORT_REVIEW'" class="notice muted">等待客服处理，货款继续由平台暂管。</p>
+    <p v-if="data.item.status==='SUPPORT_REVIEW'" class="notice muted">{{session.user?.role==='SUPPORT'?'请核对申请和凭证后提交处理决定。货款继续由平台暂管。':'等待客服处理，货款继续由平台暂管。'}}</p>
     <div v-if="available.length" class="row"><button v-for="(key,index) in available" :key="key" class="button" :class="{primary:index===0}" :disabled="busy" @click="open(key)">{{actions[key].title}}</button></div>
-    <RouterLink v-if="data.order.allowedActions.includes('RETURN_SHIP')" :to="'/orders/'+data.order.id" class="button primary">前往订单提交退货凭证</RouterLink>
+    <RouterLink v-if="data.order.allowedActions.includes('RETURN_SHIP')" :to="orderLink" class="button primary">前往订单提交退货凭证</RouterLink>
     <p v-if="success" class="success" role="status">{{success}}</p>
    </section>
-   <aside class="panel stack"><h2>关联订单</h2><RouterLink class="record-title" :to="'/orders/'+data.order.id">{{data.order.product.title}} →</RouterLink><div class="row spread"><span class="row"><PhWallet :size="18"/> {{money(data.order.amount)}}</span><StatusBadge :value="data.order.fundsStatus"/></div><p v-if="data.order.receiptPaused" class="muted">自动收货已暂停。</p><RouterLink class="button" :to="'/orders/'+data.order.id">查看订单与物流凭证</RouterLink></aside>
+   <aside class="panel stack"><h2>关联订单</h2><RouterLink class="record-title" :to="orderLink">{{data.order.product.title}} →</RouterLink><div class="row spread"><span class="row"><PhWallet :size="18"/> {{money(data.order.amount)}}</span><StatusBadge :value="data.order.fundsStatus"/></div><p v-if="data.order.receiptPaused" class="muted">自动收货已暂停。</p><RouterLink class="button" :to="orderLink">查看订单与物流凭证</RouterLink></aside>
   </div>
  </PageState>
  <ActionDialog v-model="dialog" :title="actions[selection]?.title||''" :description="description" requires-reason :busy="busy" :error="actionError" @confirm="submit"/>

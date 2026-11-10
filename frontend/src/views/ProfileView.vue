@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {ref,watch} from 'vue';
 import {api,date,money} from '../api/client';
 import {label} from '../lib/labels';
 import {useAction} from '../lib/action';
@@ -7,6 +7,7 @@ import {useSession} from '../stores/session';
 const session=useSession();
 const displayName=ref(session.user?.displayName||''),seconds=ref('11'),confirmation=ref(''),resetDialog=ref(false),serverTime=ref('');
 const profile=useAction(),demo=useAction();
+watch(()=>session.user?.id,()=>{displayName.value=session.user?.displayName||'';profile.error.value='';profile.success.value='';serverTime.value='';resetDialog.value=false});
 function save(){
  void profile.run(async()=>{
   if(!displayName.value.trim())throw new Error('请填写昵称');
@@ -32,11 +33,11 @@ function reset(){
 }
 </script>
 <template>
- <div class="page-heading"><div><h1>个人中心</h1><p>查看账号身份和模拟余额。</p></div></div>
+ <div class="page-heading"><div><h1>{{session.user?.role==='USER'?'个人中心':'账号资料'}}</h1><p>{{session.user?.role==='USER'?'查看账号身份和模拟余额。':'查看岗位身份和维护账号资料。'}}</p></div></div>
  <div class="order-grid">
   <section class="panel stack">
    <h2>账号资料</h2>
-   <dl class="facts"><dt>用户名</dt><dd>{{session.user?.username}}</dd><dt>身份</dt><dd>{{label(session.user?.role||'')}}</dd><dt>模拟余额</dt><dd><strong>{{money(session.balance||0)}}</strong></dd></dl>
+   <dl class="facts"><dt>用户名</dt><dd>{{session.user?.username}}</dd><dt>身份</dt><dd>{{label(session.user?.role||'')}}</dd><template v-if="session.user?.role==='USER'"><dt>模拟余额</dt><dd><strong>{{money(session.balance||0)}}</strong></dd></template></dl>
    <form class="stack section-divider" @submit.prevent="save">
     <label class="field-label">昵称<input v-model="displayName" required maxlength="80"/></label>
     <p v-if="profile.error.value" class="error" role="alert">{{profile.error.value}}</p>
@@ -44,7 +45,7 @@ function reset(){
     <div><button class="button primary" :disabled="profile.busy.value" type="submit">{{profile.busy.value?'正在保存…':'保存昵称'}}</button></div>
    </form>
   </section>
-  <aside class="panel stack"><h2>账号记录</h2><RouterLink class="related-link" to="/notifications">查看通知 →</RouterLink><RouterLink class="related-link" to="/reports">{{session.user?.role==='ADMIN'?'举报处理':'我的举报'}} →</RouterLink></aside>
+  <aside class="panel stack"><h2>账号记录</h2><RouterLink class="related-link" to="/notifications">查看通知 →</RouterLink><RouterLink v-if="session.user?.role!=='SUPPORT'" class="related-link" to="/reports">{{session.user?.role==='ADMIN'?'举报处理':'我的举报'}} →</RouterLink></aside>
  </div>
  <section v-if="session.demo&&session.user?.role==='ADMIN'" class="panel stack demo-controls">
   <div class="eyebrow">仅课程演示</div><h2>演示控制</h2><p class="muted">推进后端业务时钟会处理到期订单、物流和售后任务。</p>

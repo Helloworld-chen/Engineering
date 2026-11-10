@@ -19,37 +19,45 @@ public class DemoNotificationAdapter implements NotificationPort {
   private record Connection(String user, String session, SseEmitter emitter) {}
 
   private final MutationGate gate;
+  private final NotificationInbox inbox;
   private final Map<String, Connection> clients = new ConcurrentHashMap<>();
   private final JdbcTemplate db;
   private final TransactionTemplate tx;
 
   public DemoNotificationAdapter(
-      JdbcTemplate db, PlatformTransactionManager manager, MutationGate gate) {
+      JdbcTemplate db, PlatformTransactionManager manager, MutationGate gate, NotificationInbox inbox) {
     this.gate = gate;
+    this.inbox = inbox;
     this.db = db;
     tx = new TransactionTemplate(manager);
   }
 
-  public List<Map<String, Object>> list(Actor a) {
-    return db
-        .queryForList(
-            "SELECT * FROM notifications WHERE recipient_id=? ORDER BY created_at DESC,id DESC"
-                + " LIMIT 100",
-            a.id())
-        .stream()
-        .map(
-            r -> {
-              var m = view(r);
-              m.put("id", s(r, "id"));
-              return m;
-            })
-        .toList();
+  @Override
+  public List<Map<String, Object>> list(Actor actor) { return inbox.list(actor); }
+
+  @Override
+  public Map<String, Object> snapshot(Actor actor) { return inbox.snapshot(actor); }
+
+  @Override
+  public void read(Actor actor, long id) {
+    inbox.read(actor, id, () -> notifyRead(actor));
   }
 
-  public void read(Actor a, long id) {
-    BusinessException.allowed(
-        db.update("UPDATE notifications SET is_read=TRUE WHERE id=? AND recipient_id=?", id, a.id())
-            == 1);
+  @Override
+  public void readAll(Actor actor, long throughId) {
+    inbox.readAll(actor, throughId, () -> notifyRead(actor));
+  }
+
+  private void notifyRead(Actor actor) {
+    clients.forEach((id, connection) -> {
+      if (!connection.user().equals(actor.id())) return;
+      try {
+        connection.emitter().send(SseEmitter.event().name("notifications-read").data(map("success", true)));
+      } catch (Exception failure) {
+        connection.emitter().complete();
+        clients.remove(id);
+      }
+    });
   }
 
   public SseEmitter subscribe(Actor a, String session) {

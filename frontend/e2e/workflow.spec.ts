@@ -1,4 +1,4 @@
-import {test,expect,type Page,type TestInfo} from '@playwright/test';
+import {test,expect,type Page,type Request,type TestInfo} from '@playwright/test';
 
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jM1sAAAAASUVORK5CYII=','base64');
 const picture = {name:'fixture.png',mimeType:'image/png',buffer:png};
@@ -8,7 +8,7 @@ async function login(page: Page, username: string) {
  await page.getByLabel('用户名',{exact:true}).fill(username);
  await page.getByLabel('密码',{exact:true}).fill('Campus123!');
  await page.getByRole('button',{name:'登录',exact:true}).click();
- await expect(page).toHaveURL(/\/$/);
+ await expect(page).toHaveURL(new RegExp('/'+(username==='admin'?'admin':username==='support'?'support':'')+'$'));
 }
 
 async function photograph(page: Page, info: TestInfo, name: string) {
@@ -58,14 +58,15 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await seller.getByLabel(/商品照片/).setInputFiles(picture);
   await expect(seller.getByAltText('商品照片预览')).toBeVisible();
   await seller.getByRole('button',{name:'提交审核'}).click();
-  await expect(seller.getByRole('status')).toContainText('商品已提交审核');
+  await expect(seller.locator('main').getByRole('status')).toContainText('商品已提交审核');
   const productPath=(await seller.getByRole('link',{name:title,exact:true}).getAttribute('href'))!;
 
   await admin.goto('/moderation');
-  await admin.getByRole('article').filter({hasText:title}).getByRole('button',{name:'通过',exact:true}).click();
+  await admin.getByRole('article').filter({hasText:title}).getByRole('link',{name:'审核商品',exact:true}).click();
+  await admin.getByRole('button',{name:'通过',exact:true}).click();
   await admin.getByLabel('审核理由').fill('课程演示商品，资料齐全');
   await admin.getByRole('button',{name:'确认通过审核'}).click();
-  await expect(admin.getByRole('status')).toContainText('审核结果已保存');
+  await expect(admin.locator('main').getByRole('status')).toContainText('审核结果已保存');
 
   await buyer.goto('/');
   await buyer.getByLabel('商品关键词').fill(title);
@@ -115,6 +116,12 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await seller.context().setOffline(false);
   await expect(seller.getByRole('button',{name:'通过退货验收',exact:true})).toBeVisible({timeout:16000});
   await expect(seller.locator('.countdown')).toBeVisible();
+  await seller.goto('/my/products');
+  const returnedProduct=seller.getByRole('article').filter({hasText:title});
+  await expect(returnedProduct.getByText('待你验收退货',{exact:true})).toBeVisible();
+  await expect(seller.getByRole('article').first()).toContainText(title);
+  await returnedProduct.getByRole('link',{name:'处理售后',exact:true}).click();
+  await expect(seller).toHaveURL(new RegExp(casePath+'$'));
   await seller.getByRole('button',{name:'通过退货验收',exact:true}).click();
   await seller.getByLabel('处理理由').fill('商品及包装验收无误');
   await seller.getByRole('button',{name:'确认通过退货验收'}).click();
@@ -137,11 +144,28 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await page.getByLabel('用户名',{exact:true}).fill(username);
   await page.getByLabel('昵称',{exact:true}).fill('新同学');
   await page.getByLabel('密码',{exact:true}).fill('Campus123!');
+  const confirmation=page.getByLabel('确认密码',{exact:true});
+  await confirmation.fill('Campus123?');
+  const registrationRequests:Request[]=[];
+  page.on('request',request=>{
+   if(request.method()==='POST'&&new URL(request.url()).pathname==='/api/v1/auth/register')registrationRequests.push(request);
+  });
   await page.getByRole('button',{name:'注册',exact:true}).click();
+  await expect(confirmation).toHaveAccessibleDescription('两次输入的密码不一致');
+  expect(registrationRequests).toHaveLength(0);
+
+  await confirmation.fill('Campus123!');
+  await page.getByRole('button',{name:'注册',exact:true}).click();
+  await expect(page.getByRole('link',{name:'个人中心 · 新同学'})).toBeVisible();
+  expect(registrationRequests).toHaveLength(1);
+  expect(registrationRequests[0].postDataJSON()).toEqual({username,password:'Campus123!',displayName:'新同学'});
+  await page.getByRole('button',{name:'退出',exact:true}).click();
+  await expect(page.getByRole('link',{name:'登录',exact:true})).toBeVisible();
+  await login(page,username);
   await page.getByRole('link',{name:'个人中心 · 新同学'}).click();
   await page.getByLabel('昵称',{exact:true}).fill('收纳小组');
   await page.getByRole('button',{name:'保存昵称'}).click();
-  await expect(page.getByRole('status')).toContainText('昵称已更新');
+  await expect(page.locator('main').getByRole('status')).toContainText('昵称已更新');
   await expect(page.getByRole('link',{name:'个人中心 · 收纳小组'})).toBeVisible();
 
   await page.goto('/publish');
@@ -164,10 +188,11 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await admin.goto('/moderation');
   const pending=admin.getByRole('article').filter({hasText:title});
   await expect(pending).toContainText('尺寸 28 × 20 厘米');
-  await pending.getByRole('button',{name:'通过',exact:true}).click();
+  await pending.getByRole('link',{name:'审核商品',exact:true}).click();
+  await admin.getByRole('button',{name:'通过',exact:true}).click();
   await admin.getByLabel('审核理由').fill('已检查商品描述和照片');
   await admin.getByRole('button',{name:'确认通过审核'}).click();
-  await expect(admin.getByRole('status')).toContainText('审核结果已保存');
+  await expect(admin.locator('main').getByRole('status')).toContainText('审核结果已保存');
   await expect(row.getByText('审核通过',{exact:true})).toBeVisible();
   await row.getByRole('button',{name:'下架',exact:true}).click();
   await expect(row.getByText('已下架',{exact:true})).toBeVisible();
@@ -178,14 +203,14 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await page.getByRole('button',{name:'举报商品'}).click();
   await page.getByLabel('举报理由').fill('演示验收：检查商品照片信息 '+suffix);
   await page.getByRole('button',{name:'确认举报商品'}).click();
-  await expect(page.getByRole('status')).toContainText('举报已提交');
+  await expect(page.locator('main').getByRole('status')).toContainText('举报已提交');
   await page.goto('/reports');
   await expect(page.getByText('演示验收：检查商品照片信息 '+suffix)).toBeVisible();
   await admin.goto('/reports');
   await admin.getByRole('article').filter({hasText:suffix}).getByRole('button',{name:'处理举报'}).click();
   await admin.getByRole('textbox',{name:'处理结果',exact:true}).fill('核对完毕，演示举报已归档');
   await admin.getByRole('button',{name:'确认保存处理结果'}).click();
-  await expect(admin.getByRole('status')).toContainText('举报处理结果已保存');
+  await expect(admin.locator('main').getByRole('status')).toContainText('举报处理结果已保存');
   await expect(page.getByText('处理结果 · 核对完毕，演示举报已归档')).toBeVisible();
 
   await page.getByRole('link',{name:'通知',exact:true}).click();
@@ -224,10 +249,11 @@ test('商品版本变化时保留编辑草稿并显式应用最新版本',async(
   await description.fill('编辑页保存的商品说明草稿。');
 
   await admin.goto('/moderation');
-  await admin.getByRole('article').filter({hasText:title}).getByRole('button',{name:'通过',exact:true}).click();
+  await admin.getByRole('article').filter({hasText:title}).getByRole('link',{name:'审核商品',exact:true}).click();
+  await admin.getByRole('button',{name:'通过',exact:true}).click();
   await admin.getByLabel('审核理由').fill('并发版本验证');
   await admin.getByRole('button',{name:'确认通过审核'}).click();
-  await expect(admin.getByRole('status')).toContainText('审核结果已保存');
+  await expect(admin.locator('main').getByRole('status')).toContainText('审核结果已保存');
 
   await page.getByRole('button',{name:'提交审核'}).click();
   await expect(page.getByRole('alert')).toContainText('商品版本');

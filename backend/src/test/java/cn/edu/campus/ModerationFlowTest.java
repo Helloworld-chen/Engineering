@@ -88,7 +88,7 @@ class ModerationFlowTest extends ApiTestSupport {
   }
 
   @Test
-  void violationResolutionTakesProductOffShelf() throws Exception {
+  void violationOnOnSaleProductIsRecordedButTakedownWaitsForProductApi() throws Exception {
     String id = product("seller", "APPROVED", "AVAILABLE");
     var buyer = new Browser("buyer");
     var reportId = (String) buyer.post("/reports", Map.of("productId", id, "reason", "货不对板")).get("id");
@@ -98,14 +98,28 @@ class ModerationFlowTest extends ApiTestSupport {
 
     assertThat(resolved.get("status")).isEqualTo("RESOLVED");
     assertThat(resolved.get("decision")).isEqualTo("VIOLATION");
-    assertThat(resolved.get("productTakedown")).isEqualTo(true);
+    // 当前 ProductPort 没有管理员下架在售商品的通道，处置只落结论；接口补齐后此断言改为 true
+    assertThat(resolved.get("productTakedown")).isEqualTo(false);
     assertThat(db.queryForObject("SELECT sale_status FROM products WHERE id=?", String.class, id))
-        .isEqualTo("OFF_SHELF");
+        .isEqualTo("AVAILABLE");
+    assertThat(count("SELECT COUNT(*) FROM audit_log WHERE action='REPORT_RESOLVE' AND aggregate_id=?", reportId))
+        .isEqualTo(1);
+  }
 
-    // 下架后不再出现在公开列表
-    var page = new Browser(null).call("GET", "/products?keyword=待审商品", null, null, 200);
-    assertThat((List<Map<String, Object>>) page.get("items"))
-        .noneSatisfy(item -> assertThat(item.get("id")).isEqualTo(id));
+  @Test
+  void violationOnPendingProductIsRejectedThroughModerate() throws Exception {
+    String id = product("seller", "APPROVED", "AVAILABLE");
+    var buyer = new Browser("buyer");
+    var reportId = (String) buyer.post("/reports", Map.of("productId", id, "reason", "货不对板")).get("id");
+    // 卖家在处置前改内容，商品回到待审核
+    db.update("UPDATE products SET audit_status='PENDING' WHERE id=?", id);
+
+    var admin = new Browser("admin");
+    var resolved = admin.post("/reports/" + reportId + "/resolve", Map.of("result", "确认违规"));
+
+    assertThat(resolved.get("productTakedown")).isEqualTo(true);
+    assertThat(db.queryForObject("SELECT audit_status FROM products WHERE id=?", String.class, id))
+        .isEqualTo("REJECTED");
   }
 
   @Test

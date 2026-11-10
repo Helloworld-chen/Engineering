@@ -153,11 +153,14 @@ public class DemoModerationAdapter implements ModerationPort {
     boolean takedown = false;
     if (DECISION_VIOLATION.equals(decision) && !productRows.isEmpty()) {
       var product = productRows.getFirst();
-      // 只有仍在售且未被占用的商品才直接下架；已锁定涉及在途订单，已售出为终态，均不改写
-      if ("AVAILABLE".equals(s(product, "sale_status"))) {
-        products.updateSale(s(product, "id"), "OFF_SHELF");
+      // 待审核商品可以走审核驳回（审核态变为 REJECTED，公开列表即不可见）
+      if ("PENDING".equals(s(product, "audit_status"))) {
+        products.moderate(a, productId, "REJECTED", text, n(product, "version"));
         takedown = true;
       }
+      // 在售商品的下架需要 M04 提供管理员专用的下架接口；当前 ProductPort 没有该能力
+      // （update 仅限卖家、moderate 仅限待审核、updateSale 仅支持 锁定/在售/售出 迁移），
+      // 因此这里只记录处置结论并通知双方，下架动作待接口补齐后接入。
     }
 
     db.update("UPDATE reports SET status='RESOLVED',result=? WHERE id=?", text, id);
