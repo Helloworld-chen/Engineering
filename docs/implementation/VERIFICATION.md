@@ -115,6 +115,8 @@ Java21后端与Node24前端的Docker镜像均构建成功，Compose已启动真�
 
 处置的加锁顺序调整为「先商品、后举报」，与 `report()` 及接入说明的加锁顺序一致，消除两个入口反向加锁的死锁风险。
 
+处置违规时经 M04 的 `takedown` 下架：校验管理员身份与商品版本，只把「在售且审核通过」的商品改为已下架，同时把审核结论置为已驳回，卖家须修改内容并重新审核通过后才能恢复销售（自行点上架会被拒绝）；已锁定（有在途订单）与已售出商品保留原状态，订单继续履约。处置结论写入 `reports.decision`，列表随 `GET /reports` 返回。举报人可从导航「我的举报」查看本人举报与结论。
+
 ### 契约与类型
 
 `scripts/build-contract.py` 的 `Product` 增加可选 `purchasable`，`Report` 增加可选 `duplicated`、`decision`、`productTakedown`；重新生成 `contracts/openapi.yaml` 与前端 `src/api/schema.d.ts`。三个新字段均为可选，不改变既有响应结构。
@@ -123,7 +125,7 @@ Java21后端与Node24前端的Docker镜像均构建成功，Compose已启动真�
 
 | 项 | 命令 | 结果 |
 | --- | --- | --- |
-| 后端全量测试 | `mvn -B test`（容器内，独立 `campus_market_test` 库） | 82 项通过，失败、错误、跳过均为 0 |
+| 后端全量测试 | `mvn -B test`（容器内，独立 `campus_market_test` 库） | 85 项通过，失败、错误、跳过均为 0 |
 | 新增检索用例 | `BrowseSearchSemanticsTest` | 4 项通过：通配符按字面量、公开可见性、pageSize 钳制、分类与 total 一致 |
 | 新增审核举报用例 | `ModerationFlowTest` | 9 项通过：版本绑定与审计、版本过期拒绝、非公开不可举报、禁自举报、重复举报合并、违规下架、驳回不下架、重复处置拒绝、举报人可见范围 |
 | 前端类型与构建 | `npm ci`、`npx openapi-typescript`、`npm run build` | 类型重新生成，构建通过 |

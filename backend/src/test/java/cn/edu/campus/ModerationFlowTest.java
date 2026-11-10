@@ -88,7 +88,7 @@ class ModerationFlowTest extends ApiTestSupport {
   }
 
   @Test
-  void violationOnOnSaleProductIsRecordedButTakedownWaitsForProductApi() throws Exception {
+  void violationTakesDownOnSaleProductAndForcesReReview() throws Exception {
     String id = product("seller", "APPROVED", "AVAILABLE");
     var buyer = new Browser("buyer");
     var reportId = (String) buyer.post("/reports", Map.of("productId", id, "reason", "货不对板")).get("id");
@@ -98,10 +98,12 @@ class ModerationFlowTest extends ApiTestSupport {
 
     assertThat(resolved.get("status")).isEqualTo("RESOLVED");
     assertThat(resolved.get("decision")).isEqualTo("VIOLATION");
-    // 当前 ProductPort 没有管理员下架在售商品的通道，处置只落结论；接口补齐后此断言改为 true
-    assertThat(resolved.get("productTakedown")).isEqualTo(false);
+    assertThat(resolved.get("productTakedown")).isEqualTo(true);
     assertThat(db.queryForObject("SELECT sale_status FROM products WHERE id=?", String.class, id))
-        .isEqualTo("AVAILABLE");
+        .isEqualTo("OFF_SHELF");
+    // 下架同时置审核结论为已驳回，避免卖家自行上架撤销处置
+    assertThat(db.queryForObject("SELECT audit_status FROM products WHERE id=?", String.class, id))
+        .isEqualTo("REJECTED");
     assertThat(count("SELECT COUNT(*) FROM audit_log WHERE action='REPORT_RESOLVE' AND aggregate_id=?", reportId))
         .isEqualTo(1);
 
@@ -113,6 +115,41 @@ class ModerationFlowTest extends ApiTestSupport {
         .filteredOn(r -> reportId.equals(r.get("id")))
         .singleElement()
         .satisfies(r -> assertThat(r.get("decision")).isEqualTo("VIOLATION"));
+
+    // 卖家自行点上架会被拒绝：必须改内容重新审核通过后才能恢复销售
+    long version = db.queryForObject("SELECT version FROM products WHERE id=?", Long.class, id);
+    var relist =
+        new Browser("seller")
+            .call(
+                "PATCH",
+                "/products/" + id,
+                Map.of("saleStatus", "AVAILABLE", "version", version),
+                UUID.randomUUID().toString(),
+                409);
+    assertThat(relist.get("code")).isEqualTo("INVALID_STATE");
+    assertThat(db.queryForObject("SELECT sale_status FROM products WHERE id=?", String.class, id))
+        .isEqualTo("OFF_SHELF");
+    var page = new Browser(null).call("GET", "/products?keyword=待审商品", null, null, 200);
+    assertThat((List<Map<String, Object>>) page.get("items"))
+        .noneSatisfy(item -> assertThat(item.get("id")).isEqualTo(id));
+  }
+
+  @Test
+  void violationOnLockedProductKeepsStatusForRunningOrder() throws Exception {
+    String id = product("seller", "APPROVED", "LOCKED");
+    var buyer = new Browser("buyer");
+    var reportId = (String) buyer.post("/reports", Map.of("productId", id, "reason", "货不对板")).get("id");
+
+    var resolved =
+        new Browser("admin").post("/reports/" + reportId + "/resolve", Map.of("result", "确认违规"));
+
+    assertThat(resolved.get("decision")).isEqualTo("VIOLATION");
+    // 锁定涉及在途订单，保留原状态，处置只落结论
+    assertThat(resolved.get("productTakedown")).isEqualTo(false);
+    assertThat(db.queryForObject("SELECT sale_status FROM products WHERE id=?", String.class, id))
+        .isEqualTo("LOCKED");
+    assertThat(db.queryForObject("SELECT audit_status FROM products WHERE id=?", String.class, id))
+        .isEqualTo("APPROVED");
   }
 
   @Test

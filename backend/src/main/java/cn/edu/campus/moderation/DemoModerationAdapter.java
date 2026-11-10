@@ -153,14 +153,19 @@ public class DemoModerationAdapter implements ModerationPort {
     boolean takedown = false;
     if (DECISION_VIOLATION.equals(decision) && !productRows.isEmpty()) {
       var product = productRows.getFirst();
-      // 待审核商品可以走审核驳回（审核态变为 REJECTED，公开列表即不可见）
-      if ("PENDING".equals(s(product, "audit_status"))) {
+      String sale = s(product, "sale_status");
+      String audit = s(product, "audit_status");
+      if ("AVAILABLE".equals(sale) && "APPROVED".equals(audit)) {
+        // M04 的下架接口：校验管理员身份与商品版本，只把在售商品改为已下架，
+        // 同时把审核结论置为已驳回，卖家须改内容并重新审核通过后才能恢复销售。
+        products.takedown(a, productId, text, n(product, "version"));
+        takedown = true;
+      } else if ("PENDING".equals(audit)) {
+        // 卖家在处置前改过内容，商品已回到待审核，直接驳回即可
         products.moderate(a, productId, "REJECTED", text, n(product, "version"));
         takedown = true;
       }
-      // 在售商品的下架需要 M04 提供管理员专用的下架接口；当前 ProductPort 没有该能力
-      // （update 仅限卖家、moderate 仅限待审核、updateSale 仅支持 锁定/在售/售出 迁移），
-      // 因此这里只记录处置结论并通知双方，下架动作待接口补齐后接入。
+      // LOCKED：有进行中的订单，保留原状态并继续履约；SOLD：终态；OFF_SHELF / REJECTED：已不在售
     }
 
     // 结论随处置一并落库，列表与详情据此展示「确认违规 / 不成立」，不必再解析自由文本
