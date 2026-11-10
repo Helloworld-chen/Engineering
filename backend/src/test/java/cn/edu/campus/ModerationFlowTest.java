@@ -104,6 +104,27 @@ class ModerationFlowTest extends ApiTestSupport {
         .isEqualTo("AVAILABLE");
     assertThat(count("SELECT COUNT(*) FROM audit_log WHERE action='REPORT_RESOLVE' AND aggregate_id=?", reportId))
         .isEqualTo(1);
+
+    // 结论落库并随列表返回，前端可直接展示「确认违规」而不必解析文本
+    assertThat(db.queryForObject("SELECT decision FROM reports WHERE id=?", String.class, reportId))
+        .isEqualTo("VIOLATION");
+    var list = admin.call("GET", "/reports?status=RESOLVED", null, null, 200);
+    assertThat((List<Map<String, Object>>) list.get("items"))
+        .filteredOn(r -> reportId.equals(r.get("id")))
+        .singleElement()
+        .satisfies(r -> assertThat(r.get("decision")).isEqualTo("VIOLATION"));
+  }
+
+  @Test
+  void dismissedReportStoresDismissedDecision() throws Exception {
+    String id = product("seller", "APPROVED", "AVAILABLE");
+    var buyer = new Browser("buyer");
+    var reportId = (String) buyer.post("/reports", Map.of("productId", id, "reason", "疑似假冒")).get("id");
+
+    new Browser("admin").post("/reports/" + reportId + "/resolve", Map.of("result", "举报不成立"));
+
+    assertThat(db.queryForObject("SELECT decision FROM reports WHERE id=?", String.class, reportId))
+        .isEqualTo("DISMISSED");
   }
 
   @Test

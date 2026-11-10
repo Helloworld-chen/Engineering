@@ -163,7 +163,12 @@ public class DemoModerationAdapter implements ModerationPort {
       // 因此这里只记录处置结论并通知双方，下架动作待接口补齐后接入。
     }
 
-    db.update("UPDATE reports SET status='RESOLVED',result=? WHERE id=?", text, id);
+    // 结论随处置一并落库，列表与详情据此展示「确认违规 / 不成立」，不必再解析自由文本
+    db.update(
+        "UPDATE reports SET status='RESOLVED',result=?,decision=? WHERE id=?",
+        text,
+        decision,
+        id);
     audit(a, "REPORT_RESOLVE", id);
     time.emit(
         s(report, "reporter_id"),
