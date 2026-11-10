@@ -203,6 +203,48 @@ public class DemoAftersalesAdapter implements AftersalesPort {
         .toList();
   }
 
+  public Map<String, Object> message(Actor a, String caseId, String content) {
+    var ref = get(caseId);
+    var context = locks.lock(s(ref, "order_id"));
+    var o = context.order();
+    boolean buyer = a.id().equals(s(o, "buyer_id")), seller = a.id().equals(s(o, "seller_id"));
+    allowed(buyer || seller || a.is("SUPPORT"));
+    require(
+        content != null && !content.isBlank() && content.length() <= 500,
+        "INVALID_MESSAGE",
+        "留言长度应为1至500个字符");
+    String messageId = id();
+    String role = a.is("SUPPORT") ? "SUPPORT" : buyer ? "BUYER" : "SELLER";
+    db.update(
+        "INSERT INTO case_messages(id,case_id,sender_id,role,content,created_at)"
+            + " VALUES(?,?,?,?,?,?)",
+        messageId,
+        caseId,
+        a.id(),
+        role,
+        content.trim(),
+        time.now());
+    if (!buyer) time.emit(s(o, "buyer_id"), caseId, "CASE_MESSAGE", "售后有一条新留言");
+    if (!seller) time.emit(s(o, "seller_id"), caseId, "CASE_MESSAGE", "售后有一条新留言");
+    return view(db.queryForMap("SELECT * FROM case_messages WHERE id=?", messageId));
+  }
+
+  public List<Map<String, Object>> messages(Actor a, String caseId) {
+    var ref = get(caseId);
+    var rows = db.queryForList("SELECT * FROM orders WHERE id=?", s(ref, "order_id"));
+    if (rows.isEmpty()) throw new BusinessException("NOT_FOUND", "订单不存在", 404);
+    var o = rows.getFirst();
+    allowed(
+        a.is("SUPPORT")
+            || a.id().equals(s(o, "buyer_id"))
+            || a.id().equals(s(o, "seller_id")));
+    return db.queryForList(
+            "SELECT * FROM case_messages WHERE case_id=? ORDER BY created_at,id", caseId)
+        .stream()
+        .map(Rows::view)
+        .toList();
+  }
+
   public void deadline(String id, String kind, long generation, long dueAt) {
     var ref = get(id);
     var context = locks.lock(s(ref, "order_id"));
