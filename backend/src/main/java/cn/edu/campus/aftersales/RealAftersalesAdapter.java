@@ -27,7 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @ConditionalOnProperty(name = "market.providers.aftersales", havingValue = "real")
 public class RealAftersalesAdapter implements AftersalesPort {
-  private static final long REVIEW_WINDOW = 86_400_000L; // 24 小时
+  /** 卖家退款审核期限：CR-02 变更后为 48 小时（原 24 小时）。 */
+  private static final long REVIEW_WINDOW = 172_800_000L; // 48 小时
 
   private static final Set<String> TERMINAL = Set.of("CLOSED", "REFUNDED");
 
