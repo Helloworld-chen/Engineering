@@ -3551,11 +3551,16 @@
                     },
                     "status": {
                       "type": "string"
+                    },
+                    "duplicated": {
+                      "type": "boolean",
+                      "description": "同一用户重复举报同一商品时返回 true，并复用原举报编号"
                     }
                   },
                   "required": [
                     "id",
-                    "status"
+                    "status",
+                    "duplicated"
                   ]
                 }
               }
@@ -3689,12 +3694,25 @@
                     },
                     "result": {
                       "type": "string"
+                    },
+                    "decision": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "处置结论：VIOLATION / DISMISSED / null"
+                    },
+                    "productTakedown": {
+                      "type": "boolean",
+                      "description": "本次处置是否触发商品下架"
                     }
                   },
                   "required": [
                     "id",
                     "status",
-                    "result"
+                    "result",
+                    "decision",
+                    "productTakedown"
                   ]
                 }
               }

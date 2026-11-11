@@ -3266,6 +3266,8 @@ export interface operations {
                     "application/json": {
                         id: string;
                         status: string;
+                        /** @description 同一用户重复举报同一商品时返回 true，并复用原举报编号 */
+                        duplicated: boolean;
                     };
                 };
             };
@@ -3346,6 +3348,10 @@ export interface operations {
                         id: string;
                         status: string;
                         result: string;
+                        /** @description 处置结论：VIOLATION / DISMISSED / null */
+                        decision: string | null;
+                        /** @description 本次处置是否触发商品下架 */
+                        productTakedown: boolean;
                     };
                 };
             };
