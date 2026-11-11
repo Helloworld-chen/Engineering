@@ -16,6 +16,57 @@ import cn.edu.campus.shared.Actor;
 class NotificationInboxTest extends ApiTestSupport {
   @Autowired NotificationInbox inbox;
   @Autowired PlatformTransactionManager transactions;
+  @Autowired cn.edu.campus.notification.NotificationPort notifications;
+
+  @org.junit.jupiter.params.ParameterizedTest
+  @org.junit.jupiter.params.provider.ValueSource(strings = {"read", "read-all", "close", "heartbeat", "dispatch"})
+  void disconnectedStreamCleanupDoesNotFailCommittedOperationsOrOtherClients(String operation) throws Exception {
+    var seller = new Browser("seller");
+    message(1, "seller");
+    var broken = new org.springframework.web.servlet.mvc.method.annotation.SseEmitter() {
+      @Override public void send(SseEventBuilder event) throws java.io.IOException {
+        throw new java.io.IOException("peer disconnected");
+      }
+      @Override public void complete() {
+        throw new IllegalStateException("AsyncContext already invalid");
+      }
+    };
+    var deliveries = new AtomicInteger();
+    var healthy = new org.springframework.web.servlet.mvc.method.annotation.SseEmitter() {
+      @Override public void send(SseEventBuilder event) { deliveries.incrementAndGet(); }
+      @Override public void complete() { deliveries.incrementAndGet(); }
+    };
+    // Inject the deterministic disconnected servlet boundary; exercise real provider and HTTP writes.
+    var type = Class.forName(notifications.getClass().getName() + "$Connection");
+    var constructor = type.getDeclaredConstructor(String.class, String.class,
+        org.springframework.web.servlet.mvc.method.annotation.SseEmitter.class);
+    constructor.setAccessible(true);
+    var clients = (Map<String,Object>) org.springframework.test.util.ReflectionTestUtils.getField(notifications, "clients");
+    clients.put("pr8-broken", constructor.newInstance("seller", "race-session", broken));
+    clients.put("pr8-healthy", constructor.newInstance("seller", "race-session", healthy));
+    try {
+      switch (operation) {
+        case "read" -> seller.post("/notifications/1/read", Map.of());
+        case "read-all" -> seller.post("/notifications/read-all", Map.of("throughId", "1"));
+        case "close" -> notifications.closeSession("race-session");
+        case "heartbeat" -> notifications.getClass().getMethod("heartbeat").invoke(notifications);
+        case "dispatch" -> {
+          db.update("INSERT INTO outbox(id,recipient_id,aggregate_id,event_type,message,created_at)"
+              + " VALUES(2,'seller','order','TEST','new message',1)");
+          notifications.getClass().getMethod("dispatch").invoke(notifications);
+          assertThat(db.queryForObject("SELECT COUNT(*) FROM notifications WHERE id=2", Integer.class)).isOne();
+          assertThat(db.queryForObject("SELECT delivered FROM outbox WHERE id=2", Boolean.class)).isTrue();
+        }
+      }
+      assertThat(clients).doesNotContainKey("pr8-broken");
+      assertThat(deliveries.get()).isOne();
+      if (operation.startsWith("read"))
+        assertThat(db.queryForObject("SELECT is_read FROM notifications WHERE id=1", Boolean.class)).isTrue();
+    } finally {
+      clients.remove("pr8-broken");clients.remove("pr8-healthy");
+    }
+  }
+
   void message(long id, String user) {
     db.update("INSERT INTO notifications(id,recipient_id,aggregate_id,message,created_at) VALUES(?,?,?,?,?)",
         id, user, "order", "新的交易消息", id);

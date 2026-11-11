@@ -78,6 +78,8 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await buyer.getByRole('button',{name:'立即下单'}).click();
   await buyer.getByRole('button',{name:'确认下单'}).click();
   await expect(buyer.getByText('付款剩余时间')).toBeVisible();
+  await expect(buyer.locator('[data-party="seller"]')).toContainText('林同学');
+  await expect(buyer.locator('[data-party="buyer"]')).toContainText('陈同学（你）');
   await photograph(buyer,info,'order-payment');
   const orderPath=new URL(buyer.url()).pathname;
   await buyer.getByRole('button',{name:'付款',exact:true}).click();
@@ -85,6 +87,8 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await expect(buyer.getByText('订单已付款，等待卖家发货。')).toBeVisible();
 
   await seller.goto(orderPath);
+  await expect(seller.locator('[data-party="seller"]')).toContainText('林同学（你）');
+  await expect(seller.locator('[data-party="buyer"]')).toContainText('陈同学');
   await ship(seller,'发货','CAMPUS-OUTBOUND');
   await expect(buyer.getByRole('button',{name:'提交投诉'})).toBeVisible({timeout:16000});
   await buyer.getByRole('button',{name:'提交投诉'}).click();
@@ -99,6 +103,10 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await buyer.reload();
   await expect(buyer.locator('.countdown')).toHaveText(paused!);
 
+  await support.goto(orderPath);
+  await expect(support.locator('[data-party="seller"]')).toContainText('林同学');
+  await expect(support.locator('[data-party="buyer"]')).toContainText('陈同学');
+  await expect(support.getByRole('region',{name:'交易双方'})).not.toContainText('（你）');
   await support.goto(casePath);
   await support.getByRole('button',{name:'批准退货',exact:true}).click();
   await support.getByLabel('处理理由').fill('同意退回商品并验收');
@@ -164,8 +172,8 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await login(page,username);
   await page.getByRole('link',{name:'个人中心 · 新同学'}).click();
   await page.getByLabel('昵称',{exact:true}).fill('收纳小组');
-  await page.getByRole('button',{name:'保存昵称'}).click();
-  await expect(page.locator('main').getByRole('status')).toContainText('昵称已更新');
+  await page.getByRole('button',{name:'保存资料'}).click();
+  await expect(page.locator('main').getByRole('status')).toContainText('资料已更新');
   await expect(page.getByRole('link',{name:'个人中心 · 收纳小组'})).toBeVisible();
 
   await page.goto('/publish');

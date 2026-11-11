@@ -16,19 +16,16 @@ public class AuthController {
   private final IdentityPort users;
   private final Sessions sessions;
   private final TradeMapper money;
-  private final Idempotency idem;
   private final boolean demo;
 
   public AuthController(
       IdentityPort u,
       Sessions s,
       TradeMapper m,
-      Idempotency i,
       @Value("${market.demo}") boolean demo) {
     users = u;
     sessions = s;
     money = m;
-    idem = i;
     this.demo = demo;
   }
 
@@ -78,22 +75,5 @@ public class AuthController {
   Map<String, Object> logout(HttpServletRequest r) {
     if (r.getSession(false) != null) r.getSession().invalidate();
     return map("success", true);
-  }
-
-  @PatchMapping("/profile")
-  Map<String, Object> profile(
-      @RequestBody Map<String, Object> input,
-      @RequestHeader("Idempotency-Key") String key,
-      HttpServletRequest r) {
-    var a = sessions.require(r);
-    if (!input.keySet().equals(Set.of("displayName"))) {
-      throw new BusinessException("INVALID_INPUT", "个人资料仅支持修改昵称", 400);
-    }
-    return idem.execute(
-        a,
-        "profile",
-        key,
-        input,
-        () -> map("user", users.updateProfile(a, text(input, "displayName", 1, 80))));
   }
 }

@@ -3,6 +3,7 @@ package cn.edu.campus.notification;
 import static cn.edu.campus.shared.Rows.*;
 
 import cn.edu.campus.aftersales.AftersalesPort;
+import cn.edu.campus.review.OrderReviewService;
 import cn.edu.campus.shared.MutationGate;
 import cn.edu.campus.trade.TradeTaskPort;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class DeadlineRunner implements ApplicationRunner, TaskRuntimePort {
   private final TimePort time;
   private final TradeTaskPort trade;
   private final AftersalesPort cases;
+  private final OrderReviewService reviews;
   private final TransactionTemplate tx;
   private final boolean scheduling;
   private volatile boolean ready;
@@ -34,6 +36,7 @@ public class DeadlineRunner implements ApplicationRunner, TaskRuntimePort {
       TimePort t,
       TradeTaskPort trade,
       AftersalesPort cases,
+      OrderReviewService reviews,
       PlatformTransactionManager manager,
       @Value("${market.scheduling:true}") boolean scheduling,
       MutationGate gate) {
@@ -42,6 +45,7 @@ public class DeadlineRunner implements ApplicationRunner, TaskRuntimePort {
     time = t;
     this.trade = trade;
     this.cases = cases;
+    this.reviews = reviews;
     tx = new TransactionTemplate(manager);
     this.scheduling = scheduling;
   }
@@ -112,6 +116,8 @@ public class DeadlineRunner implements ApplicationRunner, TaskRuntimePort {
             else if (Set.of("REFUND_REVIEW", "RETURN_INSPECTION", "APPEAL").contains(kind))
               cases.deadline(
                   s(task, "aggregate_id"), kind, n(task, "generation"), n(task, "due_at"));
+            else if (OrderReviewService.DEADLINE_KIND.equals(kind))
+              reviews.publishDue(s(task, "aggregate_id"), n(task, "generation"), n(task, "due_at"));
             else throw new IllegalArgumentException("Unsupported task kind: " + kind);
             db.update("UPDATE deadlines SET status='DONE' WHERE id=?", task.get("id"));
           });

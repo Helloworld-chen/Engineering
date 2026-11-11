@@ -134,6 +134,25 @@ class RealProviderWorkflowTest {
         .isEqualTo("SUPPORT_REVIEW");
   }
 
+  @Test
+  void participantsCanExchangeMessagesButOutsiderCannot() throws Exception {
+    var buyer = new Browser("buyer");
+    var seller = new Browser("seller");
+    var other = new Browser("other");
+    String orderId = paidOrder(buyer);
+    var opened =
+        buyer.post("/cases", Map.of("orderId", orderId, "kind", "REFUND", "reason", "留言测试"));
+    String caseId = (String) opened.get("id");
+
+    var sent = seller.post("/cases/" + caseId + "/messages", Map.of("content", "商品已打包，请核实"));
+    assertThat(sent.get("role")).isEqualTo("SELLER");
+    assertThat(sent.get("content")).isEqualTo("商品已打包，请核实");
+
+    var list = buyer.call("GET", "/cases/" + caseId + "/messages", null, null, 200);
+    assertThat((List<?>) list.get("items")).hasSize(1);
+    other.call("GET", "/cases/" + caseId + "/messages", null, null, 403);
+  }
+
   private String paidOrder(Browser buyer) throws Exception {
     String productId = UUID.randomUUID().toString();
     db.update(

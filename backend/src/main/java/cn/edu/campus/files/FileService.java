@@ -29,7 +29,7 @@ public class FileService implements FilePort {
   public Map<String, Object> upload(Actor actor, String purpose, MultipartFile file)
       throws Exception {
     require(
-        Set.of("PRODUCT", "GOODS", "PACKAGING", "RETURN_GOODS", "RETURN_PACKAGING")
+        Set.of("PRODUCT", "GOODS", "PACKAGING", "RETURN_GOODS", "RETURN_PACKAGING", "AVATAR")
             .contains(purpose),
         "INVALID_PURPOSE",
         "文件用途不正确");
@@ -103,6 +103,11 @@ public class FileService implements FilePort {
     if (rows.isEmpty()) throw new BusinessException("NOT_FOUND", "图片不存在", 404);
     var f = rows.getFirst();
     boolean access = actor != null && actor.id().equals(s(f, "owner_id"));
+    if ("AVATAR".equals(s(f, "purpose")) && actor != null && !access) {
+      access = db.queryForObject(
+          "SELECT COUNT(*) FROM user_profiles WHERE user_id=? AND avatar_id=?",
+          Integer.class, s(f, "owner_id"), id) > 0;
+    }
     if ("PRODUCT".equals(s(f, "linked_type"))) {
       var p = db.queryForList("SELECT * FROM products WHERE id=?", f.get("linked_id"));
       access |=

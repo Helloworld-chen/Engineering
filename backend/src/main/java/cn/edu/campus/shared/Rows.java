@@ -81,6 +81,21 @@ public final class Rows {
     return out;
   }
 
+  public static String trimWebInput(String value) {
+    int start = 0;
+    int end = value.length();
+    while (start < end && webWhitespace(value.charAt(start))) start++;
+    while (start < end && webWhitespace(value.charAt(end - 1))) end--;
+    return value.substring(start, end);
+  }
+
+  // ECMAScript trim() removes space separators, line terminators, and the byte order mark.
+  private static boolean webWhitespace(char ch) {
+    return Character.getType(ch) == Character.SPACE_SEPARATOR
+        || (ch >= 0x0009 && ch <= 0x000D)
+        || ch == 0x2028 || ch == 0x2029 || ch == 0xFEFF;
+  }
+
   public static String text(Map<String, Object> input, String key, int min, int max) {
     String v = s(input, key).trim();
     if (v.length() < min || v.length() > max)

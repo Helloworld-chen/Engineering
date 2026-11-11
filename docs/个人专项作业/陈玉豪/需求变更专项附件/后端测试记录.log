@@ -1,0 +1,53 @@
+[INFO] Running cn.edu.campus.RealLogisticsNotificationTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.036 s -- in cn.edu.campus.RealLogisticsNotificationTest
+[INFO] Running cn.edu.campus.OrderParticipantsTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.777 s -- in cn.edu.campus.OrderParticipantsTest
+[INFO] Running cn.edu.campus.NotificationInboxTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.481 s -- in cn.edu.campus.NotificationInboxTest
+[INFO] Running cn.edu.campus.identity.SessionsTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.127 s -- in cn.edu.campus.identity.SessionsTest
+[INFO] Running cn.edu.campus.RealProductHttpTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.886 s -- in cn.edu.campus.RealProductHttpTest
+[INFO] Running cn.edu.campus.TradePortIntegrityTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.562 s -- in cn.edu.campus.TradePortIntegrityTest
+[INFO] Running cn.edu.campus.TransactionRecoveryTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.361 s -- in cn.edu.campus.TransactionRecoveryTest
+[INFO] Running cn.edu.campus.RealUserProfileTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.741 s -- in cn.edu.campus.RealUserProfileTest
+[INFO] Running cn.edu.campus.UserProfileTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.273 s -- in cn.edu.campus.UserProfileTest
+[INFO] Running cn.edu.campus.RealProviderWorkflowTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.287 s -- in cn.edu.campus.RealProviderWorkflowTest
+[INFO] Running cn.edu.campus.ApiSmokeTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.364 s -- in cn.edu.campus.ApiSmokeTest
+[INFO] Running cn.edu.campus.NotificationSessionTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.319 s -- in cn.edu.campus.NotificationSessionTest
+[INFO] Running cn.edu.campus.BrowseOwnershipTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.337 s -- in cn.edu.campus.BrowseOwnershipTest
+[INFO] Running cn.edu.campus.RealNotificationInboxTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.431 s -- in cn.edu.campus.RealNotificationInboxTest
+[INFO] Running cn.edu.campus.SellerTradeNotificationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.144 s -- in cn.edu.campus.SellerTradeNotificationTest
+[INFO] Running cn.edu.campus.TradeConcurrencyTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.386 s -- in cn.edu.campus.TradeConcurrencyTest
+[INFO] Running cn.edu.campus.WorkflowHttpTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.762 s -- in cn.edu.campus.WorkflowHttpTest
+[INFO] Running cn.edu.campus.RealIdentityHttpTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.445 s -- in cn.edu.campus.RealIdentityHttpTest
+[INFO] Running cn.edu.campus.CollaborationContractTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.261 s -- in cn.edu.campus.CollaborationContractTest
+[INFO] Running cn.edu.campus.InputAndEvidenceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.992 s -- in cn.edu.campus.InputAndEvidenceTest
+[INFO] Running cn.edu.campus.TradeHttpTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.430 s -- in cn.edu.campus.TradeHttpTest
+[INFO] Running cn.edu.campus.RealOrderReviewTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.858 s -- in cn.edu.campus.RealOrderReviewTest
+[INFO] Running cn.edu.campus.DemoResetTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.857 s -- in cn.edu.campus.DemoResetTest
+[INFO] Running cn.edu.campus.LogisticsNotificationTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.508 s -- in cn.edu.campus.LogisticsNotificationTest
+[INFO] Running cn.edu.campus.OrderReviewTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.744 s -- in cn.edu.campus.OrderReviewTest
+[INFO] Tests run: 107, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+[INFO] Total time:  28.638 s

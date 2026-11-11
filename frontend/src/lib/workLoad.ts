@@ -3,7 +3,7 @@ import {useSession} from '../stores/session';
 import {isStaff} from './access';
 
 /** Coalesce refreshes, discard responses from previous accounts and poll only visible staff pages. */
-export function useWorkLoad<T>(loader:()=>Promise<T>,publicPage=false){
+export function useWorkLoad<T>(loader:()=>Promise<T>,publicPage=false,requestKey?:()=>string){
  const session=useSession(),data=shallowRef<T>(),loading=ref(true),error=ref('');
  let epoch=0,alive=true,timer:ReturnType<typeof setInterval>|undefined;
  let task:{epoch:number,pending:boolean,promise:Promise<void>}|undefined;
@@ -14,8 +14,9 @@ export function useWorkLoad<T>(loader:()=>Promise<T>,publicPage=false){
   current.promise=(async()=>{
    while(current.pending&&current.epoch===epoch&&alive){
     current.pending=false;loading.value=data.value===undefined;
-    try{const result=await loader();if(current.epoch===epoch&&alive){data.value=result;error.value=''}}
-    catch(failure){if(current.epoch===epoch&&alive)error.value=failure instanceof Error?failure.message:'读取失败，请重试'}
+    const key=requestKey?.();
+    try{const result=await loader();if(current.epoch===epoch&&alive&&key===requestKey?.()){data.value=result;error.value=''}}
+    catch(failure){if(current.epoch===epoch&&alive&&key===requestKey?.())error.value=failure instanceof Error?failure.message:'读取失败，请重试'}
    }
   })().finally(()=>{if(task===current){task=undefined;loading.value=false;if(current.pending&&alive)return reload()}});
   return current.promise;

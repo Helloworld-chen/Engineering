@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {returnTo} from '../lib/access';
+import {profileLink} from '../lib/userProfiles';
 import {computed,ref} from 'vue';
 import {api,date,type Report} from '../api/client';
 import {useWorkLoad} from '../lib/workLoad';
@@ -15,6 +17,7 @@ const {data,loading,error,reload}=useWorkLoad(()=>api<{items:Report[]}>('/report
 const {busy,error:actionError,success,run}=useAction();
 const selected=ref(''),dialog=ref(false);
 const {query,set,route}=useListQuery(),q=query('q'),status=query('status',session.user?.role==='ADMIN'?'PENDING':'ALL'),page=query('page','1');
+const back=computed(()=>returnTo(route.query.from,session.user?.role,'',['/users']));
 const result=computed(()=>pageItems(ordered((data.value?.items||[]).filter(r=>(!['PENDING','RESOLVED'].includes(status.value)||r.status===status.value)&&(!q.value||[r.id,r.productId,r.reason].some(v=>v.includes(q.value.trim())))),status.value==='PENDING'),page.value));
 function submit(result:string){
  void run(async()=>{
@@ -24,6 +27,7 @@ function submit(result:string){
 }
 </script>
 <template>
+ <RouterLink v-if="back" class="back-link" :to="back">← 返回用户资料</RouterLink>
  <div class="page-heading"><div><h1>{{session.user?.role==='ADMIN'?'举报处理':'我的举报'}}</h1><p>查看商品举报理由和处理结果。</p></div><button class="button" @click="reload()">刷新列表</button></div>
  <div class="work-toolbar"><label class="field-label">举报状态<select :value="status" @change="set({status:($event.target as HTMLSelectElement).value})"><option value="PENDING">待处理</option><option value="RESOLVED">已处理</option><option value="ALL">全部</option></select></label><label class="field-label">搜索举报<input type="search" :value="q" placeholder="举报编号、商品编号或理由" @input="set({q:($event.target as HTMLInputElement).value})"/></label></div>
  <p v-if="success" class="notice success" role="status">{{success}}</p>
@@ -31,7 +35,7 @@ function submit(result:string){
   <div v-if="!result.total" class="panel empty"><h2>暂无符合条件的举报</h2><p>举报提交后会显示在这里。</p></div>
   <div v-else class="record-list">
    <article v-for="item in result.items" :key="item.id" class="record">
-    <div class="record-body stack tight"><RouterLink class="record-title" :to="{path:'/products/'+item.productId,query:{from:route.fullPath}}">查看被举报商品 →</RouterLink><p class="muted work-id">商品编号 {{item.productId}}</p><p class="preserve">{{item.reason}}</p><p v-if="item.decision" class="preserve">结论 · {{label(item.decision)}}</p><p v-if="item.result" class="preserve">处理结果 · {{item.result}}</p><p class="muted">{{date(item.createdAt)}}</p></div>
+    <div class="record-body stack tight"><RouterLink class="record-title" :to="{path:'/products/'+item.productId,query:{from:route.fullPath}}">查看被举报商品 →</RouterLink><p class="muted work-id">商品编号 {{item.productId}}</p><div v-if="session.user?.role==='ADMIN'" class="row"><RouterLink class="text-button" :to="profileLink(item.reporterId,'report',item.id,route.fullPath)">查看举报人资料 →</RouterLink><RouterLink v-if="item.sellerId" class="text-button" :to="profileLink(item.sellerId,'report',item.id,route.fullPath)">查看商品发布者资料 →</RouterLink></div><p class="preserve">{{item.reason}}</p><p v-if="item.decision" class="preserve">结论 · {{label(item.decision)}}</p><p v-if="item.result" class="preserve">处理结果 · {{item.result}}</p><p class="muted">{{date(item.createdAt)}}</p></div>
     <div class="row record-actions"><StatusBadge :value="item.status"/><button v-if="session.user?.role==='ADMIN'&&item.status==='PENDING'" class="button primary" @click="selected=item.id;actionError='';dialog=true">处理举报</button></div>
    </article>
   </div>

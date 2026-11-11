@@ -122,10 +122,12 @@ public class DemoModerationAdapter implements ModerationPort {
 
   public List<Map<String, Object>> reports(Actor a) {
     boolean admin = a.is("ADMIN");
+    // 管理员侧带出商品发布者，供前端跳转其资料页；普通用户只查本人举报
     String sql =
-        "SELECT * FROM reports"
-            + (admin ? "" : " WHERE reporter_id=?")
-            + " ORDER BY created_at DESC,id DESC LIMIT ?";
+        (admin
+                ? "SELECT r.*,p.seller_id FROM reports r LEFT JOIN products p ON p.id=r.product_id"
+                : "SELECT r.* FROM reports r WHERE r.reporter_id=?")
+            + " ORDER BY r.created_at DESC,r.id DESC LIMIT ?";
     Object[] args = admin ? new Object[] {MAX_LIST} : new Object[] {a.id(), MAX_LIST};
     return db.queryForList(sql, args).stream().map(Rows::view).toList();
   }

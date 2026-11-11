@@ -25,6 +25,29 @@ public class CaseController {
 
   record Action(String action, String reason) {}
 
+  record Message(String content) {}
+
+  @GetMapping("/{id}/messages")
+  Map<String, Object> messages(@PathVariable String id, HttpServletRequest r) {
+    return map("items", cases.messages(sessions.require(r), id));
+  }
+
+  @PostMapping("/{id}/messages")
+  Map<String, Object> message(
+      @PathVariable String id,
+      @RequestBody Message in,
+      @RequestHeader("Idempotency-Key") String key,
+      HttpServletRequest r) {
+    var a = sessions.require(r);
+    BusinessException.allowed(cases.list(a).stream().anyMatch(c -> id.equals(s(c, "id"))));
+    return idem.execute(
+        a,
+        "case:message:" + id,
+        key,
+        in,
+        () -> cases.message(a, id, text(map("content", in.content()), "content", 1, 500)));
+  }
+
   @GetMapping
   Map<String, Object> list(HttpServletRequest r) {
     return map("items", cases.list(sessions.require(r)));

@@ -30,3 +30,9 @@ export async function api<T>(path:string,method='GET',body?:unknown):Promise<T>{
 }
 export const money=(cents:number)=>new Intl.NumberFormat('zh-CN',{style:'currency',currency:'CNY'}).format(cents/100);
 export const date=(value:string|null|undefined)=>value?new Date(value).toLocaleString('zh-CN',{hour12:false}):'—';
+export type UserProfile=components['schemas']['UserProfile'];
+export type CreditSummary=components['schemas']['CreditSummary'];
+export type PublicReview=components['schemas']['PublicReview'];
+export type UserProfileView=components['schemas']['UserProfileView'];
+export type ReviewSnapshot=components['schemas']['ReviewSnapshot'];
+export type PageResult<T>={items:T[],total:number,page:number,pageSize:number};

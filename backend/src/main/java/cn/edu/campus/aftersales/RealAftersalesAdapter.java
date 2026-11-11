@@ -252,6 +252,54 @@ public class RealAftersalesAdapter implements AftersalesPort {
         .toList();
   }
 
+  // ---------------------------------------------------------------- 留言
+
+  @Override
+  public Map<String, Object> message(Actor actor, String caseId, String content) {
+    var reference = requireCase(caseId);
+    var context = locks.lock(s(reference, "order_id"));
+    var order = context.order();
+    boolean buyer = actor.id().equals(s(order, "buyer_id"));
+    boolean seller = actor.id().equals(s(order, "seller_id"));
+    allowed(buyer || seller || actor.is("SUPPORT"));
+    require(
+        content != null && !content.isBlank() && content.length() <= 500,
+        "INVALID_MESSAGE",
+        "留言长度应为1至500个字符");
+    String messageId = id();
+    String role = actor.is("SUPPORT") ? "SUPPORT" : buyer ? "BUYER" : "SELLER";
+    db.update(
+        "INSERT INTO case_messages(id,case_id,sender_id,role,content,created_at)"
+            + " VALUES(?,?,?,?,?,?)",
+        messageId,
+        caseId,
+        actor.id(),
+        role,
+        content.trim(),
+        time.now());
+    if (!buyer) time.emit(s(order, "buyer_id"), caseId, "CASE_MESSAGE", "售后有一条新留言");
+    if (!seller) time.emit(s(order, "seller_id"), caseId, "CASE_MESSAGE", "售后有一条新留言");
+    return view(db.queryForMap("SELECT * FROM case_messages WHERE id=?", messageId));
+  }
+
+  @Override
+  public List<Map<String, Object>> messages(Actor actor, String caseId) {
+    var reference = requireCase(caseId);
+    var orderId = s(reference, "order_id");
+    var orders = db.queryForList("SELECT * FROM orders WHERE id=?", orderId);
+    if (orders.isEmpty()) throw new BusinessException("NOT_FOUND", "订单不存在", 404);
+    var order = orders.getFirst();
+    allowed(
+        actor.is("SUPPORT")
+            || actor.id().equals(s(order, "buyer_id"))
+            || actor.id().equals(s(order, "seller_id")));
+    return db.queryForList(
+            "SELECT * FROM case_messages WHERE case_id=? ORDER BY created_at,id", caseId)
+        .stream()
+        .map(Rows::view)
+        .toList();
+  }
+
   // ---------------------------------------------------------------- 期限
 
   @Override
