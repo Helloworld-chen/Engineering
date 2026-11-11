@@ -10,6 +10,7 @@ import {useAction} from '../lib/action';
 import {useSession} from '../stores/session';
 import PageState from '../components/PageState.vue';
 import StatusBadge from '../components/StatusBadge.vue';
+import {label} from '../lib/labels';
 import ActionDialog from '../components/ActionDialog.vue';
 const session=useSession();
 const {data,loading,error,reload}=useWorkLoad(()=>api<{items:Report[]}>('/reports'));
@@ -34,7 +35,7 @@ function submit(result:string){
   <div v-if="!result.total" class="panel empty"><h2>暂无符合条件的举报</h2><p>举报提交后会显示在这里。</p></div>
   <div v-else class="record-list">
    <article v-for="item in result.items" :key="item.id" class="record">
-    <div class="record-body stack tight"><RouterLink class="record-title" :to="{path:'/products/'+item.productId,query:{from:route.fullPath}}">查看被举报商品 →</RouterLink><p class="muted work-id">商品编号 {{item.productId}}</p><div v-if="session.user?.role==='ADMIN'" class="row"><RouterLink class="text-button" :to="profileLink(item.reporterId,'report',item.id,route.fullPath)">查看举报人资料 →</RouterLink><RouterLink v-if="item.sellerId" class="text-button" :to="profileLink(item.sellerId,'report',item.id,route.fullPath)">查看商品发布者资料 →</RouterLink></div><p class="preserve">{{item.reason}}</p><p v-if="item.result" class="preserve">处理结果 · {{item.result}}</p><p class="muted">{{date(item.createdAt)}}</p></div>
+    <div class="record-body stack tight"><RouterLink class="record-title" :to="{path:'/products/'+item.productId,query:{from:route.fullPath}}">查看被举报商品 →</RouterLink><p class="muted work-id">商品编号 {{item.productId}}</p><div v-if="session.user?.role==='ADMIN'" class="row"><RouterLink class="text-button" :to="profileLink(item.reporterId,'report',item.id,route.fullPath)">查看举报人资料 →</RouterLink><RouterLink v-if="item.sellerId" class="text-button" :to="profileLink(item.sellerId,'report',item.id,route.fullPath)">查看商品发布者资料 →</RouterLink></div><p class="preserve">{{item.reason}}</p><p v-if="item.decision" class="preserve">结论 · {{label(item.decision)}}</p><p v-if="item.result" class="preserve">处理结果 · {{item.result}}</p><p class="muted">{{date(item.createdAt)}}</p></div>
     <div class="row record-actions"><StatusBadge :value="item.status"/><button v-if="session.user?.role==='ADMIN'&&item.status==='PENDING'" class="button primary" @click="selected=item.id;actionError='';dialog=true">处理举报</button></div>
    </article>
   </div>

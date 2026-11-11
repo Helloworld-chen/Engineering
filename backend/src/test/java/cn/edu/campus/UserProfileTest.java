@@ -155,7 +155,9 @@ class UserProfileTest extends WorkflowTestSupport {
 
   @Test void authorizedLookupOfMissingReportParticipantReturnsNotFound() throws Exception {
     String report = UUID.randomUUID().toString();
-    db.update("INSERT INTO reports VALUES(?,?,?,'历史举报','RESOLVED',NULL,0)",
+    db.update(
+        "INSERT INTO reports(id,product_id,reporter_id,reason,status,result,created_at)"
+            + " VALUES(?,?,?,'历史举报','RESOLVED',NULL,0)",
         report, product(), "missing-user");
     var path = profile("missing-user", "report", report);
     new Browser("buyer").call("GET", path, null, null, 403);
