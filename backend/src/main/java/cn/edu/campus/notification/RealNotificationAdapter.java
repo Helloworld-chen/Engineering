@@ -55,14 +55,23 @@ public class RealNotificationAdapter implements NotificationPort {
     inbox.readAll(actor, throughId, () -> notifyRead(actor));
   }
 
+  private void disconnect(String id, Connection connection) {
+    clients.remove(id, connection);
+    try {
+      connection.emitter().complete();
+    } catch (IllegalStateException alreadyClosed) {
+      // A disconnected servlet may invalidate AsyncContext before cleanup runs.
+      // The connection is already removed; never fail a committed write or other clients.
+    }
+  }
+
   private void notifyRead(Actor actor) {
     clients.forEach((id, connection) -> {
       if (!connection.user().equals(actor.id())) return;
       try {
         connection.emitter().send(SseEmitter.event().name("notifications-read").data(map("success", true)));
       } catch (Exception failure) {
-        connection.emitter().complete();
-        clients.remove(id);
+        disconnect(id, connection);
       }
     });
   }
@@ -88,8 +97,7 @@ public class RealNotificationAdapter implements NotificationPort {
     clients.forEach(
         (id, connection) -> {
           if (connection.session.equals(session)) {
-            connection.emitter.complete();
-            clients.remove(id);
+            disconnect(id, connection);
           }
         });
   }
@@ -138,8 +146,7 @@ public class RealNotificationAdapter implements NotificationPort {
                             "aggregateId", event.get("aggregate_id"),
                             "type", event.get("event_type"))));
           } catch (Exception e) {
-            connection.emitter.complete();
-            clients.remove(id);
+            disconnect(id, connection);
           }
         });
   }
@@ -152,8 +159,7 @@ public class RealNotificationAdapter implements NotificationPort {
           try {
             connection.emitter.send(SseEmitter.event().comment("heartbeat"));
           } catch (Exception e) {
-            clients.remove(id);
-            connection.emitter.complete();
+            disconnect(id, connection);
           }
         });
   }

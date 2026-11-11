@@ -17,5 +17,8 @@ public interface ProductPort {
 
   void moderate(Actor actor, String id, String decision, String reason, long version);
 
+  /** Takes down an approved listing that is still available. The caller records the reason. */
+  void takedown(Actor admin, String id, String reason, long version);
+
   List<Map<String, Object>> mine(Actor actor);
 }

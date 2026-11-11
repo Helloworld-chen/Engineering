@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {profileLink} from '../lib/userProfiles';
-import {computed,ref} from 'vue';
+import {computed,onMounted,onUnmounted,ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {PhClock,PhWallet} from '@phosphor-icons/vue';
 import {api,date,money,type Case,type Order} from '../api/client';
@@ -24,6 +24,25 @@ const {data,loading,error,reload}=useWorkLoad(async()=>{
  return {item:order.cases.find(value=>value.id===id)||item,order};
 });
 const {busy,error:actionError,success,run}=useAction();
+type Message={id:string;senderId:string;role:string;content:string;createdAt:string};
+const messages=ref<Message[]>([]),draft=ref(''),sending=ref(false),messageError=ref('');
+const roleName:Record<string,string>={BUYER:'买家',SELLER:'卖家',SUPPORT:'客服'};
+async function loadMessages(){
+ try{const {items}=await api<{items:Message[]}>('/cases/'+encodeURIComponent(id)+'/messages');messages.value=items}
+ catch{/* 列表读取失败时保留上一次成功结果 */}
+}
+function sendMessage(){
+ const content=draft.value.trim();
+ if(!content||sending.value)return;
+ sending.value=true;messageError.value='';
+ void api('/cases/'+encodeURIComponent(id)+'/messages','POST',{content})
+  .then(()=>{draft.value='';return loadMessages()})
+  .catch((failure:unknown)=>{messageError.value=failure instanceof Error?failure.message:'留言发送失败，请重试'})
+  .finally(()=>{sending.value=false});
+}
+let poll:ReturnType<typeof setInterval>|undefined;
+onMounted(()=>{void loadMessages();poll=setInterval(()=>{if(document.visibilityState!=='hidden')void loadMessages()},10000)});
+onUnmounted(()=>{if(poll)clearInterval(poll)});
 const dialog=ref(false),selection=ref('');
 const actions:Record<string,{title:string,description:string}>={
  REFUND:{title:'同意退款',description:'系统将把暂管货款退回买家的模拟余额。'},
@@ -76,6 +95,22 @@ function submit(reason:string){
    </section>
    <aside class="panel stack"><h2>交易双方</h2><RouterLink class="related-link" :to="profileLink(data.order.sellerId,'case',id,route.fullPath)">卖家 {{data.order.sellerName}} · 查看资料 →</RouterLink><RouterLink class="related-link" :to="profileLink(data.order.buyerId,'case',id,route.fullPath)">买家 {{data.order.buyerName}} · 查看资料 →</RouterLink><h2 class="section-divider">关联订单</h2><RouterLink class="record-title" :to="orderLink">{{data.order.product.title}} →</RouterLink><div class="row spread"><span class="row"><PhWallet :size="18"/> {{money(data.order.amount)}}</span><StatusBadge :value="data.order.fundsStatus"/></div><p v-if="data.order.receiptPaused" class="muted">自动收货已暂停。</p><RouterLink class="button" :to="orderLink">查看订单与物流凭证</RouterLink></aside>
   </div>
+  <section v-if="data" class="panel stack section-divider">
+   <h2>沟通记录</h2>
+   <p class="muted">买卖双方与客服可在此留言，内容三方可见；页面每 10 秒自动刷新。</p>
+   <div v-if="!messages.length" class="panel empty"><p>暂无留言</p></div>
+   <article v-for="m in messages" :key="m.id" class="record">
+    <div class="record-body stack tight">
+     <div class="row spread"><strong>{{roleName[m.role]||m.role}}</strong><span class="muted">{{date(m.createdAt)}}</span></div>
+     <p class="preserve">{{m.content}}</p>
+    </div>
+   </article>
+   <label class="field-label">留言内容
+    <input :value="draft" maxlength="500" placeholder="说明情况或补充材料，最多 500 字" @input="draft=($event.target as HTMLInputElement).value"/>
+   </label>
+   <p v-if="messageError" class="error" role="alert">{{messageError}}</p>
+   <button class="button primary" :disabled="sending||!draft.trim()" @click="sendMessage">发送留言</button>
+  </section>
  </PageState>
  <ActionDialog v-model="dialog" :title="actions[selection]?.title||''" :description="description" requires-reason :busy="busy" :error="actionError" @confirm="submit"/>
 </template>

@@ -96,7 +96,7 @@ M08 将到期任务的目标、类型、代次和 `dueAt` 持久化。恢复时�
 
 ## 用户资料与双向评价接入（2026年11月10日）
 
-CR-CYH-01、CR-CYH-02、CR-CYH-03新增用户资料与评价能力，Flyway V3仅增量创建user_profiles和order_reviews。升级前备份数据库及uploads卷，使用现有卷启动；不要重置现有演示数据。历史用户不补造资料，历史订单评价窗口依据可信SETTLEMENT操作和对应账本的原始时刻加7天，无可靠结算记录则不开放评价。
+CR-CYH-01、CR-CYH-02、CR-CYH-03新增用户资料与评价能力，Flyway V4仅增量创建user_profiles和order_reviews（PR #8整合后编号）。升级前备份数据库及uploads卷，使用现有卷启动；不要重置现有演示数据。历史用户不补造资料，历史订单评价窗口依据可信SETTLEMENT操作和对应账本的原始时刻加7天，无可靠结算记录则不开放评价。
 
 - 身份资料：GET /profile、兼容昵称更新的PATCH /profile；普通用户可维护头像、昵称、学校、校区、简介和选填性别。头像使用AVATAR用途，必须由本人上传，当前关联头像登录可读，旧头像仅所有者可读。
 - 相关用户资料：GET /users/{id}/profile、/products、/reviews。查看他人必须带contextType=product|order|report|case及contextId；每个子资源都核对会话角色、业务访问权限和目标参与关系。本人可无上下文查看本人。商品/评价固定20条分页，不提供任意用户搜索或余额。
@@ -106,3 +106,45 @@ CR-CYH-01、CR-CYH-02、CR-CYH-03新增用户资料与评价能力，Flyway V3�
 - 任务及通知：持久化REVIEW_PUBLICATION任务由demo/real执行器处理；订单锁、唯一约束和幂等结果保证重复/并发不重复评价或通知。隐藏提交只向作者发送BUSINESS_CHANGED；公开后向双方各发REVIEWS_PUBLISHED“订单评价已公开”，沿用已有通知与页面刷新机制。
 
 契约由scripts/build-contract.py生成contracts/openapi.yaml，前端执行npm run generate:types。资料和评价文本采用与浏览器一致的边缘空白及Unicode码点长度规则。客户端身份或被评价人字段不构成授权依据，提交额外评价字段会被拒绝。
+
+
+## PR #8 整合后的迁移编号（2026年11月11日）
+
+主分支的售后留言和资料分支原来都占用V3。合并后保留主分支的 `V3__m07_case_messages.sql`；资料与评价SQL内容不变，改名为 `V4__user_profiles_and_order_reviews.sql`。V1、V2内容不变。
+
+| 已有数据库 | 升级处理 |
+| --- | --- |
+| 新数据库或只到V1/V2 | 正常启动，按顺序执行剩余迁移。 |
+| 已执行主分支V3售后留言 | 保留原V3记录；首次升级临时启用 `spring.flyway.out-of-order=true`，补执行V2物流修复及V4资料评价。 |
+| 已执行旧资料分支V3 | 先按下文核对并将原资料迁移历史对齐到V4；首次升级临时启用上述选项，补执行V3售后留言。 |
+
+升级前停止旧后端，备份完整数据库及上传卷；V2涉及的历史通知备份要求继续适用。不要删除业务表、清空数据库、禁用迁移验证或直接执行无条件Flyway repair。
+
+仅针对旧资料分支，先查询迁移历史：
+
+```sql
+SELECT installed_rank, version, description, script, checksum, success
+FROM flyway_schema_history ORDER BY installed_rank;
+```
+
+必须确认：V3脚本为 `V3__user_profiles_and_order_reviews.sql`、成功状态为1、校验和为 `-898449661`，且没有V4记录，`user_profiles`、`order_reviews`两表已经存在。满足这些条件后，在已备份的数据库执行下面的定向更新，并确认影响恰好一行；条件不符则停止处理。此步骤只调整迁移历史标识，不修改资料、评价或交易内容。
+
+```sql
+UPDATE flyway_schema_history
+SET version='4', script='V4__user_profiles_and_order_reviews.sql'
+WHERE version='3' AND script='V3__user_profiles_and_order_reviews.sql'
+  AND checksum=-898449661 AND success=1;
+```
+
+首次启动时为后端容器增加环境变量 `SPRING_FLYWAY_OUT_OF_ORDER=true`。Compose可使用临时覆盖文件：
+
+```yaml
+services:
+  backend:
+    environment:
+      SPRING_FLYWAY_OUT_OF_ORDER: "true"
+```
+
+将覆盖文件保存在仓库外或已忽略的 `.local-work/` 下，例如 `.local-work/pr8-upgrade.yaml`，执行 `docker compose -f compose.yaml -f .local-work/pr8-upgrade.yaml up -d --build`。确认四条迁移成功、资料/评价/留言保留及后端启动正常后，使用普通 `docker compose up -d` 恢复默认配置；该补迁移选项仅用于此次分支整合。重建本地Java产物应使用 `mvn clean package`，避免旧V3文件残留在target目录。
+
+已在专用测试库分别重建两种旧迁移历史并验证上述路径：主分支已有留言保留；资料分支已有学校、公开评价及其星级/公开时刻、订单保留；四条迁移验证通过；重复迁移执行数为0。此次合并未对现有网站数据库执行升级。
