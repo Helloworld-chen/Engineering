@@ -1,0 +1,12 @@
+(node:53309) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PENDING_REVIEW_SAVED 22f905d4-296d-436c-b490-f4a6044f67b1 2026-11-24T15:43:09.039Z
+(node:53438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+RESTART_RECOVERY_PASS 22f905d4-296d-436c-b490-f4a6044f67b1 2026-11-24T15:43:09.039Z
+(node:53862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+RESTART_RECOVERY_PASS 22f905d4-296d-436c-b490-f4a6044f67b1 2026-11-24T15:43:09.039Z
+published_review_count	1
+publication_event_count	2
+mysql: [Warning] Using a password on the command line interface can be insecure.

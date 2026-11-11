@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {profileLink} from '../lib/userProfiles';
 import {computed,onMounted,onUnmounted,ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {PhClock,PhWallet} from '@phosphor-icons/vue';
@@ -13,7 +14,7 @@ import StatusBadge from '../components/StatusBadge.vue';
 import Countdown from '../components/Countdown.vue';
 import ActionDialog from '../components/ActionDialog.vue';
 const route=useRoute(),session=useSession(),id=String(route.params.id);
-const back=computed(()=>returnTo(route.query.from,session.user?.role,session.user?.role==='SUPPORT'?'/cases?group=pending':'/cases',['/cases','/support']));
+const back=computed(()=>returnTo(route.query.from,session.user?.role,session.user?.role==='SUPPORT'?'/cases?group=pending':'/cases',['/cases','/support','/users']));
 const orderLink=computed(()=>({path:'/orders/'+data.value?.order.id,query:session.user?.role==='SUPPORT'?{from:route.fullPath}:undefined}));
 const {data,loading,error,reload}=useWorkLoad(async()=>{
  const {items}=await api<{items:Case[]}>('/cases');
@@ -77,7 +78,7 @@ function submit(reason:string){
 }
 </script>
 <template>
- <RouterLink class="back-link" :to="back">← {{session.user?.role==='SUPPORT'?(back.startsWith('/support')?'返回工作台':'返回售后处理'):'返回售后记录'}}</RouterLink>
+ <RouterLink class="back-link" :to="back">← {{back.startsWith('/users/')?'返回用户资料':session.user?.role==='SUPPORT'?(back.startsWith('/support')?'返回工作台':'返回售后处理'):'返回售后记录'}}</RouterLink>
  <div class="page-heading"><div><h1>售后详情</h1><p class="mono">售后单号 {{id}}</p></div><button class="button" :disabled="loading" @click="reload()">刷新售后</button></div>
  <PageState :loading="loading" :error="error" @retry="reload">
   <div v-if="data" class="order-grid">
@@ -92,7 +93,7 @@ function submit(reason:string){
     <RouterLink v-if="data.order.allowedActions.includes('RETURN_SHIP')" :to="orderLink" class="button primary">前往订单提交退货凭证</RouterLink>
     <p v-if="success" class="success" role="status">{{success}}</p>
    </section>
-   <aside class="panel stack"><h2>关联订单</h2><RouterLink class="record-title" :to="orderLink">{{data.order.product.title}} →</RouterLink><div class="row spread"><span class="row"><PhWallet :size="18"/> {{money(data.order.amount)}}</span><StatusBadge :value="data.order.fundsStatus"/></div><p v-if="data.order.receiptPaused" class="muted">自动收货已暂停。</p><RouterLink class="button" :to="orderLink">查看订单与物流凭证</RouterLink></aside>
+   <aside class="panel stack"><h2>交易双方</h2><RouterLink class="related-link" :to="profileLink(data.order.sellerId,'case',id,route.fullPath)">卖家 {{data.order.sellerName}} · 查看资料 →</RouterLink><RouterLink class="related-link" :to="profileLink(data.order.buyerId,'case',id,route.fullPath)">买家 {{data.order.buyerName}} · 查看资料 →</RouterLink><h2 class="section-divider">关联订单</h2><RouterLink class="record-title" :to="orderLink">{{data.order.product.title}} →</RouterLink><div class="row spread"><span class="row"><PhWallet :size="18"/> {{money(data.order.amount)}}</span><StatusBadge :value="data.order.fundsStatus"/></div><p v-if="data.order.receiptPaused" class="muted">自动收货已暂停。</p><RouterLink class="button" :to="orderLink">查看订单与物流凭证</RouterLink></aside>
   </div>
   <section v-if="data" class="panel stack section-divider">
    <h2>沟通记录</h2>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {profileLink} from '../lib/userProfiles';
 import {computed,ref} from 'vue';
 import {useRoute,useRouter} from 'vue-router';
 import {PhClock,PhPackage,PhWallet} from '@phosphor-icons/vue';
@@ -14,6 +15,7 @@ import ProductPhoto from '../components/ProductPhoto.vue';
 import StatusBadge from '../components/StatusBadge.vue';
 import Countdown from '../components/Countdown.vue';
 import ActionDialog from '../components/ActionDialog.vue';
+import OrderReviews from '../components/OrderReviews.vue';
 import UploadField from '../components/UploadField.vue';
 const route=useRoute(),router=useRouter(),session=useSession();
 const id=encodeURIComponent(String(route.params.id)),path='/orders/'+id;
@@ -35,7 +37,7 @@ const action=computed(()=>actions[selection.value]);
 const returning=computed(()=>selection.value==='RETURN_SHIP');
 const side=computed(()=>order.value?.sellerId===session.user?.id?'selling':'buying');
 const support=computed(()=>session.user?.role==='SUPPORT');
-const back=computed(()=>support.value?returnTo(route.query.from,'SUPPORT',order.value?.cases[0]?'/cases/'+order.value.cases[0].id:'/cases',['/cases']):'/orders?side='+side.value);
+const back=computed(()=>support.value?returnTo(route.query.from,'SUPPORT',order.value?.cases[0]?'/cases/'+order.value.cases[0].id:'/cases',['/cases','/users']):returnTo(route.query.from,session.user?.role,'/orders?side='+side.value,['/users','/orders']));
 function caseLink(id:string){
  if(!support.value)return '/cases/'+id;
  const from=returnTo(router.resolve(back.value).query.from,'SUPPORT','/cases?group=pending',['/cases','/support']);
@@ -81,7 +83,7 @@ function ship(){
 }
 </script>
 <template>
- <RouterLink class="back-link" :to="back">← {{support?'返回售后详情':'返回我的订单'}}</RouterLink>
+ <RouterLink class="back-link" :to="back">← {{back.startsWith('/users/')?'返回用户资料':support?'返回售后详情':'返回我的订单'}}</RouterLink>
  <div class="page-heading"><div><h1>订单详情</h1><p v-if="order" class="mono">订单号 {{order.id}}</p></div><button class="button" :disabled="loading" @click="reload()">刷新订单</button></div>
  <PageState :loading="loading" :error="error" @retry="reload">
   <div v-if="order" class="order-grid">
@@ -92,6 +94,13 @@ function ship(){
       <ProductPhoto class="record-photo" :image="order.product.images[0]" :title="order.product.title" :category="order.product.category"/>
       <div><RouterLink class="record-title" :to="{path:'/products/'+order.productId,query:support?{from:route.fullPath}:undefined}">{{order.product.title}}</RouterLink><p class="muted">{{date(order.createdAt)}}</p></div>
      </div>
+     <section class="section-divider stack" aria-label="交易双方">
+      <h3>交易双方</h3>
+      <dl class="facts order-parties">
+       <dt>卖家</dt><dd data-party="seller"><strong>{{order.sellerName||order.product.sellerName||'未提供昵称'}}</strong><span v-if="session.user?.id===order.sellerId">（你）</span><p class="muted">用户编号 {{order.sellerId}}</p><RouterLink class="text-button" :to="profileLink(order.sellerId,'order',order.id,route.fullPath)">查看卖家资料 →</RouterLink></dd>
+       <dt>买家</dt><dd data-party="buyer"><strong>{{order.buyerName||'未提供昵称'}}</strong><span v-if="session.user?.id===order.buyerId">（你）</span><p class="muted">用户编号 {{order.buyerId}}</p><RouterLink class="text-button" :to="profileLink(order.buyerId,'order',order.id,route.fullPath)">查看买家资料 →</RouterLink></dd>
+      </dl>
+     </section>
      <div v-if="deadline" class="deadline-box">
       <div class="row"><PhClock :size="18" aria-hidden="true"/>{{deadline.name}}</div>
       <Countdown :deadline="deadline.time" :server-time="order.serverTime" :paused="deadline.paused"/>
@@ -104,6 +113,7 @@ function ship(){
      </div>
      <p v-if="success" class="success" role="status">{{success}}</p>
     </section>
+    <OrderReviews v-if="order.status==='COMPLETED'" :order-id="order.id" :key="order.id"/>
     <section class="panel stack">
      <h2 class="row"><PhPackage :size="20" aria-hidden="true"/>物流与凭证</h2>
      <p v-if="!order.shipments.length" class="muted">暂未提交物流记录。</p>

@@ -243,3 +243,15 @@ footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; c
  .staff-sidebar{display:none}.staff-wrap{margin-left:0;padding:0 16px}.staff-wrap .menu-toggle{display:inline-flex;order:3}.staff-wrap .notification-bell{order:2;margin-left:auto}.staff-profile{display:none}.staff-wrap .topbar{gap:8px;margin-top:12px}.staff-wrap .brand{font-size:16px}.staff-wrap .brand small{font-size:10px}.work-stats{gap:12px;grid-template-columns:1fr}.work-stat{flex-direction:row;align-items:center;justify-content:space-between;padding:16px}.work-stat strong{font-size:30px}.staff-wrap .page-heading{align-items:flex-start}
 }
 .moderation-decision{margin-top:24px}
+
+.order-parties { row-gap:12px }
+
+/* Profile pages reuse the market panels and responsive content widths. */
+.profile-identity{display:flex;align-items:center;gap:20px;min-width:0}.profile-identity>div{min-width:0}.profile-header h1{overflow-wrap:anywhere}.profile-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;flex:none}.avatar-placeholder{display:grid;place-items:center;background:var(--surface-soft,#eee);font-size:36px;font-weight:600}.credit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.credit-average strong{font-size:36px;letter-spacing:-1px}.rating-distribution{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0}.rating-distribution dd{margin:0;display:flex;align-items:center;gap:12px}.rating-distribution meter{width:100%;min-width:20px;height:8px;accent-color:#262626}.rating-distribution dd span{white-space:nowrap}.profile-product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.profile-product-grid article{min-width:0}.profile-product-grid .product-photo{aspect-ratio:1;overflow:hidden}.profile-tabs{border-bottom:1px solid #ddd;padding-bottom:20px}.star-picker{border:0;padding:0;display:flex;flex-wrap:wrap;gap:16px}.star-picker legend{margin-bottom:12px;font-weight:600}.star-picker label{display:flex;align-items:center;gap:6px;cursor:pointer}.star-picker input{width:auto;accent-color:#191919}.review-record p{overflow-wrap:anywhere}
+@media(max-width:700px){.credit-grid{grid-template-columns:1fr}.profile-avatar{width:64px;height:64px}.profile-identity{gap:12px}.profile-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.star-picker{gap:12px}}
+
+.profile-fields{border:0;padding:0;margin:0;min-width:0}
+.review-record strong,.related-link,.profile-identity h1{min-width:0;overflow-wrap:anywhere}
+
+.profile-header+.credit-grid meter::-webkit-meter-optimum-value{background:#262626}
+.profile-fields select,.profile-tabs~.field-label select{font:inherit;display:block;width:100%;margin-top:8px;padding:8px 12px;border:1px solid #c9c9c9;border-radius:8px;background:white;color:var(--ink);font-weight:400}

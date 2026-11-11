@@ -22,6 +22,8 @@ Java 接口位于 `backend/src/main/java/cn/edu/campus/`。下表路由均以 `/
 
 ## 事务与数据所有权
 
+订单响应增加 `buyerName`、`sellerName`，分别表示买家和卖家的当前昵称。M02在核验订单读取权限后，通过M03的 `IdentityPort.find` 按订单中的buyerId、sellerId读取；不直接采用前端传入的姓名。原有身份编号与订单权限保持不变，无数据库迁移。这两个字段用于显示当前资料，不作为交易发生时昵称的历史快照。
+
 - 写操作统一通过共享事务协调器按**商品 → 订单 → 售后单 → 按标识排序的账户 → 暂管记录**加锁。M04 的 `lock` 和 `updateSale`、M07 的 `lockForOrder` 和决定保存、M08 的 `schedule` 和 `emit` 加入调用方事务。模块通过进程内接口协作，使用同一事务传播边界。禁止在这些调用中使用 `REQUIRES_NEW` 或向本服务发送 HTTP 请求。
 - M04 管理商品行，M02 独占订单和资金执行，M07 独占售后决定，M08 管理时钟、任务和通知。M07 在同一事务中保存有效决定，再由 M02 复核状态与权限、设置履约限制或执行资金动作。客户端金额、身份和角色不参与授权。货款金额取订单价格快照，单位为整数分。
 - 请求幂等记录、对象状态、金额流水、附件引用、任务和待投递事件在相应业务事务内提交。资金流水和暂管终态另有业务级防重。外部消息投递在提交后执行。
@@ -65,6 +67,11 @@ M08 将到期任务的目标、类型、代次和 `dueAt` 持久化。恢复时�
 
 `POST /notifications/read-all` 接收 `{ "throughId": "123" }`，仅更新当前用户编号不超过该值的通知。客户端取点击时的 `latestId` 作为边界。该操作与单条已读均要求登录、CSRF令牌及幂等键；提交后向当前用户的在线连接广播 `notifications-read` 事件。此事件只同步已读状态，不触发新消息提醒；原 `changed` 事件继续驱动业务页面刷新和新消息提醒。
 
+物流事件按订单买卖身份路由：正向 `SHIPPED`、`DELIVERED` 只通知买家，退货对应事件只通知卖家。另一方通过 `TimePort.changed(recipient, aggregateId)` 在同一业务事务写入 `BUSINESS_CHANGED` 事件（空消息），demo/real 分发器都跳过通知落库，提交后只向该收件人的连接发送 `business-changed` SSE。事件保留字符串编号及 `aggregateId`、`type`；前端仅刷新业务页面和会话信息，不触发通知同步、未读增长或提醒。重新连接仍执行完整读取，其他通知与已读同步行为不变。
+
+升级需先停止旧后端的业务写入和通知分发，按 `V2__logistics_notification_recipients.sql` 中的精确条件备份受影响事件及通知，再启动新版。Flyway 在启动阶段执行修复：通过事件编号、订单编号、收件人、事件类型和历史消息原文核验误发通知，只删除确认误发的记录；对应事件转为 `BUSINESS_CHANGED`，防止未投递事件恢复为错误通知。角色不明确、内容不同或关联信息不一致的通知保留。无需新增字段；该 SQL 可安全重复执行。上线后核对删除数、剩余通知及未读数量，保留备份以便核查。通知推送仍采用当前单后端进程连接模型。
+
+
 前端共享通知状态由账号代次和请求序号保护，合并并发同步并在有新事件时补查。登录、服务器推送连接恢复、重新聚焦及业务事件均同步通知；首次快照只建立历史基线。会话内按已见编号去重，允许较小编号的通知晚提交；断线期间超出最近100条窗口的消息只能恢复总未读数，并按可用事件或计数变化提供合并提醒。读取失败保留可信数据并显示重试入口，退出或切换账号立即清除状态。服务器推送当前采用单进程连接集合；跨进程多实例广播仍需另行实现。
 
 ## 主要表与迁移边界
@@ -86,3 +93,58 @@ M08 将到期任务的目标、类型、代次和 `dueAt` 持久化。恢复时�
 | 共享服务 | `files`、`request_results`、`audit_log` |
 
 演示管理员推进时间时传入正整数毫秒。重置请求须携带明确的 `confirmation: "RESET"`，并遵循业务写入的会话、CSRF 和幂等规则。重置清空演示业务数据并恢复演示商品、模拟余额和业务时钟，保留注册账户。推进与重置由演示协调入口管理，避免与在途业务修改及到期任务交错。
+
+## 用户资料与双向评价接入（2026年11月10日）
+
+CR-CYH-01、CR-CYH-02、CR-CYH-03新增用户资料与评价能力，Flyway V4仅增量创建user_profiles和order_reviews（PR #8整合后编号）。升级前备份数据库及uploads卷，使用现有卷启动；不要重置现有演示数据。历史用户不补造资料，历史订单评价窗口依据可信SETTLEMENT操作和对应账本的原始时刻加7天，无可靠结算记录则不开放评价。
+
+- 身份资料：GET /profile、兼容昵称更新的PATCH /profile；普通用户可维护头像、昵称、学校、校区、简介和选填性别。头像使用AVATAR用途，必须由本人上传，当前关联头像登录可读，旧头像仅所有者可读。
+- 相关用户资料：GET /users/{id}/profile、/products、/reviews。查看他人必须带contextType=product|order|report|case及contextId；每个子资源都核对会话角色、业务访问权限和目标参与关系。本人可无上下文查看本人。商品/评价固定20条分页，不提供任意用户搜索或余额。
+- 岗位范围：管理员以商品审核或举报查看发布者及举报人，并读取当前记录的理由、状态和处理历史；客服以售后或关联售后订单查看交易双方及当前处理历史，凭证使用既有授权订单链接。举报链接携带status=ALL及精确编号搜索，返回资料页保留来源业务的查询参数。
+- 评价：GET/POST /orders/{id}/reviews。服务端推导对方及买卖身份，仅完成且已结算的参与者在7天内各提交一次整数1—5星、1—500字文字；不可修改删除。双方提交同事务公开，单方到期公开。未公开评价仅作者本人可读，其他用户及工作人员不可读，也不计信用。
+- 信用：PublicReviewQueries按subjectRole分别汇总BUYER和SELLER，仅公开评价计分；平均值HALF_UP保留两位后分级，>=4.50优秀、>=4.00良好、>=3.00一般，其余待提升；count=0时average=null、grade=暂无评价。
+- 任务及通知：持久化REVIEW_PUBLICATION任务由demo/real执行器处理；订单锁、唯一约束和幂等结果保证重复/并发不重复评价或通知。隐藏提交只向作者发送BUSINESS_CHANGED；公开后向双方各发REVIEWS_PUBLISHED“订单评价已公开”，沿用已有通知与页面刷新机制。
+
+契约由scripts/build-contract.py生成contracts/openapi.yaml，前端执行npm run generate:types。资料和评价文本采用与浏览器一致的边缘空白及Unicode码点长度规则。客户端身份或被评价人字段不构成授权依据，提交额外评价字段会被拒绝。
+
+
+## PR #8 整合后的迁移编号（2026年11月11日）
+
+主分支的售后留言和资料分支原来都占用V3。合并后保留主分支的 `V3__m07_case_messages.sql`；资料与评价SQL内容不变，改名为 `V4__user_profiles_and_order_reviews.sql`。V1、V2内容不变。
+
+| 已有数据库 | 升级处理 |
+| --- | --- |
+| 新数据库或只到V1/V2 | 正常启动，按顺序执行剩余迁移。 |
+| 已执行主分支V3售后留言 | 保留原V3记录；首次升级临时启用 `spring.flyway.out-of-order=true`，补执行V2物流修复及V4资料评价。 |
+| 已执行旧资料分支V3 | 先按下文核对并将原资料迁移历史对齐到V4；首次升级临时启用上述选项，补执行V3售后留言。 |
+
+升级前停止旧后端，备份完整数据库及上传卷；V2涉及的历史通知备份要求继续适用。不要删除业务表、清空数据库、禁用迁移验证或直接执行无条件Flyway repair。
+
+仅针对旧资料分支，先查询迁移历史：
+
+```sql
+SELECT installed_rank, version, description, script, checksum, success
+FROM flyway_schema_history ORDER BY installed_rank;
+```
+
+必须确认：V3脚本为 `V3__user_profiles_and_order_reviews.sql`、成功状态为1、校验和为 `-898449661`，且没有V4记录，`user_profiles`、`order_reviews`两表已经存在。满足这些条件后，在已备份的数据库执行下面的定向更新，并确认影响恰好一行；条件不符则停止处理。此步骤只调整迁移历史标识，不修改资料、评价或交易内容。
+
+```sql
+UPDATE flyway_schema_history
+SET version='4', script='V4__user_profiles_and_order_reviews.sql'
+WHERE version='3' AND script='V3__user_profiles_and_order_reviews.sql'
+  AND checksum=-898449661 AND success=1;
+```
+
+首次启动时为后端容器增加环境变量 `SPRING_FLYWAY_OUT_OF_ORDER=true`。Compose可使用临时覆盖文件：
+
+```yaml
+services:
+  backend:
+    environment:
+      SPRING_FLYWAY_OUT_OF_ORDER: "true"
+```
+
+将覆盖文件保存在仓库外或已忽略的 `.local-work/` 下，例如 `.local-work/pr8-upgrade.yaml`，执行 `docker compose -f compose.yaml -f .local-work/pr8-upgrade.yaml up -d --build`。确认四条迁移成功、资料/评价/留言保留及后端启动正常后，使用普通 `docker compose up -d` 恢复默认配置；该补迁移选项仅用于此次分支整合。重建本地Java产物应使用 `mvn clean package`，避免旧V3文件残留在target目录。
+
+已在专用测试库分别重建两种旧迁移历史并验证上述路径：主分支已有留言保留；资料分支已有学校、公开评价及其星级/公开时刻、订单保留；四条迁移验证通过；重复迁移执行数为0。此次合并未对现有网站数据库执行升级。

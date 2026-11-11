@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {profileLink} from '../lib/userProfiles';
 import {computed,ref} from 'vue';
 import {useRoute,useRouter} from 'vue-router';
 import {PhArrowLeft,PhFlag,PhUser,PhClock} from '@phosphor-icons/vue';
@@ -12,7 +13,7 @@ import ProductPhoto from '../components/ProductPhoto.vue';
 import StatusBadge from '../components/StatusBadge.vue';
 import ActionDialog from '../components/ActionDialog.vue';
 const route=useRoute(),router=useRouter(),session=useSession();
-const back=computed(()=>returnTo(route.query.from,session.user?.role,homeFor(session.user?.role),session.user?.role==='ADMIN'?['/admin','/moderation','/reports']:session.user?.role==='SUPPORT'?['/support','/cases','/orders']:['/','/reports']));
+const back=computed(()=>returnTo(route.query.from,session.user?.role,homeFor(session.user?.role),session.user?.role==='ADMIN'?['/admin','/moderation','/reports','/users']:session.user?.role==='SUPPORT'?['/support','/cases','/orders','/users']:['/','/reports','/users']));
 const id=encodeURIComponent(String(route.params.id));
 const {data:product,loading,error,reload}=useWorkLoad(()=>api<Product>('/products/'+id),true);
 const {busy,error:actionError,success,run}=useAction();
@@ -47,6 +48,7 @@ function confirm(reason:string){
     <div class="row"><span class="category">{{product.category}}</span><StatusBadge :value="product.saleStatus"/><StatusBadge v-if="product.auditStatus!=='APPROVED'" :value="product.auditStatus"/></div>
     <h1>{{product.title}}</h1><strong class="detail-price">{{money(product.price)}}</strong>
     <div class="row metadata"><span><PhUser :size="16"/> {{product.sellerName||'卖家'}}</span><span><PhClock :size="16"/> {{date(product.createdAt)}}</span></div>
+    <RouterLink v-if="session.user?.role!=='SUPPORT'" class="related-link" :to="profileLink(product.sellerId,'product',product.id,route.fullPath)">查看卖家资料与信用 →</RouterLink>
     <div class="section-divider"><h2>商品说明</h2><p class="preserve">{{product.description}}</p></div>
     <div v-if="!owner&&(!session.user||session.user.role==='USER')" class="stack section-divider">
      <button class="button primary" :disabled="!available" @click="open(false)">{{available?'立即下单':'当前无法下单'}}</button>

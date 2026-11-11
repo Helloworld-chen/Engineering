@@ -83,9 +83,11 @@ abstract class ApiTestSupport {
             "money_operations",
             "escrows",
             "product_holds",
+            "order_reviews",
             "orders",
             "request_results",
             "audit_log",
+            "user_profiles",
             "files",
             "reports",
             "moderation_reviews")) db.update("DELETE FROM " + table);

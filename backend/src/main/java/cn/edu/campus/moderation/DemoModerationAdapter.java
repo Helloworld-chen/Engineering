@@ -73,9 +73,10 @@ public class DemoModerationAdapter implements ModerationPort {
   public List<Map<String, Object>> reports(Actor a) {
     return db
         .queryForList(
-            "SELECT * FROM reports"
-                + (a.is("ADMIN") ? "" : " WHERE reporter_id=?")
-                + " ORDER BY created_at DESC",
+            (a.is("ADMIN")
+                    ? "SELECT r.*,p.seller_id FROM reports r LEFT JOIN products p ON p.id=r.product_id"
+                    : "SELECT r.* FROM reports r WHERE r.reporter_id=?")
+                + " ORDER BY r.created_at DESC",
             a.is("ADMIN") ? new Object[] {} : new Object[] {a.id()})
         .stream()
         .map(Rows::view)

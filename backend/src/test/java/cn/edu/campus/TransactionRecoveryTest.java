@@ -186,8 +186,10 @@ class TransactionRecoveryTest extends WorkflowTestSupport {
         .isEqualTo(deliveryDue + 172_800_000L);
     assertThat(
             count(
-                "SELECT COUNT(*) FROM outbox WHERE aggregate_id=? AND event_type='DELIVERED'",
+                "SELECT COUNT(*) FROM outbox WHERE aggregate_id=? AND event_type='DELIVERED' AND recipient_id='buyer'",
                 order))
+        .isEqualTo(1);
+    assertThat(count("SELECT COUNT(*) FROM outbox WHERE aggregate_id=? AND event_type='BUSINESS_CHANGED' AND recipient_id='seller'", order))
         .isEqualTo(2);
     assertThat(balance("seller")).isEqualTo(5_000);
   }

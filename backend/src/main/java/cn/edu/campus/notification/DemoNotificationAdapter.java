@@ -48,14 +48,23 @@ public class DemoNotificationAdapter implements NotificationPort {
     inbox.readAll(actor, throughId, () -> notifyRead(actor));
   }
 
+  private void disconnect(String id, Connection connection) {
+    clients.remove(id, connection);
+    try {
+      connection.emitter().complete();
+    } catch (IllegalStateException alreadyClosed) {
+      // A disconnected servlet may invalidate AsyncContext before cleanup runs.
+      // The connection is already removed; never fail a committed write or other clients.
+    }
+  }
+
   private void notifyRead(Actor actor) {
     clients.forEach((id, connection) -> {
       if (!connection.user().equals(actor.id())) return;
       try {
         connection.emitter().send(SseEmitter.event().name("notifications-read").data(map("success", true)));
       } catch (Exception failure) {
-        connection.emitter().complete();
-        clients.remove(id);
+        disconnect(id, connection);
       }
     });
   }
@@ -79,8 +88,7 @@ public class DemoNotificationAdapter implements NotificationPort {
     clients.forEach(
         (id, c) -> {
           if (c.session.equals(session)) {
-            c.emitter.complete();
-            clients.remove(id);
+            disconnect(id, c);
           }
         });
   }
@@ -100,7 +108,7 @@ public class DemoNotificationAdapter implements NotificationPort {
         db.queryForList("SELECT * FROM outbox WHERE delivered=FALSE ORDER BY id LIMIT 100")) {
       tx.executeWithoutResult(
           s -> {
-            db.update(
+            if (!TimePort.BUSINESS_CHANGED.equals(s(e, "event_type"))) db.update(
                 "INSERT IGNORE INTO notifications(id,recipient_id,aggregate_id,message,created_at)"
                     + " VALUES(?,?,?,?,?)",
                 e.get("id"),
@@ -116,7 +124,7 @@ public class DemoNotificationAdapter implements NotificationPort {
               try {
                 c.emitter.send(
                     SseEmitter.event()
-                        .name("changed")
+                        .name(TimePort.BUSINESS_CHANGED.equals(s(e, "event_type")) ? "business-changed" : "changed")
                         .id(s(e, "id"))
                         .data(
                             map(
@@ -125,8 +133,7 @@ public class DemoNotificationAdapter implements NotificationPort {
                                 "type",
                                 e.get("event_type"))));
               } catch (Exception failure) {
-                c.emitter.complete();
-                clients.remove(id);
+                disconnect(id, c);
               }
           });
     }
@@ -139,8 +146,7 @@ public class DemoNotificationAdapter implements NotificationPort {
           try {
             c.emitter.send(SseEmitter.event().comment("heartbeat"));
           } catch (Exception e) {
-            clients.remove(id);
-            c.emitter.complete();
+            disconnect(id, c);
           }
         });
   }
