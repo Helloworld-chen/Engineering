@@ -33,7 +33,7 @@ function paginate(value:number){page.value=value;void reload()}
    <button class="button primary" type="submit">搜索</button>
   </form>
   <div class="filter-row">
-   <div class="tabs" aria-label="按商品分类筛选">
+   <div class="tabs" role="group" aria-label="按商品分类筛选">
     <button v-for="item in categories" :key="item" type="button" :aria-pressed="category===item" @click="filter(item)">{{item||'全部商品'}}</button>
    </div>
    <span class="muted" v-if="data" aria-live="polite">共 {{data.total}} 件商品</span>

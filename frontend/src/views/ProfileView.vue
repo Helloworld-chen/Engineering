@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AccessibleDialog from '../components/AccessibleDialog.vue';
 import {ref,watch,reactive} from 'vue';
 import {api,date,money,type UserProfile} from '../api/client';
 import {label} from '../lib/labels';
@@ -70,12 +71,12 @@ function reset(){
   <p v-if="demo.success.value" class="success" role="status">{{demo.success.value}}</p>
   <div class="section-divider"><button class="button danger" :disabled="demo.busy.value" @click="confirmation='';demo.error.value='';resetDialog=true">重置演示数据</button></div>
  </section>
- <el-dialog v-model="resetDialog" title="重置演示数据" width="min(480px, calc(100% - 32px))" :close-on-click-modal="false" :show-close="!demo.busy.value" :close-on-press-escape="!demo.busy.value">
+ <AccessibleDialog v-model="resetDialog" title="重置演示数据" width="min(480px, calc(100% - 32px))" :close-on-click-modal="false" :show-close="!demo.busy.value" :close-on-press-escape="!demo.busy.value">
   <form class="stack" @submit.prevent="reset">
    <p>此操作会清除演示期间新增的商品、订单、售后、评价、扩展资料与通知，并恢复种子数据。</p>
    <label class="field-label">输入 RESET 确认<input v-model="confirmation" required autocomplete="off"/></label>
    <p v-if="demo.error.value" class="error" role="alert">{{demo.error.value}}</p>
    <div class="row end"><button type="button" class="button" :disabled="demo.busy.value" @click="resetDialog=false">返回</button><button class="button danger" type="submit" :disabled="demo.busy.value||confirmation!=='RESET'">确认重置</button></div>
   </form>
- </el-dialog>
+ </AccessibleDialog>
 </template>

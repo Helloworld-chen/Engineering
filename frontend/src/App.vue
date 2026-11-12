@@ -8,10 +8,15 @@ import {useNotifications} from './stores/notifications';
 import NotificationAlerts from './components/NotificationAlerts.vue';
 import {money} from './api/client';
 import StaffNavigation from './components/StaffNavigation.vue';
+import MarketNavigation from './components/MarketNavigation.vue';
+import AccessibleDialog from './components/AccessibleDialog.vue';
+import {usePageAccessibility} from './lib/pageAccessibility';
 import {isStaff,homeFor,canVisit} from './lib/access';
 
 const session=useSession(),router=useRouter(),menu=ref(false),error=ref('');
 const notifications=useNotifications();
+const mainElement=ref<HTMLElement>();
+usePageAccessibility(mainElement);
 const staff=computed(()=>isStaff(session.user?.role));
 const home=computed(()=>homeFor(session.user?.role));
 let loggingOut=false;
@@ -87,26 +92,12 @@ async function logout(){
    <StaffNavigation v-if="staff" v-model="menu" @logout="logout"/>
    <header class="topbar" @keydown.esc="menu=false">
     <RouterLink class="brand" :to="home"><PhStorefront :size="24" weight="bold" aria-hidden="true"/><span>{{staff?(session.user?.role==='ADMIN'?'管理员工作台':'客服工作台'):'校园集市'}}<small>{{staff?'CAMPUS MARKET · 工作空间':'CAMPUS MARKET'}}</small></span></RouterLink>
-    <button class="menu-toggle" :aria-expanded="menu" :aria-label="menu?'关闭导航':'展开导航'" :aria-controls="staff?'staff-navigation':'primary-navigation'" @click="menu=!menu">
+    <button class="menu-toggle" :aria-expanded="menu" :aria-label="menu?'关闭导航':'展开导航'" :aria-controls="staff?'staff-navigation':'primary-navigation-mobile'" @click="menu=!menu">
      <PhX v-if="menu" :size="24" aria-hidden="true"/><PhList v-else :size="24" aria-hidden="true"/>
     </button>
-    <nav v-if="!staff" id="primary-navigation" :class="{open:menu}" aria-label="主导航">
-     <RouterLink to="/">浏览商品</RouterLink>
-     <template v-if="session.user">
-      <RouterLink v-if="session.user.role==='USER'" to="/my/products">我的商品</RouterLink>
-      <RouterLink v-if="session.user.role==='USER'" to="/orders">我的订单</RouterLink>
-      <RouterLink v-if="session.user.role!=='ADMIN'" to="/cases">{{session.user.role==='SUPPORT'?'客服工作台':'售后记录'}}</RouterLink>
-      <RouterLink v-if="session.user.role==='ADMIN'" to="/moderation">商品审核</RouterLink>
-      <RouterLink v-if="session.user.role==='ADMIN'" to="/reports">举报处理</RouterLink>
-      <RouterLink to="/profile" :aria-label="'个人中心 · '+session.user.displayName">{{session.user.displayName}}</RouterLink>
-      <button type="button" class="text-button" @click="logout">退出</button>
-     </template>
-     <template v-else>
-      <RouterLink to="/login">登录</RouterLink><RouterLink to="/register" class="nav-primary">注册</RouterLink>
-     </template>
-    </nav>
+    <MarketNavigation v-if="!staff" @logout="logout"/>
     <RouterLink v-if="staff" class="staff-profile" to="/profile">{{session.user?.displayName}}</RouterLink>
-    <RouterLink v-if="session.user" class="notification-bell" to="/notifications" aria-label="通知" aria-describedby="notification-count">
+    <RouterLink v-if="session.user" class="notification-bell" to="/notifications" :aria-label="'通知'+(notifications.badge?'，'+notifications.badge+'条未读':'')" aria-describedby="notification-count">
      <PhBell :size="20" aria-hidden="true"/>
      <span v-if="notifications.badge" class="notification-badge" aria-hidden="true">{{notifications.badge}}</span>
      <span v-else-if="notifications.unreadCount===null" class="notification-pending" aria-hidden="true">{{notifications.error?'?':'…'}}</span>
@@ -116,14 +107,17 @@ async function logout(){
    <div v-if="session.user && notifications.error&&router.currentRoute.value.path!=='/notifications'" class="notice notification-error" aria-live="polite">
     <span>{{notifications.error}}</span><button class="button" @click="notifications.sync()">重试通知同步</button>
    </div>
+   <AccessibleDialog v-if="!staff" drawer v-model="menu" title="主导航" direction="rtl" size="min(360px, 100vw)" destroy-on-close>
+    <MarketNavigation mobile @logout="menu=false;logout()"/>
+   </AccessibleDialog>
    <NotificationAlerts/>
-   <div v-if="session.demo" class="demo-banner">
+   <section v-if="session.demo" class="demo-banner" aria-label="课程演示说明">
     <span class="dot" aria-hidden="true"/>课程演示 · 模拟资金与物流
     <span class="banner-detail">协作模块当前使用可替换演示适配</span>
     <span v-if="session.user?.role==='USER'" class="balance">余额 {{money(session.balance||0)}}</span>
-   </div>
+   </section>
    <p v-if="error" class="error" role="alert">{{error}}</p>
-   <main id="main" tabindex="-1"><RouterView :key="$route.path.startsWith('/users/')?JSON.stringify([$route.path,$route.query.contextType,$route.query.contextId]):['/moderation','/reports','/cases'].includes($route.path)?$route.path:$route.fullPath"/></main>
+   <main ref="mainElement" id="main" tabindex="-1"><RouterView :key="$route.path.startsWith('/users/')?JSON.stringify([$route.path,$route.query.contextType,$route.query.contextId]):['/moderation','/reports','/cases'].includes($route.path)?$route.path:$route.fullPath"/></main>
    <footer><span>校园集市 · 软件工程课程项目</span><span>本地演示数据，不发生真实资金流转</span></footer>
   </div>
  </el-config-provider>

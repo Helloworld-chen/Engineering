@@ -1,0 +1,460 @@
+(node:36563) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36587) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:36588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   1 frontend/e2e/accessibility.spec.ts:28:1 › 页面切换更新标题、定位异步标题，筛选保留焦点 (5.6s)
+(node:36607) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   2 frontend/e2e/accessibility.spec.ts:44:1 › 跳转链接可用且手机导航隔离背景、循环焦点并用 Escape 返回 (5.5s)
+(node:36617) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   3 frontend/e2e/accessibility.spec.ts:59:1 › 工作人员手机抽屉隔离背景并恢复菜单焦点 (5.7s)
+(node:36637) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   4 frontend/e2e/accessibility.spec.ts:67:1 › 表单校验错误关联字段，修正输入后清除旧错误 (5.4s)
+(node:36646) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   5 frontend/e2e/accessibility.spec.ts:78:1 › 业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点 (5.8s)
+(node:36656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   6 frontend/e2e/accessibility.spec.ts:88:1 › 上传图片移除按钮可区分，移除后焦点仍在上传区域 (5.7s)
+(node:36679) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   7 frontend/e2e/accessibility.spec.ts:99:1 › 强制颜色模式保留输入框实体边界与当前选项标识 (277ms)
+(node:36684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   8 frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：游客 (604ms)
+(node:36690) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   9 frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：普通用户 (1.0s)
+(node:36696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  10 frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：管理员 (851ms)
+(node:36702) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  11 frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：客服 (871ms)
+(node:36708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  12 frontend/e2e/accessibility.spec.ts:117:1 › 320 CSS 像素重排及200%文本大小保留内容和可操作控件 (1.4s)
+
+
+  1) frontend/e2e/accessibility.spec.ts:28:1 › 页面切换更新标题、定位异步标题，筛选保留焦点 ──────────────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /登录校园集市.*校园集市/
+    Received string:  "校园集市"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 5000ms
+        14 × locator resolved to <html lang="zh-CN">…</html>
+           - unexpected value "校园集市"
+
+
+      29 |  await page.goto('/');
+      30 |  await page.getByRole('link',{name:'登录',exact:true}).click();
+    > 31 |  await expect(page).toHaveTitle(/登录校园集市.*校园集市/);
+         |                     ^
+      32 |  await expect(page.getByRole('heading',{level:1})).toBeFocused();
+      33 |  await page.getByRole('link',{name:'浏览商品'}).click();
+      34 |  const filter=page.getByRole('button',{name:'图书',exact:true});
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:31:21
+
+    Error Context: frontend/test-results/accessibility-页面切换更新标题、定位异步标题，筛选保留焦点/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-页面切换更新标题、定位异步标题，筛选保留焦点/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-页面切换更新标题、定位异步标题，筛选保留焦点/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) frontend/e2e/accessibility.spec.ts:44:1 › 跳转链接可用且手机导航隔离背景、循环焦点并用 Escape 返回 ────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: '主导航' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('dialog', { name: '主导航' }) with timeout 5000ms
+      - waiting for getByRole('dialog', { name: '主导航' })
+
+
+      50 |  await tabTo(page,toggle);await page.keyboard.press('Enter');
+      51 |  const nav=page.getByRole('dialog',{name:'主导航'});
+    > 52 |  await expect(nav).toBeVisible();
+         |                    ^
+      53 |  await expect(page.getByRole('main')).toHaveCount(0);
+      54 |  for(let n=0;n<12;n++){await page.keyboard.press('Tab');expect(await nav.evaluate(e=>e.contains(document.activeElement))).toBe(true)}
+      55 |  await page.keyboard.press('Escape');await expect(nav).toBeHidden();await expect(toggle).toBeFocused();
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:52:20
+
+    Error Context: frontend/test-results/accessibility-跳转链接可用且手机导航隔离背景、循环焦点并用-Escape-返回/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-跳转链接可用且手机导航隔离背景、循环焦点并用-Escape-返回/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-跳转链接可用且手机导航隔离背景、循环焦点并用-Escape-返回/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) frontend/e2e/accessibility.spec.ts:59:1 › 工作人员手机抽屉隔离背景并恢复菜单焦点 ─────────────────────────────────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('main')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('main') with timeout 5000ms
+      - waiting for getByRole('main')
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      61 |  const toggle=page.getByRole('button',{name:'展开导航'});await toggle.click();
+      62 |  await expect(page.getByRole('dialog',{name:'管理员工作台'})).toBeVisible();
+    > 63 |  await expect(page.getByRole('main')).toHaveCount(0);
+         |                                       ^
+      64 |  await page.keyboard.press('Escape');await expect(toggle).toBeFocused();
+      65 | });
+      66 |
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:63:39
+
+    Error Context: frontend/test-results/accessibility-工作人员手机抽屉隔离背景并恢复菜单焦点/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-工作人员手机抽屉隔离背景并恢复菜单焦点/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-工作人员手机抽屉隔离背景并恢复菜单焦点/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) frontend/e2e/accessibility.spec.ts:67:1 › 表单校验错误关联字段，修正输入后清除旧错误 ───────────────────────────────
+
+    Error: expect(locator).not.toHaveAttribute(expected) failed
+
+    Locator:  getByLabel('确认密码', { exact: true })
+    Expected: not "true"
+    Received: "true"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "not toHaveAttribute" getByLabel('确认密码', { exact: true }) with timeout 5000ms
+      - waiting for getByLabel('确认密码', { exact: true })
+        14 × locator resolved to <input tabindex="0" maxlength="64" type="password" aria-invalid="true" aria-required="true" id="confirm-password" class="el-input__inner" autocomplete="new-password" aria-describedby="confirm-password-error"/>
+           - unexpected value "true"
+
+
+      73 |  await expect(confirmation).toBeFocused();await expect(confirmation).toHaveAttribute('aria-invalid','true');
+      74 |  await expect(confirmation).toHaveAccessibleDescription('两次输入的密码不一致');
+    > 75 |  await confirmation.fill('Campus123!');await expect(confirmation).not.toHaveAttribute('aria-invalid','true');
+         |                                                                       ^
+      76 | });
+      77 |
+      78 | test('业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点',async({page},info)=>{
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:75:71
+
+    Error Context: frontend/test-results/accessibility-表单校验错误关联字段，修正输入后清除旧错误/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-表单校验错误关联字段，修正输入后清除旧错误/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-表单校验错误关联字段，修正输入后清除旧错误/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) frontend/e2e/accessibility.spec.ts:78:1 › 业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点 ───────────────────────────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('main')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('main') with timeout 5000ms
+      - waiting for getByRole('main')
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      80 |  const trigger=page.getByRole('button',{name:'立即下单'});await trigger.focus();await page.keyboard.press('Enter');
+      81 |  const dialog=page.getByRole('dialog',{name:'下单',exact:true});await expect(dialog).toBeVisible();
+    > 82 |  await expect(page.getByRole('main')).toHaveCount(0);
+         |                                       ^
+      83 |  for(let n=0;n<10;n++){await page.keyboard.press('Tab');expect(await dialog.evaluate(e=>e.contains(document.activeElement))).toBe(true)}
+      84 |  await scan(page,'下单弹窗',info);
+      85 |  await page.keyboard.press('Escape');await expect(dialog).toBeHidden();await expect(trigger).toBeFocused();
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:82:39
+
+    Error Context: frontend/test-results/accessibility-业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) frontend/e2e/accessibility.spec.ts:88:1 › 上传图片移除按钮可区分，移除后焦点仍在上传区域 ─────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: '移除商品照片第 1 张', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: '移除商品照片第 1 张', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '移除商品照片第 1 张', exact: true })
+
+
+      18 | }
+      19 | async function tabTo(page:Page,target:Locator){
+    > 20 |  await expect(target).toBeVisible();
+         |                       ^
+      21 |  for(let n=0;n<100;n++){
+      22 |   if(await target.evaluate(e=>e===document.activeElement))return;
+      23 |   await page.keyboard.press('Tab');
+        at tabTo (/Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:20:23)
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:95:8
+
+    Error Context: frontend/test-results/accessibility-上传图片移除按钮可区分，移除后焦点仍在上传区域/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-上传图片移除按钮可区分，移除后焦点仍在上传区域/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-上传图片移除按钮可区分，移除后焦点仍在上传区域/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) frontend/e2e/accessibility.spec.ts:99:1 › 强制颜色模式保留输入框实体边界与当前选项标识 ──────────────────────────────
+
+    Error: expect(received).not.toBe(expected) // Object.is equality
+
+    Expected: not "0px"
+
+      101 |  const input=page.getByLabel('用户名',{exact:true});
+      102 |  const border=await input.locator('..').evaluate(e=>({width:getComputedStyle(e).borderWidth,style:getComputedStyle(e).borderStyle}));
+    > 103 |  expect(border.width).not.toBe('0px');expect(border.style).not.toBe('none');
+          |                           ^
+      104 |  await page.goto('/');const active=page.getByRole('button',{name:'全部商品',exact:true});
+      105 |  await expect(active).toHaveAttribute('aria-pressed','true');
+      106 |  expect(await active.evaluate(e=>getComputedStyle(e).outlineStyle)).not.toBe('none');
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:103:27
+
+    Error Context: frontend/test-results/accessibility-强制颜色模式保留输入框实体边界与当前选项标识/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-强制颜色模式保留输入框实体边界与当前选项标识/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-强制颜色模式保留输入框实体边界与当前选项标识/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：游客 ────────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "id": "region",
+    +     "nodes": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Some page content is not contained by landmarks",
+    +         "target": Array [
+    +           ".demo-banner",
+    +         ],
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      15 |  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']).analyze();
+      16 |  await info.attach(name+'.json',{body:JSON.stringify({url:page.url(),timestamp:result.timestamp,testEngine:result.testEngine,violations:result.violations,incomplete:result.incomplete,passes:result.passes.map(x=>x.id)},null,2),contentType:'application/json'});
+    > 17 |  expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);
+         |                                                                                                                   ^
+      18 | }
+      19 | async function tabTo(page:Page,target:Locator){
+      20 |  await expect(target).toBeVisible();
+        at scan (/Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:17:115)
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:114:49
+
+    Error Context: frontend/test-results/accessibility-axe-无障碍规则检查：游客/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-axe-无障碍规则检查：游客/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-axe-无障碍规则检查：游客/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：普通用户 ──────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "id": "region",
+    +     "nodes": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Some page content is not contained by landmarks",
+    +         "target": Array [
+    +           ".demo-banner",
+    +         ],
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      15 |  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']).analyze();
+      16 |  await info.attach(name+'.json',{body:JSON.stringify({url:page.url(),timestamp:result.timestamp,testEngine:result.testEngine,violations:result.violations,incomplete:result.incomplete,passes:result.passes.map(x=>x.id)},null,2),contentType:'application/json'});
+    > 17 |  expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);
+         |                                                                                                                   ^
+      18 | }
+      19 | async function tabTo(page:Page,target:Locator){
+      20 |  await expect(target).toBeVisible();
+        at scan (/Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:17:115)
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:114:49
+
+    Error Context: frontend/test-results/accessibility-axe-无障碍规则检查：普通用户/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-axe-无障碍规则检查：普通用户/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-axe-无障碍规则检查：普通用户/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：管理员 ──────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "id": "region",
+    +     "nodes": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Some page content is not contained by landmarks",
+    +         "target": Array [
+    +           ".demo-banner",
+    +         ],
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      15 |  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']).analyze();
+      16 |  await info.attach(name+'.json',{body:JSON.stringify({url:page.url(),timestamp:result.timestamp,testEngine:result.testEngine,violations:result.violations,incomplete:result.incomplete,passes:result.passes.map(x=>x.id)},null,2),contentType:'application/json'});
+    > 17 |  expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);
+         |                                                                                                                   ^
+      18 | }
+      19 | async function tabTo(page:Page,target:Locator){
+      20 |  await expect(target).toBeVisible();
+        at scan (/Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:17:115)
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:114:49
+
+    Error Context: frontend/test-results/accessibility-axe-无障碍规则检查：管理员/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-axe-无障碍规则检查：管理员/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-axe-无障碍规则检查：管理员/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：客服 ───────────────────────────────────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 14
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "id": "region",
+    +     "nodes": Array [
+    +       Object {
+    +         "summary": "Fix any of the following:
+    +   Some page content is not contained by landmarks",
+    +         "target": Array [
+    +           ".demo-banner",
+    +         ],
+    +       },
+    +     ],
+    +   },
+    + ]
+
+      15 |  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice']).analyze();
+      16 |  await info.attach(name+'.json',{body:JSON.stringify({url:page.url(),timestamp:result.timestamp,testEngine:result.testEngine,violations:result.violations,incomplete:result.incomplete,passes:result.passes.map(x=>x.id)},null,2),contentType:'application/json'});
+    > 17 |  expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);
+         |                                                                                                                   ^
+      18 | }
+      19 | async function tabTo(page:Page,target:Locator){
+      20 |  await expect(target).toBeVisible();
+        at scan (/Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:17:115)
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:114:49
+
+    Error Context: frontend/test-results/accessibility-axe-无障碍规则检查：客服/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-axe-无障碍规则检查：客服/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-axe-无障碍规则检查：客服/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11 failed
+    frontend/e2e/accessibility.spec.ts:28:1 › 页面切换更新标题、定位异步标题，筛选保留焦点 ───────────────────────────────
+    frontend/e2e/accessibility.spec.ts:44:1 › 跳转链接可用且手机导航隔离背景、循环焦点并用 Escape 返回 ─────────────────────
+    frontend/e2e/accessibility.spec.ts:59:1 › 工作人员手机抽屉隔离背景并恢复菜单焦点 ──────────────────────────────────
+    frontend/e2e/accessibility.spec.ts:67:1 › 表单校验错误关联字段，修正输入后清除旧错误 ────────────────────────────────
+    frontend/e2e/accessibility.spec.ts:78:1 › 业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点 ────────────────────────────
+    frontend/e2e/accessibility.spec.ts:88:1 › 上传图片移除按钮可区分，移除后焦点仍在上传区域 ──────────────────────────────
+    frontend/e2e/accessibility.spec.ts:99:1 › 强制颜色模式保留输入框实体边界与当前选项标识 ───────────────────────────────
+    frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：游客 ─────────────────────────────────────
+    frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：普通用户 ───────────────────────────────────
+    frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：管理员 ────────────────────────────────────
+    frontend/e2e/accessibility.spec.ts:110:45 › axe 无障碍规则检查：客服 ─────────────────────────────────────
+  1 passed (44.7s)

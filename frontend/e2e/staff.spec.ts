@@ -8,7 +8,7 @@ for(const role of ['admin','support'])test(`${role}岗位首页、路由隔离�
  const heading=role==='admin'?'管理员工作台':'客服工作台';await expect(page.getByRole('heading',{name:heading,exact:true})).toBeVisible();
  await expect(page.getByRole('link',{name:'浏览商品',exact:true})).toHaveCount(0);await expect(page.locator('.balance')).toHaveCount(0);
  for(const width of [1440,1280,390]){
-  await page.setViewportSize({width,height:900});await expect(page.getByRole('link',{name:'通知',exact:true})).toBeVisible();
+  await page.setViewportSize({width,height:900});await expect(page.getByRole('link',{name:/^通知(?:，|$)/})).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
   await page.screenshot({path:info.outputPath(role+'-'+width+'.png'),fullPage:true});
  }

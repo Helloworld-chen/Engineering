@@ -1,0 +1,226 @@
+{
+  "date": "2026-11-12",
+  "preview": "http://127.0.0.1:15180",
+  "git_state": "branch feat/user-profiles-reviews; see repository history for the commit containing this record",
+  "browser": {
+    "passed": 46,
+    "failed": 0,
+    "skipped": 0,
+    "accessibility": 16,
+    "business": 30,
+    "duration": "2.5m"
+  },
+  "frontend_unit": {
+    "passed": 68,
+    "failed": 0
+  },
+  "backend": {
+    "passed": 119,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "build": "Docker frontend production build passed",
+  "axe": {
+    "scans": 31,
+    "violations": 0,
+    "incomplete": 0,
+    "reports": [
+      {
+        "file": "accessibility-axe-无障碍规则检查：游客__游客-register.json",
+        "url": "http://127.0.0.1:15180/register",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：游客__游客-.json",
+        "url": "http://127.0.0.1:15180/",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：游客__游客-missing-a11y-page.json",
+        "url": "http://127.0.0.1:15180/missing-a11y-page",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：游客__游客-login.json",
+        "url": "http://127.0.0.1:15180/login",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：游客__游客-products-demo-product-0.json",
+        "url": "http://127.0.0.1:15180/products/demo-product-0",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：强制颜色__评价确认弹窗.json",
+        "url": "http://127.0.0.1:15180/orders/ad194032-7bd4-4cca-8294-f05a728128f7",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：强制颜色__付款确认.json",
+        "url": "http://127.0.0.1:15180/orders/ad194032-7bd4-4cca-8294-f05a728128f7",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：强制颜色__待付款订单.json",
+        "url": "http://127.0.0.1:15180/orders/ad194032-7bd4-4cca-8294-f05a728128f7",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：强制颜色__发货凭证弹窗.json",
+        "url": "http://127.0.0.1:15180/orders/ad194032-7bd4-4cca-8294-f05a728128f7",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：强制颜色__已完成订单及评价表单.json",
+        "url": "http://127.0.0.1:15180/orders/ad194032-7bd4-4cca-8294-f05a728128f7",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-users-buyer.json",
+        "url": "http://127.0.0.1:15180/users/buyer",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-orders.json",
+        "url": "http://127.0.0.1:15180/orders",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-notifications.json",
+        "url": "http://127.0.0.1:15180/notifications",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-profile.json",
+        "url": "http://127.0.0.1:15180/profile",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-my-products.json",
+        "url": "http://127.0.0.1:15180/my/products",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-publish.json",
+        "url": "http://127.0.0.1:15180/publish",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-.json",
+        "url": "http://127.0.0.1:15180/",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：普通用户__普通用户-cases.json",
+        "url": "http://127.0.0.1:15180/cases",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-业务确认弹窗支持键盘循环、背景隔离与取消后返回焦点__下单弹窗.json",
+        "url": "http://127.0.0.1:15180/products/demo-product-0",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：普通显示__评价确认弹窗.json",
+        "url": "http://127.0.0.1:15180/orders/307cdef4-a418-445b-ae29-b9f1b393b386",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：普通显示__付款确认.json",
+        "url": "http://127.0.0.1:15180/orders/307cdef4-a418-445b-ae29-b9f1b393b386",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：普通显示__待付款订单.json",
+        "url": "http://127.0.0.1:15180/orders/307cdef4-a418-445b-ae29-b9f1b393b386",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：普通显示__发货凭证弹窗.json",
+        "url": "http://127.0.0.1:15180/orders/307cdef4-a418-445b-ae29-b9f1b393b386",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-键盘完成下单付款、发货收货和评价：普通显示__已完成订单及评价表单.json",
+        "url": "http://127.0.0.1:15180/orders/307cdef4-a418-445b-ae29-b9f1b393b386",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：管理员__管理员-admin.json",
+        "url": "http://127.0.0.1:15180/admin",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：管理员__管理员-reports.json",
+        "url": "http://127.0.0.1:15180/reports",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：管理员__管理员-profile.json",
+        "url": "http://127.0.0.1:15180/profile",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：管理员__管理员-moderation.json",
+        "url": "http://127.0.0.1:15180/moderation",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：客服__客服-support.json",
+        "url": "http://127.0.0.1:15180/support",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：客服__客服-cases.json",
+        "url": "http://127.0.0.1:15180/cases",
+        "violations": 0,
+        "incomplete": 0
+      },
+      {
+        "file": "accessibility-axe-无障碍规则检查：客服__客服-profile.json",
+        "url": "http://127.0.0.1:15180/profile",
+        "violations": 0,
+        "incomplete": 0
+      }
+    ]
+  },
+  "screen_reader": {
+    "VoiceOver": "attempted; no verifiable speech output; switch restored off",
+    "NVDA": "not tested"
+  },
+  "limits": [
+    "forced-colors browser emulation, not Windows theme test",
+    "text size 200%, not browser zoom",
+    "native file picker not tested"
+  ]
+}

@@ -8,6 +8,10 @@ const emit=defineEmits<{'update:modelValue':[value:string[]],busy:[value:boolean
 const id=useId(),busy=ref(false),error=ref('');
 let alive=true;
 onBeforeUnmount(()=>{alive=false;if(busy.value)emit('busy',false)});
+async function remove(image:string){
+ emit('update:modelValue',props.modelValue.filter(value=>value!==image));
+ await nextTick();document.getElementById(props.inputId||id)?.focus();
+}
 async function upload(event:Event){
  const target=event.target as HTMLInputElement;
  const files=Array.from(target.files||[]);
@@ -47,9 +51,9 @@ async function upload(event:Event){
   <label class="field-label" :for="inputId||id">{{label}} <span v-if="required!==false" class="required">必填</span></label>
   <input :id="inputId||id" type="file" accept="image/jpeg,image/png,image/webp" multiple :disabled="busy||(max!==undefined&&modelValue.length>=max)" :aria-invalid="error||fieldError?true:undefined" :aria-describedby="(inputId||id)+'-hint'+(error||fieldError?' '+(inputId||id)+'-error':'')" @change="upload"/>
   <p :id="(inputId||id)+'-hint'" class="muted"><PhUploadSimple aria-hidden="true"/> JPEG、PNG、WebP，每张最多 5 MB{{busy?' · 正在上传':''}}</p>
-  <div class="photo-strip"><div v-for="image in modelValue" :key="image">
+  <div class="photo-strip"><div v-for="(image,index) in modelValue" :key="image">
    <img :src="'/api/v1/files/'+image" :alt="label+'预览'"/>
-   <button type="button" class="text-button" :disabled="busy" @click="emit('update:modelValue',modelValue.filter(value=>value!==image))">移除</button>
+   <button type="button" class="text-button" :aria-label="'移除'+label+'第 '+(index+1)+' 张'" :disabled="busy" @click="remove(image)">移除</button>
   </div></div>
   <p v-if="error||fieldError" :id="(inputId||id)+'-error'" class="error" role="alert">{{error||fieldError}}</p>
  </div>

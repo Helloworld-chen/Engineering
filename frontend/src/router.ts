@@ -2,25 +2,25 @@ import {createRouter,createWebHistory} from 'vue-router';
 import {useSession} from './stores/session';
 import {homeFor,canVisit} from './lib/access';
 const router=createRouter({history:createWebHistory(),scrollBehavior:(to,from)=>to.path===from.path&&to.path.startsWith('/users/')?false:{top:0},routes:[
- {path:'/admin',component:()=>import('./views/StaffDashboard.vue'),meta:{role:'ADMIN'}},
- {path:'/support',component:()=>import('./views/StaffDashboard.vue'),meta:{role:'SUPPORT'}},
- {path:'/moderation/:id',component:()=>import('./views/ModerationDetail.vue'),meta:{role:'ADMIN'}},
- {path:'/',component:()=>import('./views/CatalogView.vue')},
- {path:'/login',component:()=>import('./views/AuthView.vue')},{path:'/register',component:()=>import('./views/AuthView.vue')},
- {path:'/products/:id',component:()=>import('./views/ProductView.vue')},
- {path:'/publish',component:()=>import('./views/ProductEditor.vue'),meta:{role:'USER'}},
- {path:'/products/:id/edit',component:()=>import('./views/ProductEditor.vue'),meta:{role:'USER'}},
- {path:'/my/products',component:()=>import('./views/MyProductsView.vue'),meta:{role:'USER'}},
- {path:'/orders',component:()=>import('./views/OrdersView.vue'),meta:{auth:true}},
- {path:'/orders/:id',component:()=>import('./views/OrderView.vue'),meta:{auth:true}},
- {path:'/cases',component:()=>import('./views/CasesView.vue'),meta:{auth:true}},
- {path:'/cases/:id',component:()=>import('./views/CaseView.vue'),meta:{auth:true}},
- {path:'/moderation',component:()=>import('./views/ModerationView.vue'),meta:{role:'ADMIN'}},
- {path:'/reports',component:()=>import('./views/ReportsView.vue'),meta:{auth:true}},
- {path:'/notifications',component:()=>import('./views/NotificationsView.vue'),meta:{auth:true}},
- {path:'/users/:id',component:()=>import('./views/UserProfileView.vue'),meta:{auth:true}},
- {path:'/profile',component:()=>import('./views/ProfileView.vue'),meta:{auth:true}},
- {path:'/:pathMatch(.*)*',component:()=>import('./views/NotFound.vue')}
+ {path:'/admin',component:()=>import('./views/StaffDashboard.vue'),meta:{title:'管理员工作台',role:'ADMIN'}},
+ {path:'/support',component:()=>import('./views/StaffDashboard.vue'),meta:{title:'客服工作台',role:'SUPPORT'}},
+ {path:'/moderation/:id',component:()=>import('./views/ModerationDetail.vue'),meta:{title:'商品审核详情',role:'ADMIN'}},
+ {path:'/',component:()=>import('./views/CatalogView.vue'),meta:{title:'商品集市'}},
+ {path:'/login',component:()=>import('./views/AuthView.vue'),meta:{title:'登录校园集市'}},{path:'/register',component:()=>import('./views/AuthView.vue'),meta:{title:'注册校园集市'}},
+ {path:'/products/:id',component:()=>import('./views/ProductView.vue'),meta:{title:'商品详情'}},
+ {path:'/publish',component:()=>import('./views/ProductEditor.vue'),meta:{title:'发布商品',role:'USER'}},
+ {path:'/products/:id/edit',component:()=>import('./views/ProductEditor.vue'),meta:{title:'编辑商品',role:'USER'}},
+ {path:'/my/products',component:()=>import('./views/MyProductsView.vue'),meta:{title:'我的商品',role:'USER'}},
+ {path:'/orders',component:()=>import('./views/OrdersView.vue'),meta:{title:'我的订单',auth:true}},
+ {path:'/orders/:id',component:()=>import('./views/OrderView.vue'),meta:{title:'订单详情',auth:true}},
+ {path:'/cases',component:()=>import('./views/CasesView.vue'),meta:{title:'售后记录',auth:true}},
+ {path:'/cases/:id',component:()=>import('./views/CaseView.vue'),meta:{title:'售后详情',auth:true}},
+ {path:'/moderation',component:()=>import('./views/ModerationView.vue'),meta:{title:'商品审核',role:'ADMIN'}},
+ {path:'/reports',component:()=>import('./views/ReportsView.vue'),meta:{title:'举报记录',auth:true}},
+ {path:'/notifications',component:()=>import('./views/NotificationsView.vue'),meta:{title:'通知',auth:true}},
+ {path:'/users/:id',component:()=>import('./views/UserProfileView.vue'),meta:{title:'用户资料',auth:true}},
+ {path:'/profile',component:()=>import('./views/ProfileView.vue'),meta:{title:'个人中心',auth:true}},
+ {path:'/:pathMatch(.*)*',component:()=>import('./views/NotFound.vue'),meta:{title:'页面未找到'}}
 ]});
 router.beforeEach(async to=>{
  const session=useSession();

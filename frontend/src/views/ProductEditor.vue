@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AccessibleDialog from '../components/AccessibleDialog.vue';
 import {ref,watch} from 'vue';
 import {useRoute,useRouter} from 'vue-router';
 import {api,ApiError,money,type Product} from '../api/client';
@@ -81,7 +82,7 @@ function keepDraft(){
    <div class="row end"><RouterLink class="button" to="/my/products">取消</RouterLink><button class="button primary" type="submit" :disabled="busy||uploading||conflict">{{busy?'正在提交…':'提交审核'}}</button></div>
   </el-form>
  </PageState>
- <el-dialog v-model="review" title="最新商品信息" width="min(560px, calc(100% - 32px))">
+ <AccessibleDialog v-model="review" title="最新商品信息" width="min(560px, calc(100% - 32px))">
   <div v-if="latest" class="stack">
    <dl class="facts"><dt>名称</dt><dd>{{latest.title}}</dd><dt>分类</dt><dd>{{latest.category}}</dd><dt>价格</dt><dd>{{money(latest.price)}}</dd><dt>审核结果</dt><dd>{{label(latest.auditStatus)}}</dd><dt>销售状态</dt><dd>{{label(latest.saleStatus)}}</dd><dt>商品说明</dt><dd class="preserve">{{latest.description}}</dd></dl>
    <div v-if="latest.images.length" class="photo-strip"><img v-for="(image,index) in latest.images" :key="image" :src="'/api/v1/files/'+image" :alt="'最新商品照片 '+(index+1)"/></div>
@@ -89,5 +90,5 @@ function keepDraft(){
    <p v-else class="error">商品当前无法编辑，草稿仍保留在本页。</p>
    <div class="row end"><button type="button" class="button" @click="review=false">返回</button><button v-if="editable(latest)" type="button" class="button primary" @click="keepDraft">保留草稿并使用最新版本</button></div>
   </div>
- </el-dialog>
+ </AccessibleDialog>
 </template>

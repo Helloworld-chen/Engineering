@@ -1,0 +1,38 @@
+# 独立无障碍验收环境。端口、数据库卷和上传卷均与现有网站分开。
+name: campus-market-a11y
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: campus_market
+      MYSQL_USER: campus
+      MYSQL_PASSWORD: campus_local
+      MYSQL_ROOT_PASSWORD: root_local
+    volumes: [a11y-mysql:/var/lib/mysql]
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-proot_local']
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:mysql://db:3306/campus_market?connectionTimeZone=UTC
+      DB_USER: campus
+      DB_PASSWORD: campus_local
+      UPLOAD_DIR: /app/uploads
+      IDENTITY_PROVIDER: demo
+      PRODUCT_PROVIDER: demo
+      AFTERSALES_PROVIDER: demo
+      NOTIFICATION_PROVIDER: demo
+    ports: ['127.0.0.1:18083:8080']
+    volumes: [a11y-uploads:/app/uploads]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build: ./frontend
+    ports: ['127.0.0.1:15180:80']
+    depends_on: [backend]
+volumes:
+  a11y-mysql:
+  a11y-uploads:

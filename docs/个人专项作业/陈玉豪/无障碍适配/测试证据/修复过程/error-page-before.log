@@ -1,0 +1,49 @@
+(node:38545) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:38568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:38569) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 frontend/e2e/accessibility.spec.ts:75:1 › 详情加载失败更新页面标题并聚焦错误，重试恢复商品标题 (5.6s)
+
+
+  1) frontend/e2e/accessibility.spec.ts:75:1 › 详情加载失败更新页面标题并聚焦错误，重试恢复商品标题 ──────────────────────────
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('heading', { name: '暂时无法读取' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('heading', { name: '暂时无法读取' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: '暂时无法读取' })
+        14 × locator resolved to <h2>暂时无法读取</h2>
+           - unexpected value "inactive"
+
+
+      78 |  await page.locator('a[href="/products/demo-product-0"]').first().click();
+      79 |  const error=page.getByRole('heading',{name:'暂时无法读取'});
+    > 80 |  await expect(error).toBeFocused();
+         |                      ^
+      81 |  await expect(page).toHaveTitle(/商品详情：暂时无法读取.*校园集市/);
+      82 |  await page.unroute('**/api/v1/products/demo-product-0');
+      83 |  await page.getByRole('button',{name:'重新读取'}).click();
+        at /Users/tom/软件工程/Engineering/frontend/e2e/accessibility.spec.ts:80:22
+
+    Error Context: frontend/test-results/accessibility-详情加载失败更新页面标题并聚焦错误，重试恢复商品标题/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    frontend/test-results/accessibility-详情加载失败更新页面标题并聚焦错误，重试恢复商品标题/trace.zip
+    Usage:
+
+        npx playwright show-trace frontend/test-results/accessibility-详情加载失败更新页面标题并聚焦错误，重试恢复商品标题/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frontend/e2e/accessibility.spec.ts:75:1 › 详情加载失败更新页面标题并聚焦错误，重试恢复商品标题 ───────────────────────────

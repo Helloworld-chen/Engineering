@@ -8,7 +8,8 @@ export function useFieldErrors(){
   void nextTick(()=>document.getElementById(id)?.focus());
  }
  function attributes(id:string){
-  return fields[id]?{'aria-invalid':true,'aria-describedby':id+'-error'}:{};
+  return {onInput:()=>{delete fields[id]},onChange:()=>{delete fields[id]},
+   ...(fields[id]?{'aria-invalid':true,'aria-describedby':id+'-error'}:{})};
  }
  return {fields,clear,flag,attributes};
 }

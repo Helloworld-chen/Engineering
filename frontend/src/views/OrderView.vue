@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AccessibleDialog from '../components/AccessibleDialog.vue';
 import {profileLink} from '../lib/userProfiles';
 import {computed,ref} from 'vue';
 import {useRoute,useRouter} from 'vue-router';
@@ -144,7 +145,7 @@ function ship(){
   </div>
  </PageState>
  <ActionDialog v-model="dialog" :title="action?.title||''" :description="action?.description||''" :requires-reason="!!action?.kind" reason-label="申请理由" :busy="busy" :error="actionError" @confirm="submit"/>
- <el-dialog v-model="shipping" :title="action?.title" width="min(560px, calc(100% - 32px))" :close-on-click-modal="false" :show-close="!busy&&!goodsBusy&&!packagingBusy" :close-on-press-escape="!busy&&!goodsBusy&&!packagingBusy">
+ <AccessibleDialog v-model="shipping" :title="action?.title" width="min(560px, calc(100% - 32px))" :close-on-click-modal="false" :show-close="!busy&&!goodsBusy&&!packagingBusy" :close-on-press-escape="!busy&&!goodsBusy&&!packagingBusy">
   <form class="stack" @submit.prevent="ship">
    <p>{{action?.description}}</p>
    <label class="field-label">物流单号 <span class="required">必填</span><input id="tracking-number" v-model="trackingNumber" v-bind="attributes('tracking-number')" required maxlength="100"/><span v-if="fields['tracking-number']" id="tracking-number-error" class="error">{{fields['tracking-number']}}</span></label>
@@ -154,5 +155,5 @@ function ship(){
    <p v-if="actionError" class="error" role="alert">{{actionError}}</p>
    <div class="row end"><button class="button" type="button" :disabled="busy||goodsBusy||packagingBusy" @click="shipping=false">返回</button><button class="button primary" type="submit" :disabled="busy||goodsBusy||packagingBusy">{{busy?'正在提交…':'确认'+action?.title}}</button></div>
   </form>
- </el-dialog>
+ </AccessibleDialog>
 </template>

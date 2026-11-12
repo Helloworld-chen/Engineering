@@ -1,0 +1,1139 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< cn.edu.campus:market >------------------------
+[INFO] Building Campus Market 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ market ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 4 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ market ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ market ---
+[INFO] skip non existing resourceDirectory /work/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ market ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 27 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] /work/src/test/java/cn/edu/campus/ApiTestSupport.java: Some input files use unchecked or unsafe operations.
+[INFO] /work/src/test/java/cn/edu/campus/ApiTestSupport.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ market ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running cn.edu.campus.RealLogisticsNotificationTest
+01:56:06.272 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cn.edu.campus.RealLogisticsNotificationTest]: RealLogisticsNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:56:06.377 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealLogisticsNotificationTest
+01:56:06.451 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cn.edu.campus.RealLogisticsNotificationTest]: RealLogisticsNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:56:06.451 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cn.edu.campus.LogisticsNotificationTest]: LogisticsNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:56:06.452 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:56:06.452 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+01:56:06.453 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealLogisticsNotificationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:06.751Z  INFO 81 --- [           main] c.e.c.RealLogisticsNotificationTest      : Starting RealLogisticsNotificationTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:06.752Z  INFO 81 --- [           main] c.e.c.RealLogisticsNotificationTest      : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:07.331Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:07.338Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:07.338Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:07.355Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 591 ms
+2026-11-12T01:56:07.477Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-12T01:56:07.663Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@595184d8
+2026-11-12T01:56:07.664Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-12T01:56:07.678Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:07.801Z  INFO 81 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `campus_market_a11y_20261112`.`flyway_schema_history` does not exist yet
+2026-11-12T01:56:07.803Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.013s)
+2026-11-12T01:56:07.827Z  INFO 81 --- [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `campus_market_a11y_20261112`.`flyway_schema_history` ...
+2026-11-12T01:56:07.897Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: << Empty Schema >>
+2026-11-12T01:56:07.906Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `campus_market_a11y_20261112` to version "1 - module schema"
+2026-11-12T01:56:08.144Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `campus_market_a11y_20261112` to version "2 - logistics notification recipients"
+2026-11-12T01:56:08.147Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.147Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.147Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.147Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.148Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.149Z  WARN 81 --- [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: 'BINARY expr' is deprecated and will be removed in a future release. Please use CAST instead (SQL State: HY000 - Error Code: 1287)
+2026-11-12T01:56:08.158Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `campus_market_a11y_20261112` to version "3 - m07 case messages"
+2026-11-12T01:56:08.173Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `campus_market_a11y_20261112` to version "4 - user profiles and order reviews"
+2026-11-12T01:56:08.207Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 4 migrations to schema `campus_market_a11y_20261112`, now at version v4 (execution time 00:00.267s)
+2026-11-12T01:56:08.389Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:08.596Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 44341 (http) with context path '/'
+2026-11-12T01:56:08.605Z  INFO 81 --- [           main] c.e.c.RealLogisticsNotificationTest      : Started RealLogisticsNotificationTest in 2.03 seconds (process running for 3.071)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.18.15/byte-buddy-agent-1.18.15.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-11-12T01:56:09.383Z  INFO 81 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:09.383Z  INFO 81 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:09.383Z  INFO 81 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.057 s -- in cn.edu.campus.RealLogisticsNotificationTest
+[INFO] Running cn.edu.campus.OrderParticipantsTest
+2026-11-12T01:56:10.053Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.OrderParticipantsTest]: OrderParticipantsTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:10.055Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.OrderParticipantsTest
+2026-11-12T01:56:10.055Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.OrderParticipantsTest]: OrderParticipantsTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:10.056Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:10.056Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.OrderParticipantsTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:10.087Z  INFO 81 --- [           main] cn.edu.campus.OrderParticipantsTest      : Starting OrderParticipantsTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:10.088Z  INFO 81 --- [           main] cn.edu.campus.OrderParticipantsTest      : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:10.222Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:10.223Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:10.223Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:10.228Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 139 ms
+2026-11-12T01:56:10.243Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-11-12T01:56:10.249Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c80b1d2
+2026-11-12T01:56:10.250Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-11-12T01:56:10.250Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:10.277Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.002s)
+2026-11-12T01:56:10.280Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: 4
+2026-11-12T01:56:10.280Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `campus_market_a11y_20261112` is up to date. No migration necessary.
+2026-11-12T01:56:10.305Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:10.334Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 35025 (http) with context path '/'
+2026-11-12T01:56:10.335Z  INFO 81 --- [           main] cn.edu.campus.OrderParticipantsTest      : Started OrderParticipantsTest in 0.277 seconds (process running for 4.802)
+2026-11-12T01:56:10.545Z  INFO 81 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:10.545Z  INFO 81 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:10.545Z  INFO 81 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.773 s -- in cn.edu.campus.OrderParticipantsTest
+[INFO] Running cn.edu.campus.NotificationInboxTest
+2026-11-12T01:56:10.827Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.NotificationInboxTest]: NotificationInboxTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:10.828Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.NotificationInboxTest
+2026-11-12T01:56:10.829Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.NotificationInboxTest]: NotificationInboxTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:10.830Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:10.831Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.NotificationInboxTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.669 s -- in cn.edu.campus.NotificationInboxTest
+[INFO] Running cn.edu.campus.identity.SessionsTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.143 s -- in cn.edu.campus.identity.SessionsTest
+[INFO] Running cn.edu.campus.RealProductHttpTest
+2026-11-12T01:56:11.647Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealProductHttpTest]: RealProductHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:11.651Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealProductHttpTest
+2026-11-12T01:56:11.653Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealProductHttpTest]: RealProductHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:11.654Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:11.657Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealProductHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:11.697Z  INFO 81 --- [           main] cn.edu.campus.RealProductHttpTest        : Starting RealProductHttpTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:11.697Z  INFO 81 --- [           main] cn.edu.campus.RealProductHttpTest        : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:11.911Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:11.912Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:11.912Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:11.920Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 221 ms
+2026-11-12T01:56:11.943Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-11-12T01:56:11.966Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@30c0993e
+2026-11-12T01:56:11.967Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-11-12T01:56:11.968Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:11.994Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.007s)
+2026-11-12T01:56:12.001Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: 4
+2026-11-12T01:56:12.002Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `campus_market_a11y_20261112` is up to date. No migration necessary.
+2026-11-12T01:56:12.053Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:12.139Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 43595 (http) with context path '/'
+2026-11-12T01:56:12.144Z  INFO 81 --- [           main] cn.edu.campus.RealProductHttpTest        : Started RealProductHttpTest in 0.48 seconds (process running for 6.611)
+2026-11-12T01:56:12.430Z  INFO 81 --- [o-auto-3-exec-1] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:12.430Z  INFO 81 --- [o-auto-3-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:12.430Z  INFO 81 --- [o-auto-3-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.553 s -- in cn.edu.campus.RealProductHttpTest
+[INFO] Running cn.edu.campus.TradePortIntegrityTest
+2026-11-12T01:56:13.197Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TradePortIntegrityTest]: TradePortIntegrityTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.198Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TradePortIntegrityTest
+2026-11-12T01:56:13.199Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TradePortIntegrityTest]: TradePortIntegrityTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.199Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.200Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.200Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TradePortIntegrityTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.367 s -- in cn.edu.campus.TradePortIntegrityTest
+[INFO] Running cn.edu.campus.TransactionRecoveryTest
+2026-11-12T01:56:13.570Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TransactionRecoveryTest]: TransactionRecoveryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.571Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TransactionRecoveryTest
+2026-11-12T01:56:13.572Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TransactionRecoveryTest]: TransactionRecoveryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.572Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.573Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:13.573Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TransactionRecoveryTest
+2026-11-12T01:56:14.005Z ERROR 81 --- [-auto-2-exec-10] cn.edu.campus.shared.Errors              : Database operation rolled back
+
+org.springframework.jdbc.UncategorizedSQLException: 
+### Error updating database.  Cause: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+### The error may exist in cn/edu/campus/trade/TradeMapper.java (best guess)
+### The error may involve cn.edu.campus.trade.TradeMapper.money-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO money_operations VALUES(?,?,?,?,?)
+### Cause: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+; uncategorized SQLException; SQL state [HY000]; error code [3819]; Check constraint 'test_reject_money' is violated.
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:362) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at jdk.proxy2/jdk.proxy2.$Proxy114.insert(Unknown Source) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:239) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:62) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86) ~[mybatis-3.5.19.jar:3.5.19]
+	at jdk.proxy2/jdk.proxy2.$Proxy119.money(Unknown Source) ~[na:na]
+	at cn.edu.campus.trade.TradeService.money(TradeService.java:146) ~[classes/:na]
+	at cn.edu.campus.trade.TradeService.applyCaseDecision(TradeService.java:315) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:714) ~[spring-aop-7.0.10.jar:7.0.10]
+	at cn.edu.campus.trade.TradeService$$SpringCGLIB$$0.applyCaseDecision(<generated>) ~[classes/:na]
+	at cn.edu.campus.aftersales.DemoAftersalesAdapter.act(DemoAftersalesAdapter.java:183) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:714) ~[spring-aop-7.0.10.jar:7.0.10]
+	at cn.edu.campus.aftersales.DemoAftersalesAdapter$$SpringCGLIB$$0.act(<generated>) ~[classes/:na]
+	at cn.edu.campus.aftersales.CaseController.lambda$act$4(CaseController.java:77) ~[classes/:na]
+	at cn.edu.campus.shared.Idempotency.lambda$execute$0(Idempotency.java:61) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.10.jar:7.0.10]
+	at cn.edu.campus.shared.Idempotency.execute(Idempotency.java:42) ~[classes/:na]
+	at cn.edu.campus.aftersales.CaseController.act(CaseController.java:72) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:132) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:59) ~[tomcat-embed-websocket-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$2(FilterChainProxy.java:235) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:378) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:135) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:91) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:76) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:164) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:86) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:347) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:411) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1308) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:2202) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:947) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:481) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:383) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:48) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:75) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184) ~[mybatis-3.5.19.jar:3.5.19]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:348) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	... 119 common frames omitted
+
+2026-11-12T01:56:14.436Z ERROR 81 --- [           main] c.e.campus.notification.DeadlineRunner   : Deadline recovery failed; mutations remain gated
+
+org.springframework.jdbc.UncategorizedSQLException: 
+### Error updating database.  Cause: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+### The error may exist in cn/edu/campus/trade/TradeMapper.java (best guess)
+### The error may involve cn.edu.campus.trade.TradeMapper.money-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO money_operations VALUES(?,?,?,?,?)
+### Cause: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+; uncategorized SQLException; SQL state [HY000]; error code [3819]; Check constraint 'test_reject_money' is violated.
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:362) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at jdk.proxy2/jdk.proxy2.$Proxy114.insert(Unknown Source) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:239) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:62) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86) ~[mybatis-3.5.19.jar:3.5.19]
+	at jdk.proxy2/jdk.proxy2.$Proxy119.money(Unknown Source) ~[na:na]
+	at cn.edu.campus.trade.TradeService.money(TradeService.java:146) ~[classes/:na]
+	at cn.edu.campus.trade.TradeService.settle(TradeService.java:253) ~[classes/:na]
+	at cn.edu.campus.trade.TradeService.deadline(TradeService.java:341) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:714) ~[spring-aop-7.0.10.jar:7.0.10]
+	at cn.edu.campus.trade.TradeService$$SpringCGLIB$$0.deadline(<generated>) ~[classes/:na]
+	at cn.edu.campus.notification.DeadlineRunner.lambda$drainLocked$0(DeadlineRunner.java:114) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionOperations.lambda$executeWithoutResult$0(TransactionOperations.java:68) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.support.TransactionOperations.executeWithoutResult(TransactionOperations.java:67) ~[spring-tx-7.0.10.jar:7.0.10]
+	at cn.edu.campus.notification.DeadlineRunner.drainLocked(DeadlineRunner.java:109) ~[classes/:na]
+	at cn.edu.campus.notification.DeadlineRunner.drain(DeadlineRunner.java:94) ~[classes/:na]
+	at cn.edu.campus.notification.DeadlineRunner.recover(DeadlineRunner.java:65) ~[classes/:na]
+	at cn.edu.campus.TransactionRecoveryTest.recoveryFailureLeavesTaskPendingAndBlocksHttpMutation(TransactionRecoveryTest.java:144) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701) ~[junit-platform-commons-6.0.3.jar:6.0.3]
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502) ~[junit-platform-commons-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70) ~[junit-jupiter-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58) ~[junit-platform-engine-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58) ~[junit-platform-launcher-6.0.3.jar:6.0.3]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125) ~[surefire-api-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136) ~[surefire-junit-platform-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.6.jar:3.5.6]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.6.jar:3.5.6]
+Caused by: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:383) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:48) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:75) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184) ~[mybatis-3.5.19.jar:3.5.19]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:348) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	... 109 common frames omitted
+
+2026-11-12T01:56:15.021Z ERROR 81 --- [o-auto-2-exec-8] cn.edu.campus.shared.Errors              : Database operation rolled back
+
+org.springframework.jdbc.UncategorizedSQLException: 
+### Error updating database.  Cause: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+### The error may exist in cn/edu/campus/trade/TradeMapper.java (best guess)
+### The error may involve cn.edu.campus.trade.TradeMapper.money-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO money_operations VALUES(?,?,?,?,?)
+### Cause: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+; uncategorized SQLException; SQL state [HY000]; error code [3819]; Check constraint 'test_reject_money' is violated.
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:362) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at jdk.proxy2/jdk.proxy2.$Proxy114.insert(Unknown Source) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:239) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:62) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86) ~[mybatis-3.5.19.jar:3.5.19]
+	at jdk.proxy2/jdk.proxy2.$Proxy119.money(Unknown Source) ~[na:na]
+	at cn.edu.campus.trade.TradeService.money(TradeService.java:146) ~[classes/:na]
+	at cn.edu.campus.trade.TradeService.pay(TradeService.java:133) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:714) ~[spring-aop-7.0.10.jar:7.0.10]
+	at cn.edu.campus.trade.TradeService$$SpringCGLIB$$0.pay(<generated>) ~[classes/:na]
+	at cn.edu.campus.trade.TradeController.lambda$change$1(TradeController.java:73) ~[classes/:na]
+	at cn.edu.campus.shared.Idempotency.lambda$execute$0(Idempotency.java:61) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.10.jar:7.0.10]
+	at cn.edu.campus.shared.Idempotency.execute(Idempotency.java:42) ~[classes/:na]
+	at cn.edu.campus.trade.TradeController.change(TradeController.java:66) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:132) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:59) ~[tomcat-embed-websocket-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$2(FilterChainProxy.java:235) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:378) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:135) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:91) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:76) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:164) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:86) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:347) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:411) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1308) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:2202) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:947) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:481) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.sql.SQLException: Check constraint 'test_reject_money' is violated.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:383) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:48) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:75) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197) ~[mybatis-3.5.19.jar:3.5.19]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184) ~[mybatis-3.5.19.jar:3.5.19]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:348) ~[mybatis-spring-4.0.0.jar:4.0.0]
+	... 107 common frames omitted
+
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.776 s -- in cn.edu.campus.TransactionRecoveryTest
+[INFO] Running cn.edu.campus.RealUserProfileTest
+2026-11-12T01:56:15.347Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealUserProfileTest]: RealUserProfileTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:15.348Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealUserProfileTest
+2026-11-12T01:56:15.349Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealUserProfileTest]: RealUserProfileTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:15.350Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.UserProfileTest]: UserProfileTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:15.350Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:15.350Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:15.351Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealUserProfileTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:15.381Z  INFO 81 --- [           main] cn.edu.campus.RealUserProfileTest        : Starting RealUserProfileTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:15.381Z  INFO 81 --- [           main] cn.edu.campus.RealUserProfileTest        : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:15.522Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:15.522Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:15.523Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:15.531Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 147 ms
+2026-11-12T01:56:15.547Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-11-12T01:56:15.556Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@665f19d
+2026-11-12T01:56:15.557Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-11-12T01:56:15.557Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:15.583Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.004s)
+2026-11-12T01:56:15.585Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: 4
+2026-11-12T01:56:15.585Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `campus_market_a11y_20261112` is up to date. No migration necessary.
+2026-11-12T01:56:15.625Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:15.652Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 39589 (http) with context path '/'
+2026-11-12T01:56:15.653Z  INFO 81 --- [           main] cn.edu.campus.RealUserProfileTest        : Started RealUserProfileTest in 0.298 seconds (process running for 10.12)
+2026-11-12T01:56:15.857Z  INFO 81 --- [o-auto-4-exec-1] o.a.c.c.C.[Tomcat-3].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:15.857Z  INFO 81 --- [o-auto-4-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:15.857Z  INFO 81 --- [o-auto-4-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.548 s -- in cn.edu.campus.RealUserProfileTest
+[INFO] Running cn.edu.campus.UserProfileTest
+2026-11-12T01:56:16.894Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.UserProfileTest]: UserProfileTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:16.895Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.UserProfileTest
+2026-11-12T01:56:16.895Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.UserProfileTest]: UserProfileTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:16.896Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:16.896Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:16.896Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.UserProfileTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.973 s -- in cn.edu.campus.UserProfileTest
+[INFO] Running cn.edu.campus.RealProviderWorkflowTest
+2026-11-12T01:56:17.869Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealProviderWorkflowTest]: RealProviderWorkflowTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:17.870Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealProviderWorkflowTest
+2026-11-12T01:56:17.870Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealProviderWorkflowTest]: RealProviderWorkflowTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:17.870Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealProviderWorkflowTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:17.884Z  INFO 81 --- [           main] cn.edu.campus.RealProviderWorkflowTest   : Starting RealProviderWorkflowTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:17.884Z  INFO 81 --- [           main] cn.edu.campus.RealProviderWorkflowTest   : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:17.972Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:17.972Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:17.972Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:17.976Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 91 ms
+2026-11-12T01:56:17.987Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-11-12T01:56:17.992Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32317a37
+2026-11-12T01:56:17.993Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-11-12T01:56:17.993Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:18.077Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.022s)
+2026-11-12T01:56:18.084Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: 4
+2026-11-12T01:56:18.085Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `campus_market_a11y_20261112` is up to date. No migration necessary.
+2026-11-12T01:56:18.140Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:18.207Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 41829 (http) with context path '/'
+2026-11-12T01:56:18.211Z  INFO 81 --- [           main] cn.edu.campus.RealProviderWorkflowTest   : Started RealProviderWorkflowTest in 0.339 seconds (process running for 12.678)
+2026-11-12T01:56:18.515Z  INFO 81 --- [o-auto-5-exec-1] o.a.c.c.C.[Tomcat-4].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:18.515Z  INFO 81 --- [o-auto-5-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:18.516Z  INFO 81 --- [o-auto-5-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.462 s -- in cn.edu.campus.RealProviderWorkflowTest
+[INFO] Running cn.edu.campus.ApiSmokeTest
+2026-11-12T01:56:19.335Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiSmokeTest]: ApiSmokeTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:19.339Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.ApiSmokeTest
+2026-11-12T01:56:19.339Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiSmokeTest]: ApiSmokeTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:19.340Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.ApiSmokeTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:19.360Z  INFO 81 --- [           main] cn.edu.campus.ApiSmokeTest               : Starting ApiSmokeTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:19.360Z  INFO 81 --- [           main] cn.edu.campus.ApiSmokeTest               : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:19.485Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:19.486Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:19.486Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:19.491Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 129 ms
+2026-11-12T01:56:19.504Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-11-12T01:56:19.512Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@46b3c1c2
+2026-11-12T01:56:19.512Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-11-12T01:56:19.512Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:19.536Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.005s)
+2026-11-12T01:56:19.538Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: 4
+2026-11-12T01:56:19.538Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `campus_market_a11y_20261112` is up to date. No migration necessary.
+2026-11-12T01:56:19.561Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:19.599Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 41703 (http) with context path '/'
+2026-11-12T01:56:19.601Z  INFO 81 --- [           main] cn.edu.campus.ApiSmokeTest               : Started ApiSmokeTest in 0.257 seconds (process running for 14.068)
+2026-11-12T01:56:19.784Z  INFO 81 --- [o-auto-6-exec-1] o.a.c.c.C.[Tomcat-5].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:19.784Z  INFO 81 --- [o-auto-6-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:19.784Z  INFO 81 --- [o-auto-6-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.455 s -- in cn.edu.campus.ApiSmokeTest
+[INFO] Running cn.edu.campus.NotificationSessionTest
+2026-11-12T01:56:19.787Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.NotificationSessionTest]: NotificationSessionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:19.788Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.NotificationSessionTest
+2026-11-12T01:56:19.789Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.NotificationSessionTest]: NotificationSessionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:19.790Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:19.790Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.NotificationSessionTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 s -- in cn.edu.campus.NotificationSessionTest
+[INFO] Running cn.edu.campus.BrowseOwnershipTest
+2026-11-12T01:56:20.212Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.BrowseOwnershipTest]: BrowseOwnershipTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.215Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.BrowseOwnershipTest
+2026-11-12T01:56:20.217Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.BrowseOwnershipTest]: BrowseOwnershipTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.218Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.218Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.BrowseOwnershipTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.240 s -- in cn.edu.campus.BrowseOwnershipTest
+[INFO] Running cn.edu.campus.RealNotificationInboxTest
+2026-11-12T01:56:20.452Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealNotificationInboxTest]: RealNotificationInboxTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.453Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealNotificationInboxTest
+2026-11-12T01:56:20.454Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealNotificationInboxTest]: RealNotificationInboxTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.454Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.NotificationInboxTest]: NotificationInboxTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.454Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:20.455Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealNotificationInboxTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.567 s -- in cn.edu.campus.RealNotificationInboxTest
+[INFO] Running cn.edu.campus.SellerTradeNotificationTest
+2026-11-12T01:56:21.020Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.SellerTradeNotificationTest]: SellerTradeNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.021Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.SellerTradeNotificationTest
+2026-11-12T01:56:21.022Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.SellerTradeNotificationTest]: SellerTradeNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.022Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.022Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.SellerTradeNotificationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.112 s -- in cn.edu.campus.SellerTradeNotificationTest
+[INFO] Running cn.edu.campus.TradeConcurrencyTest
+2026-11-12T01:56:21.133Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TradeConcurrencyTest]: TradeConcurrencyTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.133Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TradeConcurrencyTest
+2026-11-12T01:56:21.134Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TradeConcurrencyTest]: TradeConcurrencyTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.135Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.135Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:21.136Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TradeConcurrencyTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.992 s -- in cn.edu.campus.TradeConcurrencyTest
+[INFO] Running cn.edu.campus.WorkflowHttpTest
+2026-11-12T01:56:22.125Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowHttpTest]: WorkflowHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:22.125Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.WorkflowHttpTest
+2026-11-12T01:56:22.126Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowHttpTest]: WorkflowHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:22.126Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:22.127Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:22.127Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.WorkflowHttpTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.928 s -- in cn.edu.campus.WorkflowHttpTest
+[INFO] Running cn.edu.campus.RealIdentityHttpTest
+2026-11-12T01:56:24.053Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealIdentityHttpTest]: RealIdentityHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.054Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealIdentityHttpTest
+2026-11-12T01:56:24.054Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealIdentityHttpTest]: RealIdentityHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.055Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.055Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealIdentityHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-12T01:56:24.074Z  INFO 81 --- [           main] cn.edu.campus.RealIdentityHttpTest       : Starting RealIdentityHttpTest using Java 21.0.12.1 with PID 81 (started by root in /work)
+2026-11-12T01:56:24.074Z  INFO 81 --- [           main] cn.edu.campus.RealIdentityHttpTest       : No active profile set, falling back to 1 default profile: "default"
+2026-11-12T01:56:24.168Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-12T01:56:24.169Z  INFO 81 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-12T01:56:24.169Z  INFO 81 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-12T01:56:24.184Z  INFO 81 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 109 ms
+2026-11-12T01:56:24.196Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2026-11-12T01:56:24.201Z  INFO 81 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4f1dd46b
+2026-11-12T01:56:24.201Z  INFO 81 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2026-11-12T01:56:24.202Z  INFO 81 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://db:3306/campus_market_a11y_20261112?connectionTimeZone=UTC (MySQL 8.4)
+2026-11-12T01:56:24.214Z  INFO 81 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 4 migrations (execution time 00:00.002s)
+2026-11-12T01:56:24.215Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `campus_market_a11y_20261112`: 4
+2026-11-12T01:56:24.215Z  INFO 81 --- [           main] o.f.core.internal.command.DbMigrate      : Schema `campus_market_a11y_20261112` is up to date. No migration necessary.
+2026-11-12T01:56:24.231Z  INFO 81 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name unusedBasicAuth
+2026-11-12T01:56:24.254Z  INFO 81 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 39879 (http) with context path '/'
+2026-11-12T01:56:24.255Z  INFO 81 --- [           main] cn.edu.campus.RealIdentityHttpTest       : Started RealIdentityHttpTest in 0.199 seconds (process running for 18.722)
+2026-11-12T01:56:24.451Z  INFO 81 --- [o-auto-7-exec-1] o.a.c.c.C.[Tomcat-6].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-12T01:56:24.451Z  INFO 81 --- [o-auto-7-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-12T01:56:24.451Z  INFO 81 --- [o-auto-7-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.500 s -- in cn.edu.campus.RealIdentityHttpTest
+[INFO] Running cn.edu.campus.CollaborationContractTest
+2026-11-12T01:56:24.553Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.CollaborationContractTest]: CollaborationContractTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.554Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.CollaborationContractTest
+2026-11-12T01:56:24.555Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.CollaborationContractTest]: CollaborationContractTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.555Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.555Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.CollaborationContractTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.184 s -- in cn.edu.campus.CollaborationContractTest
+[INFO] Running cn.edu.campus.InputAndEvidenceTest
+2026-11-12T01:56:24.738Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.InputAndEvidenceTest]: InputAndEvidenceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.739Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.InputAndEvidenceTest
+2026-11-12T01:56:24.739Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.InputAndEvidenceTest]: InputAndEvidenceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.740Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.740Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:24.740Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.InputAndEvidenceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.729 s -- in cn.edu.campus.InputAndEvidenceTest
+[INFO] Running cn.edu.campus.TradeHttpTest
+2026-11-12T01:56:25.468Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TradeHttpTest]: TradeHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.469Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TradeHttpTest
+2026-11-12T01:56:25.469Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.TradeHttpTest]: TradeHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.469Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.469Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.TradeHttpTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.313 s -- in cn.edu.campus.TradeHttpTest
+[INFO] Running cn.edu.campus.RealOrderReviewTest
+2026-11-12T01:56:25.782Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealOrderReviewTest]: RealOrderReviewTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.783Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealOrderReviewTest
+2026-11-12T01:56:25.783Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.RealOrderReviewTest]: RealOrderReviewTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.783Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.OrderReviewTest]: OrderReviewTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.784Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.784Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:25.784Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.RealOrderReviewTest
+2026-11-12T01:56:27.086Z ERROR 81 --- [o-auto-1-exec-4] cn.edu.campus.shared.Errors              : Database operation rolled back
+
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [INSERT INTO outbox(recipient_id,aggregate_id,event_type,message,created_at) VALUES(?,?,?,?,?)]; SQL state [HY000]; error code [3819]; Check constraint 'reject_review_notice' is violated.
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1550) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at cn.edu.campus.notification.RealTimeAdapter.emit(RealTimeAdapter.java:47) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewService.publish(OrderReviewService.java:94) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewService.submit(OrderReviewService.java:68) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:714) ~[spring-aop-7.0.10.jar:7.0.10]
+	at cn.edu.campus.review.OrderReviewService$$SpringCGLIB$$0.submit(<generated>) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewController.lambda$submit$0(OrderReviewController.java:62) ~[classes/:na]
+	at cn.edu.campus.shared.Idempotency.lambda$execute$0(Idempotency.java:61) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.10.jar:7.0.10]
+	at cn.edu.campus.shared.Idempotency.execute(Idempotency.java:42) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewController.submit(OrderReviewController.java:61) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:132) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:59) ~[tomcat-embed-websocket-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$2(FilterChainProxy.java:235) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:378) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:135) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:91) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:76) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:164) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:86) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:347) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:411) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1308) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:2202) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:947) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:481) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.sql.SQLException: Check constraint 'reject_review_notice' is violated.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1166) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1101) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1448) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1084) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	... 105 common frames omitted
+
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.434 s -- in cn.edu.campus.RealOrderReviewTest
+[INFO] Running cn.edu.campus.DemoResetTest
+2026-11-12T01:56:27.216Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.DemoResetTest]: DemoResetTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.216Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.DemoResetTest
+2026-11-12T01:56:27.217Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.DemoResetTest]: DemoResetTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.217Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.217Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.218Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.DemoResetTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.779 s -- in cn.edu.campus.DemoResetTest
+[INFO] Running cn.edu.campus.LogisticsNotificationTest
+2026-11-12T01:56:27.995Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.LogisticsNotificationTest]: LogisticsNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.996Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.LogisticsNotificationTest
+2026-11-12T01:56:27.996Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.LogisticsNotificationTest]: LogisticsNotificationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.997Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.997Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:27.997Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.LogisticsNotificationTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.375 s -- in cn.edu.campus.LogisticsNotificationTest
+[INFO] Running cn.edu.campus.OrderReviewTest
+2026-11-12T01:56:28.370Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.OrderReviewTest]: OrderReviewTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:28.370Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.OrderReviewTest
+2026-11-12T01:56:28.371Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.OrderReviewTest]: OrderReviewTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:28.371Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.WorkflowTestSupport]: WorkflowTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:28.371Z  INFO 81 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [cn.edu.campus.ApiTestSupport]: ApiTestSupport does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-12T01:56:28.371Z  INFO 81 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration cn.edu.campus.MarketApplication for test class cn.edu.campus.OrderReviewTest
+2026-11-12T01:56:29.648Z ERROR 81 --- [o-auto-2-exec-1] cn.edu.campus.shared.Errors              : Database operation rolled back
+
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [INSERT INTO outbox(recipient_id,aggregate_id,event_type,message,created_at) VALUES(?,?,?,?,?)]; SQL state [HY000]; error code [3819]; Check constraint 'reject_review_notice' is violated.
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1550) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at cn.edu.campus.notification.DemoTimeAdapter.emit(DemoTimeAdapter.java:35) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewService.publish(OrderReviewService.java:94) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewService.submit(OrderReviewService.java:68) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.10.jar:7.0.10]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:714) ~[spring-aop-7.0.10.jar:7.0.10]
+	at cn.edu.campus.review.OrderReviewService$$SpringCGLIB$$0.submit(<generated>) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewController.lambda$submit$0(OrderReviewController.java:62) ~[classes/:na]
+	at cn.edu.campus.shared.Idempotency.lambda$execute$0(Idempotency.java:61) ~[classes/:na]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.10.jar:7.0.10]
+	at cn.edu.campus.shared.Idempotency.execute(Idempotency.java:42) ~[classes/:na]
+	at cn.edu.campus.review.OrderReviewController.submit(OrderReviewController.java:61) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:903) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:649) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.10.jar:7.0.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.27.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:132) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:59) ~[tomcat-embed-websocket-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$2(FilterChainProxy.java:235) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:378) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:101) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:135) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:91) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:76) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:387) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.1.2.jar:7.1.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.10.jar:7.0.10]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:164) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:86) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:347) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:411) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:71) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1308) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:2202) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:947) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:481) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:74) ~[tomcat-embed-core-11.0.27.jar:11.0.27]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.sql.SQLException: Check constraint 'reject_review_notice' is violated.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:988) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1166) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1101) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1448) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1084) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670) ~[spring-jdbc-7.0.10.jar:7.0.10]
+	... 105 common frames omitted
+
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.399 s -- in cn.edu.campus.OrderReviewTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 119, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ market ---
+[INFO] 
+[INFO] --- spring-boot:4.1.2:repackage (repackage) @ market ---
+[INFO] Replacing main artifact /work/target/market-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /work/target/market-1.0.0.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  26.538 s
+[INFO] Finished at: 2026-11-12T01:56:30Z
+[INFO] ------------------------------------------------------------------------

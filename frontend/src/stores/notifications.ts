@@ -7,15 +7,16 @@ type SyncTask={epoch:number,pending:boolean,announce:boolean,promise:Promise<voi
 
 export const useNotifications=defineStore('notifications',()=>{
  const items=shallowRef<Notification[]>([]),unreadCount=ref<number|null>(null),latestId=ref<string|null>(null);
- const loading=ref(false),error=ref(''),notice=shallowRef<Notice|null>(null);
+ const loading=ref(false),error=ref(''),notice=shallowRef<Notice|null>(null),pageTitle=ref('');
  const badge=computed(()=>unreadCount.value===null?'':unreadCount.value>99?'99+':unreadCount.value>0?String(unreadCount.value):'');
  let userId:string|null=null,epoch=0,sequence=0,noticeKey=0,initialized=false,lastNoticeAt=0;
  let task:SyncTask|undefined;
  const liveEvents=new Set<string>();
  const knownIds=new Set<string>();
- watch(unreadCount,count=>{
-  document.title=count&&count>0?`（${count}条未读）校园集市`:'校园集市';
+ watch([unreadCount,pageTitle],([count,title])=>{
+  document.title=(count&&count>0?`（${count}条未读）`:'')+(title?title+' · ':'')+'校园集市';
  },{flush:'sync'});
+ function setPageTitle(title:string){pageTitle.value=title}
 
  function dismiss(){notice.value=null}
  function setUser(id:string|null){
@@ -85,5 +86,5 @@ export const useNotifications=defineStore('notifications',()=>{
   await api('/notifications/read-all','POST',{throughId});
   if(version===epoch)await sync(false);
  }
- return {items,unreadCount,latestId,loading,error,notice,badge,setUser,sync,dismiss,markRead,markAllRead};
+ return {items,unreadCount,latestId,loading,error,notice,badge,setUser,sync,dismiss,markRead,markAllRead,setPageTitle};
 });

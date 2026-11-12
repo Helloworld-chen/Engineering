@@ -26,14 +26,14 @@ async function ship(page: Page, action: '发货'|'寄出退货', tracking: strin
  await dialog.getByLabel(/物流单号/).fill(tracking);
  if(action==='发货'){
   await dialog.getByRole('button',{name:'确认发货'}).click();
-  const field=dialog.getByLabel(/商品凭证/);
+  const field=dialog.getByLabel(/^商品凭证/);
   await expect(field).toHaveAttribute('aria-invalid','true');
   await expect(field).toHaveAccessibleDescription(/请上传至少一张商品凭证/);
   await expect(field).toBeFocused();
  }
- await dialog.getByLabel(/商品凭证/).setInputFiles(picture);
+ await dialog.getByLabel(/^商品凭证/).setInputFiles(picture);
  await expect(dialog.getByAltText('商品凭证预览')).toBeVisible();
- await dialog.getByLabel(/包装凭证/).setInputFiles(picture);
+ await dialog.getByLabel(/^包装凭证/).setInputFiles(picture);
  await expect(dialog.getByAltText('包装凭证预览')).toBeVisible();
  await dialog.getByRole('button',{name:'确认'+action}).click();
  await expect(dialog).toBeHidden();
@@ -55,7 +55,7 @@ test('发布审核、下单付款、投诉与退货验收',async({browser,baseUR
   await seller.getByLabel(/商品分类/).fill('图书');
   await seller.getByLabel('价格（元）',{exact:true}).fill('1.00');
   await seller.getByLabel('商品说明',{exact:true}).fill('全新横线笔记本，课程演示验收商品。');
-  await seller.getByLabel(/商品照片/).setInputFiles(picture);
+  await seller.getByLabel(/^商品照片/).setInputFiles(picture);
   await expect(seller.getByAltText('商品照片预览')).toBeVisible();
   await seller.getByRole('button',{name:'提交审核'}).click();
   await expect(seller.locator('main').getByRole('status')).toContainText('商品已提交审核');
@@ -181,7 +181,7 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await page.getByLabel(/商品分类/).fill('生活');
   await page.getByLabel('价格（元）',{exact:true}).fill('12.50');
   await page.getByLabel('商品说明',{exact:true}).fill('透明收纳盒一只，无破损。');
-  await page.getByLabel(/商品照片/).setInputFiles(picture);
+  await page.getByLabel(/^商品照片/).setInputFiles(picture);
   await expect(page.getByAltText('商品照片预览')).toBeVisible();
   await page.getByRole('button',{name:'提交审核'}).click();
   const row=page.getByRole('article').filter({hasText:title});
@@ -221,7 +221,7 @@ test('注册、资料与商品维护、举报和通知已读',async({browser,bas
   await expect(admin.locator('main').getByRole('status')).toContainText('举报处理结果已保存');
   await expect(page.getByText('处理结果 · 核对完毕，演示举报已归档')).toBeVisible();
 
-  await page.getByRole('link',{name:'通知',exact:true}).click();
+  await page.getByRole('link',{name:/^通知(?:，|$)/}).click();
   await page.getByRole('button',{name:'未读通知'}).click();
   const notification=page.getByRole('article').filter({hasText:'举报已处理'});
   await notification.getByRole('button',{name:'标为已读'}).click();
@@ -248,7 +248,7 @@ test('商品版本变化时保留编辑草稿并显式应用最新版本',async(
   await page.getByLabel(/商品分类/).fill('生活');
   await page.getByLabel('价格（元）',{exact:true}).fill('1.00');
   await page.getByLabel('商品说明',{exact:true}).fill('原商品说明。');
-  await page.getByLabel(/商品照片/).setInputFiles(picture);
+  await page.getByLabel(/^商品照片/).setInputFiles(picture);
   await expect(page.getByAltText('商品照片预览')).toBeVisible();
   await page.getByRole('button',{name:'提交审核'}).click();
   const row=page.getByRole('article').filter({hasText:title});
@@ -294,7 +294,7 @@ test('商品表单错误关联字段并移动焦点',async({page})=>{
 
  await price.fill('1.00');
  await page.getByRole('button',{name:'提交审核'}).click();
- const photo=page.getByLabel(/商品照片/);
+ const photo=page.getByLabel(/^商品照片/);
  await expect(photo).toHaveAttribute('aria-invalid','true');
  await expect(photo).toHaveAccessibleDescription(/请上传至少一张商品照片/);
  await expect(photo).toBeFocused();
