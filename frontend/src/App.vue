@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed,ref,watch,onMounted,onUnmounted} from 'vue';
+import {computed,nextTick,ref,watch,onMounted,onUnmounted} from 'vue';
 import {useRouter} from 'vue-router';
 import {PhStorefront,PhList,PhX,PhBell} from '@phosphor-icons/vue';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
@@ -11,7 +11,49 @@ import StaffNavigation from './components/StaffNavigation.vue';
 import {isStaff,homeFor,canVisit} from './lib/access';
 
 const session=useSession(),router=useRouter(),menu=ref(false),error=ref('');
+const menuToggle=ref<HTMLButtonElement|null>(null);
 const notifications=useNotifications();
+const pageAnnounce=ref('');
+const speechOn=ref(false),speechPaused=ref(false);
+const speechSupported=typeof window!=='undefined'&&'speechSynthesis' in window;
+let speechUtterance:SpeechSynthesisUtterance|undefined;
+
+function speak(text:string){
+ if(!speechSupported||!text)return;
+ window.speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(text.slice(0,3000));
+ utterance.lang='zh-CN';
+ utterance.rate=1;
+ const voice=window.speechSynthesis.getVoices().find(item=>item.lang.toLowerCase().startsWith('zh'));
+ if(voice)utterance.voice=voice;
+ speechUtterance=utterance;
+ window.speechSynthesis.speak(utterance);
+}
+function pageText(){
+ const heading=document.querySelector('main h1')?.textContent?.trim()||document.title;
+ const body=document.querySelector('main')?.textContent||'';
+ return `当前页面：${heading}。${body}`.replace(/\s+/g,' ').trim();
+}
+function toggleSpeech(){
+ if(!speechSupported)return;
+ speechOn.value=!speechOn.value;
+ if(speechOn.value){speechPaused.value=false;speak(pageText())}
+ else{window.speechSynthesis.cancel();speechPaused.value=false}
+}
+function pauseSpeech(){
+ if(!speechOn.value)return;
+ if(speechPaused.value){window.speechSynthesis.resume();speechPaused.value=false}
+ else{window.speechSynthesis.pause();speechPaused.value=true}
+}
+function reread(){if(speechOn.value){speechPaused.value=false;speak(pageText())}}
+function closeMenu(){menu.value=false;void nextTick(()=>menuToggle.value?.focus())}
+function describeFocus(event:FocusEvent){
+ if(!speechOn.value||!speechSupported)return;
+ const target=event.target as HTMLElement|null;
+ if(!target||target===document.body||target.closest('main')===null&&target.closest('header')===null&&target.closest('nav')===null)return;
+ const label=target.getAttribute('aria-label')||target.textContent?.trim().slice(0,120)||target.getAttribute('placeholder')||'';
+ if(label)speak(label);
+}
 const staff=computed(()=>isStaff(session.user?.role));
 const home=computed(()=>homeFor(session.user?.role));
 let loggingOut=false;
@@ -41,13 +83,21 @@ watch(()=>session.user?.id,(id,previous)=>{
  }
 },{immediate:true,flush:'sync'});
 
-const unregister=router.afterEach(()=>{menu.value=false;error.value=''});
+const unregister=router.afterEach(()=>{
+ menu.value=false;error.value='';
+ void nextTick(()=>{
+  const heading=document.querySelector('main h1')?.textContent?.trim()||document.title;
+  pageAnnounce.value=`已切换到${heading}`;
+  if(speechOn.value)speak(pageText());
+ });
+});
 function recover(){void session.verify().then(()=>{window.dispatchEvent(new Event('market:changed'));return notifications.sync()}).catch(()=>{})}
 function visible(){if(document.visibilityState==='visible')recover()}
 onMounted(()=>{
  window.addEventListener('online',recover);
  window.addEventListener('focus',recover);
  document.addEventListener('visibilitychange',visible);
+ document.addEventListener('focusin',describeFocus);
 });
 onUnmounted(()=>{
  events?.close();
@@ -56,6 +106,8 @@ onUnmounted(()=>{
   window.removeEventListener('online',recover);
   window.removeEventListener('focus',recover);
   document.removeEventListener('visibilitychange',visible);
+  document.removeEventListener('focusin',describeFocus);
+  if(speechSupported)window.speechSynthesis.cancel();
 });
 
 function refresh(eventId?:string){
@@ -85,9 +137,9 @@ async function logout(){
   <a href="#main" class="skip-link">跳转到主要内容</a>
   <div :class="staff?'staff-wrap':'site-wrap'">
    <StaffNavigation v-if="staff" v-model="menu" @logout="logout"/>
-   <header class="topbar" @keydown.esc="menu=false">
+   <header class="topbar" @keydown.esc="closeMenu()">
     <RouterLink class="brand" :to="home"><PhStorefront :size="24" weight="bold" aria-hidden="true"/><span>{{staff?(session.user?.role==='ADMIN'?'管理员工作台':'客服工作台'):'校园集市'}}<small>{{staff?'CAMPUS MARKET · 工作空间':'CAMPUS MARKET'}}</small></span></RouterLink>
-    <button class="menu-toggle" :aria-expanded="menu" :aria-label="menu?'关闭导航':'展开导航'" :aria-controls="staff?'staff-navigation':'primary-navigation'" @click="menu=!menu">
+    <button ref="menuToggle" class="menu-toggle" :aria-expanded="menu" :aria-label="menu?'关闭导航':'展开导航'" :aria-controls="staff?'staff-navigation':'primary-navigation'" @click="menu=!menu">
      <PhX v-if="menu" :size="24" aria-hidden="true"/><PhList v-else :size="24" aria-hidden="true"/>
     </button>
     <nav v-if="!staff" id="primary-navigation" :class="{open:menu}" aria-label="主导航">
@@ -113,7 +165,15 @@ async function logout(){
      <span v-else-if="notifications.unreadCount===null" class="notification-pending" aria-hidden="true">{{notifications.error?'?':'…'}}</span>
      <span id="notification-count" class="sr-only">{{notifications.unreadCount===null?(notifications.error?'未读数量暂不可用':'正在读取未读数量'):`${notifications.unreadCount}条未读通知`}}</span>
     </RouterLink>
+    <template v-if="speechSupported">
+     <button type="button" class="text-button speech-toggle" :aria-pressed="speechOn" aria-label="无障碍朗读开关" @click="toggleSpeech">{{speechOn?'无障碍朗读：开':'无障碍朗读：关'}}</button>
+     <template v-if="speechOn">
+      <button type="button" class="text-button" @click="pauseSpeech">{{speechPaused?'继续朗读':'暂停朗读'}}</button>
+      <button type="button" class="text-button" @click="reread">重读页面</button>
+     </template>
+    </template>
    </header>
+   <p class="sr-only" aria-live="polite" aria-atomic="true">{{pageAnnounce}}</p>
    <div v-if="session.user && notifications.error&&router.currentRoute.value.path!=='/notifications'" class="notice notification-error" aria-live="polite">
     <span>{{notifications.error}}</span><button class="button" @click="notifications.sync()">重试通知同步</button>
    </div>
