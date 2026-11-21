@@ -8,7 +8,7 @@ watch(open,value=>{if(value)reason.value=''});
 </script>
 <template>
  <el-dialog v-model="open" :title="title" width="min(480px, calc(100% - 32px))" :close-on-click-modal="false" :close-on-press-escape="!busy" :show-close="!busy">
-  <form class="stack" @submit.prevent="emit('confirm',reason.trim())">
+  <form class="stack" :aria-busy="busy" @submit.prevent="emit('confirm',reason.trim())">
    <p>{{description}}</p>
    <label v-if="requiresReason" class="field-label">{{reasonLabel||'处理理由'}}<textarea v-model="reason" required maxlength="2000" rows="4"/></label>
    <p v-if="error" class="error" role="alert">{{error}}</p>

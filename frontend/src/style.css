@@ -255,3 +255,29 @@ footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; c
 
 .profile-header+.credit-grid meter::-webkit-meter-optimum-value{background:#262626}
 .profile-fields select,.profile-tabs~.field-label select{font:inherit;display:block;width:100%;margin-top:8px;padding:8px 12px;border:1px solid #c9c9c9;border-radius:8px;background:white;color:var(--ink);font-weight:400}
+
+/* 无障碍：系统高对比度（Windows 强制颜色模式） */
+@media (forced-colors: active) {
+  :focus-visible { outline: 2px solid Highlight; outline-offset: 3px }
+  .skip-link { background: Canvas; color: CanvasText; border: 1px solid CanvasText }
+  .button, .text-button, input, textarea, select { border: 1px solid ButtonText }
+  .button.primary { background: Highlight; color: HighlightText; forced-color-adjust: none }
+  .button:disabled, [aria-disabled=true] { color: GrayText; border-color: GrayText }
+  .panel, .record, .product-card, .notification-toast, .demo-banner { border: 1px solid CanvasText; background: Canvas }
+  .status-badge, .badge, .notification-badge { forced-color-adjust: none; border: 1px solid CanvasText }
+  .progress, .work-stat strong { forced-color-adjust: none }
+  img { forced-color-adjust: none }
+}
+
+/* 无障碍：系统增强对比度偏好 */
+@media (prefers-contrast: more) {
+  body { color: #000 }
+  .muted, small { color: #333 }
+  a { text-decoration: underline }
+  .button, .panel, .record, .product-card { border-color: #222; border-width: 2px }
+  .skip-link { border: 1px solid #000 }
+  .status-badge { border: 1px solid #000 }
+}
+
+/* 无障碍：朗读开关所在工具栏在窄屏下换行 */
+.speech-toggle { white-space: nowrap }
